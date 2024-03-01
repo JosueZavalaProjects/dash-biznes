@@ -21,7 +21,7 @@ const cardData: CardProps[] = [
     icon: Users
   },
   {
-    label: "Ventas",
+    label: "Ventas Mensuales",
     amount: "+12,234",
     discription: "+19% desde el mes pasado",
     icon: CreditCard
