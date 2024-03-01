@@ -9,16 +9,10 @@ import SalesCard, { SalesProps } from "@/components/SalesCard";
 
 const cardData: CardProps[] = [
   {
-    label: "Ingresos totales",
-    amount: "$45,231.89",
+    label: "Utilidades Mensuales",
+    amount: "$5,231.89",
     discription: "+20.1% desde el mes pasado",
     icon: DollarSign
-  },
-  {
-    label: "Inventarios",
-    amount: "+2350",
-    discription: "+180.1% desde el mes pasado",
-    icon: Users
   },
   {
     label: "Ventas Mensuales",
@@ -27,37 +21,43 @@ const cardData: CardProps[] = [
     icon: CreditCard
   },
   {
-    label: "Activos ahora",
-    amount: "+573",
+    label: "Gastos Mensuales",
+    amount: "-573",
     discription: "+201 desde el mes pasado",
     icon: Activity
-  }
+  },
+  {
+    label: "Inventarios",
+    amount: "+ $234",
+    discription: "+23 productos totales",
+    icon: Users
+  },
 ];
 
 const uesrSalesData: SalesProps[] = [
   {
-    name: "Olivia Martin",
-    email: "olivia.martin@email.com",
+    name: "Ticket 241",
+    email: "13 Ago 2024",
     saleAmount: "+$1,999.00"
   },
   {
-    name: "Pedro Lopez",
-    email: "pedro.lopez@email.com",
+    name: "Ticket 242",
+    email: "13 Ago 2024",
     saleAmount: "+$1,999.00"
   },
   {
-    name: "Isabel Gomez",
-    email: "isabel.gomezn@email.com",
+    name: "Ticket 243",
+    email: "13 Ago 2024",
     saleAmount: "+$39.00"
   },
   {
-    name: "Fernando Aguero",
-    email: "fernando@email.com",
+    name: "ticket 244",
+    email: "13 Ago 2024",
     saleAmount: "+$299.00"
   },
   {
-    name: "Sofia Martinez",
-    email: "sofia.davis@email.com",
+    name: "Tiecket 245",
+    email: "13 Ago 2024",
     saleAmount: "+$39.00"
   }
 ];
@@ -79,7 +79,7 @@ export default function Home() {
       </section>
       <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
         <CardContent>
-          <p className="p-4 font-semibold">visión general</p>
+          <p className="p-4 font-semibold">Utilidad general</p>
 
           <BarChart />
         </CardContent>

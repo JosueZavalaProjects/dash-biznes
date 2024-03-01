@@ -13,7 +13,7 @@ type Props = {};
 
 const data = [
   {
-    name: "Jan",
+    name: "Ene",
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
@@ -25,7 +25,7 @@ const data = [
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
-    name: "Apr",
+    name: "Abr",
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
@@ -41,7 +41,7 @@ const data = [
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
-    name: "Aug",
+    name: "Ago",
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
@@ -57,7 +57,7 @@ const data = [
     total: Math.floor(Math.random() * 5000) + 1000
   },
   {
-    name: "Dec",
+    name: "Dic",
     total: Math.floor(Math.random() * 5000) + 1000
   }
 ];
