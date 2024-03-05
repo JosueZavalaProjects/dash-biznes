@@ -1,13 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-/**
- * eslint-disable @next/next/no-img-element
- *
- * @format
- */
-
-/** @format */
-
 import React from "react";
+
+import Image from "next/image";
+
+import { WalletPlus } from "../../public/assets";
 
 export type SalesProps = {
   ticketNumber: string;
@@ -20,12 +15,7 @@ export default function SalesCard(props: SalesProps) {
     <div className="  flex flex-wrap justify-between gap-3 ">
       <section className="flex justify-between gap-3 ">
         <div className=" h-12 w-12 rounded-full bg-gray-100 p-1">
-          <img
-            width={200}
-            height={200}
-            src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${props.ticketNumber}`}
-            alt="avatar"
-          />
+          <Image width={200} height={200} src={WalletPlus} alt="wallet" />
         </div>
         <div className="text-sm">
           <p>{props.ticketNumber}</p>
