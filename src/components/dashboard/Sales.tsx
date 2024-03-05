@@ -14,7 +14,7 @@ export const Sales = () => {
   const [userSales, setUserSales] = useState<SalesProps[]>(uesrSalesData);
   const [countSales, setCountSales] = useState<number>(0);
 
-  const handleGetProducts = async () => {
+  const handleGetSales = async () => {
     const newSales = await getDataSales();
     setCountSales(newSales.length);
     setUserSales(newSales.splice(0, 5));
@@ -26,8 +26,10 @@ export const Sales = () => {
     const response: SalesProps[] = [];
 
     qwerySnapshot.forEach((doc) => {
-      const { payment, total, products } = doc.data();
-      console.log({ payment, total, products });
+      const { payment, total, products, date } = doc.data();
+
+      /* console.log(new Date(date.nanoseconds));
+      console.log(date); */
       response.push({
         ticketNumber: "Ticket 220",
         date: dayjs(Date().toString()).format("DD [de] MMMM YYYY"),
@@ -38,7 +40,7 @@ export const Sales = () => {
   };
 
   useEffect(() => {
-    handleGetProducts();
+    handleGetSales();
   }, []);
   return (
     <CardContent className="flex justify-between gap-4">
