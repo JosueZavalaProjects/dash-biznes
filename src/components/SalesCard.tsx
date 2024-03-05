@@ -2,12 +2,14 @@ import React from "react";
 
 import Image from "next/image";
 
+import { formatCurrency } from "@/utils/common";
+
 import { WalletPlus } from "../../public/assets";
 
 export type SalesProps = {
   ticketNumber: string;
   date: string;
-  saleAmount: string;
+  saleAmount: number;
 };
 
 export default function SalesCard(props: SalesProps) {
@@ -24,7 +26,7 @@ export default function SalesCard(props: SalesProps) {
           </div>
         </div>
       </section>
-      <p>+${props.saleAmount}.00</p>
+      <p>{formatCurrency(props.saleAmount)}</p>
     </div>
   );
 }
