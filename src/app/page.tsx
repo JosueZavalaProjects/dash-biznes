@@ -1,65 +1,40 @@
 /** @format */
-
-import PageTitle from "@/components/PageTitle";
-import Image from "next/image";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
-import Card, { CardContent, CardProps } from "@/components/Card";
+import Image from "next/image";
+
 import BarChart from "@/components/BarChart";
+import Card, { CardContent, CardProps } from "@/components/Card";
+import PageTitle from "@/components/PageTitle";
 import SalesCard, { SalesProps } from "@/components/SalesCard";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/services/firebase";
+import { Sales } from "@/components/dashboard/Sales";
 
 const cardData: CardProps[] = [
   {
     label: "Utilidades Mensuales",
     amount: "$5,231.89",
     discription: "+20.1% desde el mes pasado",
-    icon: DollarSign
+    icon: DollarSign,
   },
   {
     label: "Ventas Mensuales",
     amount: "+12,234",
     discription: "+19% desde el mes pasado",
-    icon: CreditCard
+    icon: CreditCard,
   },
   {
     label: "Gastos Mensuales",
     amount: "-573",
     discription: "+201 desde el mes pasado",
-    icon: Activity
+    icon: Activity,
   },
   {
     label: "Inventarios",
     amount: "+ $234",
     discription: "+23 productos totales",
-    icon: Users
+    icon: Users,
   },
-];
-
-const uesrSalesData: SalesProps[] = [
-  {
-    name: "Ticket 241",
-    email: "13 Ago 2024",
-    saleAmount: "+$1,999.00"
-  },
-  {
-    name: "Ticket 242",
-    email: "13 Ago 2024",
-    saleAmount: "+$1,999.00"
-  },
-  {
-    name: "Ticket 243",
-    email: "13 Ago 2024",
-    saleAmount: "+$39.00"
-  },
-  {
-    name: "ticket 244",
-    email: "13 Ago 2024",
-    saleAmount: "+$299.00"
-  },
-  {
-    name: "Tiecket 245",
-    email: "13 Ago 2024",
-    saleAmount: "+$39.00"
-  }
 ];
 
 export default function Home() {
@@ -83,7 +58,8 @@ export default function Home() {
 
           <BarChart />
         </CardContent>
-        <CardContent className="flex justify-between gap-4">
+        <Sales />
+        {/*     <CardContent className="flex justify-between gap-4">
           <section>
             <p>Ventas Recientes</p>
             <p className="text-sm text-gray-400">
@@ -98,9 +74,7 @@ export default function Home() {
               saleAmount={d.saleAmount}
             />
           ))}
-        </CardContent>
-
-        {/*  */}
+        </CardContent> */}
       </section>
     </div>
   );
