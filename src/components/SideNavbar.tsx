@@ -13,6 +13,7 @@ import {
   ChevronRight,
   PlusCircle,
   Store,
+  ScanBarcode,
 } from "lucide-react";
 
 import { useWindowWidth } from "@react-hook/window-size";
@@ -71,6 +72,12 @@ export default function SideNavbar({}: Props) {
             title: "Punto de Venta",
             href: "/sales-point",
             icon: Store,
+            variant: "ghost",
+          },
+          {
+            title: "Agregar Producto",
+            href: "/add-product",
+            icon: ScanBarcode,
             variant: "ghost",
           },
           {

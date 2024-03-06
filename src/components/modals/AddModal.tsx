@@ -20,10 +20,8 @@ export const AddModal = ({ show, setShow }: ModalProps) => {
           <Link href={"/sales-point"} className="cursor-pointer">
             <SimpleButton onClick={() => setShow(false)}>Ventas</SimpleButton>
           </Link>
-          <Link href={"/inventory"}>
-            <SimpleButton onClick={() => setShow(false)}>
-              Inventarios
-            </SimpleButton>
+          <Link href={"/add-product"}>
+            <SimpleButton onClick={() => setShow(false)}>Producto</SimpleButton>
           </Link>
           <Link href={"#"}>
             <SimpleButton onClick={() => setShow(false)}>Gastos</SimpleButton>
