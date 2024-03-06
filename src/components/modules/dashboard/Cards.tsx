@@ -10,8 +10,6 @@ import { formatCurrency } from "@/utils/common";
 import Card, { CardProps } from "../../Card";
 
 export const Cards = () => {
-  /* const [inventoryCount, setInventoryCount] = useState<number>(0);
-   */
   const [inventorySpent, setInventorySpent] = useState<number>(0);
   const [totalSales, setTotalSales] = useState<number>(0);
 
@@ -69,10 +67,9 @@ export const Cards = () => {
     const response: number[] = [];
 
     qwerySnapshot.forEach((doc) => {
-      const { price } = doc.data();
+      const { purchasePrice, inventory } = doc.data();
 
-      //TODO: Replace price * 0.8 by purchaseCost
-      response.push(price * 0.8);
+      response.push(purchasePrice * inventory);
     });
     return response;
   };

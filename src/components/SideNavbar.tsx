@@ -9,11 +9,9 @@ import {
   ShoppingCart,
   LayoutDashboard,
   UsersRound,
-  Settings,
   ChevronRight,
   PlusCircle,
-  Store,
-  ScanBarcode,
+  GanttChartSquare,
 } from "lucide-react";
 
 import { useWindowWidth } from "@react-hook/window-size";
@@ -63,9 +61,9 @@ export default function SideNavbar({}: Props) {
             variant: "ghost",
           },
           {
-            title: "Ventas",
-            href: "/sales",
-            icon: ShoppingCart,
+            title: "Actividades",
+            href: "/activites",
+            icon: GanttChartSquare,
             variant: "ghost",
           },
           {
