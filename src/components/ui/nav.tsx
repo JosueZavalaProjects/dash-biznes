@@ -1,19 +1,17 @@
-/** @format */
-
 "use client";
 
-import Link from "next/link";
 import { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { usePathname } from "next/navigation";
 
 interface NavProps {
   isCollapsed: boolean;
@@ -23,6 +21,7 @@ interface NavProps {
     icon: LucideIcon;
     variant: "default" | "ghost";
     href: string;
+    onClick?: () => void;
   }[];
 }
 
@@ -44,7 +43,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                     className={cn(
                       buttonVariants({
                         variant: link.href === pathName ? "default" : "ghost",
-                        size: "icon"
+                        size: "icon",
                       }),
                       "h-9 w-9",
                       link.variant === "default" &&
@@ -74,12 +73,15 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 className={cn(
                   buttonVariants({
                     variant: link.href === pathName ? "default" : "ghost",
-                    size: "sm"
+                    size: "sm",
                   }),
                   link.variant === "default" &&
                     "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                   "justify-start"
                 )}
+                onClick={() => {
+                  link.onClick ? link.onClick() : {};
+                }}
               >
                 <link.icon className="mr-2 h-4 w-4" />
                 {link.title}

@@ -15,11 +15,13 @@ import {
 
 import { useWindowWidth } from "@react-hook/window-size";
 
+import { AddModal } from "./modals/AddModal";
 import { Button } from "./ui/button";
 import { Nav } from "./ui/nav";
 
 export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
@@ -41,6 +43,7 @@ export default function SideNavbar({}: Props) {
           </Button>
         </div>
       )}
+      <AddModal show={showAddModal} setShow={setShowAddModal} />
       <Nav
         isCollapsed={mobileWidth ? true : isCollapsed}
         links={[
@@ -67,6 +70,13 @@ export default function SideNavbar({}: Props) {
             href: "/settings",
             icon: Settings,
             variant: "ghost",
+          },
+          {
+            title: "Agregar",
+            href: "#",
+            icon: Settings,
+            variant: "ghost",
+            onClick: () => setShowAddModal(true),
           },
         ]}
       />

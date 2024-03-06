@@ -33,6 +33,7 @@ export default function RootLayout({
       >
         {/* sidebar */}
         {/* <p className="border">Sidebar</p> */}
+        <div id="portal" />
         <SideNavbar />
         {/* main page */}
         <div className="p-8 w-full">{children}</div>
