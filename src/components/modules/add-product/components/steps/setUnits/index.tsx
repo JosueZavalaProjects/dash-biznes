@@ -31,7 +31,7 @@ export const SetUnits = ({
   };
 
   return (
-    <div className="grid gap-4 bg-main-blue p-4">
+    <div className="grid gap-4 bg-main-blue p-4 mx-auto w-[25rem]">
       <div className="grid justify-items-center items-center">
         <Text color="white" size="4xl" as="h1">
           Inventario

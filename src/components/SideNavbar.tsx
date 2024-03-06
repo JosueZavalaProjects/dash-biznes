@@ -69,18 +69,6 @@ export default function SideNavbar({}: Props) {
             variant: "ghost",
           },
           {
-            title: "Punto de Venta",
-            href: "/sales-point",
-            icon: Store,
-            variant: "ghost",
-          },
-          {
-            title: "Agregar Producto",
-            href: "/add-product",
-            icon: ScanBarcode,
-            variant: "ghost",
-          },
-          {
             title: "Agregar",
             href: "#",
             icon: PlusCircle,
