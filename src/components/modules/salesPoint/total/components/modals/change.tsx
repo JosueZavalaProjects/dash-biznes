@@ -10,40 +10,9 @@ import { SuccessIcon } from "../../../../../../../public/assets";
 import useSalesPointState from "../../../states/sales-point-state";
 
 export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
-  const { payment, paymentMethod, products, total, clearSale } =
-    useSalesPointState();
-  const salesRef = collection(db, "sales");
+  const { payment, total, clearSale } = useSalesPointState();
 
-  const handleAddSaleToDB = async (ticketNumber: number) => {
-    let string = JSON.stringify({
-      products,
-      payment,
-      total,
-      paymentMethod,
-      ticket: ticketNumber + 1,
-      date: new Date().toString(),
-    });
-    let newObj = JSON.parse(string);
-
-    await addDoc(salesRef, newObj);
-  };
-
-  const handleGetTicketLasSale = async () => {
-    let ticketNumber = 0;
-    const q = query(salesRef, orderBy("ticket", "desc"), limit(1));
-
-    const qwerySnapshot = await getDocs(q);
-
-    qwerySnapshot.forEach((doc) => {
-      ticketNumber = doc.data().ticket;
-    });
-    return ticketNumber;
-  };
-
-  const handleNextStep = async () => {
-    const ticketNumber = await handleGetTicketLasSale();
-    await handleAddSaleToDB(ticketNumber);
-
+  const handleNextStep = () => {
     clearSale();
     setShow(false);
   };
@@ -52,7 +21,7 @@ export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
     <div className="grid justify-items-center gap-4 text-black">
       <Image src={SuccessIcon} width={108} height={80} alt="success" />
       <Text color="silver" size="2xl">
-        El camibio es: {payment - total} MXN
+        El cambio es: {payment - total} MXN
       </Text>
       <div className="text-old-silver"></div>
       <SimpleButton onClick={() => handleNextStep()} className={"px-8 py-4"}>
