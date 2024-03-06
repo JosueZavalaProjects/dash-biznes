@@ -32,7 +32,6 @@ export const Modals = ({
   }, [show]);
   return (
     <Modal show={show} onClose={() => setShow(false)}>
-      test
       {modalStep === 1 && (
         <AskConfirmation
           setInventoryStep={handleSetInventoryStep}
