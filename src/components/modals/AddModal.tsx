@@ -17,7 +17,7 @@ export const AddModal = ({ show, setShow }: ModalProps) => {
           <Text size="2xl" color="gray">
             ¿Qué Necesitas Agregar?
           </Text>
-          <Link href={"#"} className="cursor-pointer">
+          <Link href={"/sales-point"} className="cursor-pointer">
             <SimpleButton onClick={() => setShow(false)}>Ventas</SimpleButton>
           </Link>
           <Link href={"/inventory"}>

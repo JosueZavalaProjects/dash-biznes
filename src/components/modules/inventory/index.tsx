@@ -7,7 +7,7 @@ import { data as productData } from "@/constants/inventory";
 import { db } from "@/services/firebase";
 import { Product } from "@/types/inventory";
 
-import { DataTable } from "../DataTable";
+import { DataTable } from "../../DataTable";
 import { InventoryColumns } from "./table/columns";
 
 export const InventoryTable = () => {

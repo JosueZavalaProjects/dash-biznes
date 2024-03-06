@@ -2,7 +2,7 @@
 import React from "react";
 
 import PageTitle from "@/components/PageTitle";
-import { SalesTable } from "@/components/sales";
+import { SalesTable } from "@/components/modules/sales";
 
 type Props = {};
 

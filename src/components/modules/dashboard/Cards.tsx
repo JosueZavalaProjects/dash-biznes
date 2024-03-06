@@ -7,7 +7,7 @@ import { CARD_DATA_KEYS, DUMMY_SPENTS, cardData } from "@/constants/dashboard";
 import { db } from "@/services/firebase";
 import { formatCurrency } from "@/utils/common";
 
-import Card, { CardProps } from "../Card";
+import Card, { CardProps } from "../../Card";
 
 export const Cards = () => {
   /* const [inventoryCount, setInventoryCount] = useState<number>(0);

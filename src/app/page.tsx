@@ -1,7 +1,7 @@
 import BarChart from "@/components/BarChart";
 import { CardContent } from "@/components/Card";
-import { Cards } from "@/components/dashboard/Cards";
-import { Sales } from "@/components/dashboard/Sales";
+import { Cards } from "@/components/modules/dashboard/Cards";
+import { Sales } from "@/components/modules/dashboard/Sales";
 import PageTitle from "@/components/PageTitle";
 
 export default function Home() {

@@ -5,7 +5,7 @@ import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 import { db } from "@/services/firebase";
 
-import { SuccessIcon } from "../../../../../../public/assets";
+import { SuccessIcon } from "../../../../../../../public/assets";
 import useSalesPointState from "../../../states/sales-point-state";
 
 export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {

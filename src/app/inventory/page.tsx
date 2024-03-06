@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { InventoryTable } from "@/components/inventory";
+import { InventoryTable } from "@/components/modules/inventory";
 import PageTitle from "@/components/PageTitle";
 
 type Props = {};

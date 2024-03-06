@@ -7,8 +7,8 @@ import { collection, getDocs, limit, query } from "firebase/firestore";
 import { uesrSalesData } from "@/constants/dashboard";
 import { db } from "@/services/firebase";
 
-import { CardContent } from "../Card";
-import SalesCard, { SalesProps } from "../SalesCard";
+import { CardContent } from "../../Card";
+import SalesCard, { SalesProps } from "../../SalesCard";
 
 export const Sales = () => {
   const [userSales, setUserSales] = useState<SalesProps[]>(uesrSalesData);

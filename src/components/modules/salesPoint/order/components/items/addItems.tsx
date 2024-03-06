@@ -1,7 +1,7 @@
 "use client";
 import { SimpleButton } from "@/components/ui/simpleButton";
 
-import { MinusIcon, PlusIcon } from "../../../../../../public/assets";
+import { MinusIcon, PlusIcon } from "../../../../../../../public/assets";
 import { BlackButton } from "./blackButton";
 
 type AddItemsProps = {

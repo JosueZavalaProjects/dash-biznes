@@ -7,7 +7,7 @@ import { data as SalesData } from "@/constants/sales";
 import { db } from "@/services/firebase";
 import { Sale } from "@/types/sales";
 
-import { DataTable } from "../DataTable";
+import { DataTable } from "../../DataTable";
 import { columns } from "./table/columns";
 
 export const SalesTable = () => {

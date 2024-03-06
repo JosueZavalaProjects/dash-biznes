@@ -1,5 +1,5 @@
 "use client";
-import useSalesPointState from "@/components/salesPoint/states/sales-point-state";
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { SimpleTabs } from "@/components/ui/simpleTabs";
 
 import { TabSelection } from "../../components/ui/tabSelection";
