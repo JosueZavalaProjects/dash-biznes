@@ -1,4 +1,5 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { query, orderBy, limit } from "firebase/firestore";
 import Image from "next/image";
 
 import { SimpleButton } from "@/components/ui/simpleButton";
@@ -10,17 +11,34 @@ import useSalesPointState from "../../../states/sales-point-state";
 
 export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
   const { payment, products, total, clearSale } = useSalesPointState();
+  const salesRef = collection(db, "sales");
 
-  const handleAddSaleToDB = async () => {
+  const handleAddSaleToDB = async (ticketNumber: number) => {
     await addDoc(collection(db, "sales"), {
       products,
       payment,
       total,
+      ticket: ticketNumber + 1,
+      date: new Date().toString(),
     });
   };
 
+  const handleGetTicketLasSale = async () => {
+    let ticketNumber = 0;
+    const q = query(salesRef, orderBy("ticket", "desc"), limit(1));
+
+    const qwerySnapshot = await getDocs(q);
+
+    qwerySnapshot.forEach((doc) => {
+      ticketNumber = doc.data().ticket;
+      console.log({ ticketNumber });
+    });
+    return ticketNumber;
+  };
+
   const handleNextStep = async () => {
-    await handleAddSaleToDB();
+    const ticketNumber = await handleGetTicketLasSale();
+    await handleAddSaleToDB(ticketNumber);
 
     clearSale();
     setShow(false);
