@@ -43,14 +43,16 @@ export const AddProduct = (): React.ReactElement => {
   };
 
   const addProductToDB = async () => {
-    const { name, category, price, type, unit } = product;
+    const { name, category, price, type, unit, purchasePrice } = product;
     await addDoc(collection(db, "products"), {
       name,
       category,
       price,
-      subcateory: type,
+      purchasePrice,
+      subcategory: type,
       unit,
       inventory: amount,
+      date: new Date().toString(),
     });
   };
 

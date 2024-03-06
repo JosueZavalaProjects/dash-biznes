@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input } from "@/components/ui/input";
-import SearchInput from "@/components/ui/searchInput";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 import { PRODUCT_KEYS } from "@/constants/add-product";
@@ -25,7 +24,6 @@ export const ProductInformation = ({
   setShowModal,
   product,
 }: ProductInformationProps) => {
-  const [searchInput, setSearchInput] = useState<string>("");
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
   const handleSetValueProduct = (value: string, key?: ProductKeys) => {
@@ -44,9 +42,9 @@ export const ProductInformation = ({
 
   return (
     <section className="h-[41rem]">
-      <div className="grid w-full gap-4 px-4 bg-main-blue rounded-b-lg">
+      <div className="grid w-full gap-4 px-4 bg-main-blue rounded-lg">
         <div className="flex w-full justify-between bg-main-blue">
-          <div className="w-[245px]">
+          <div className="flex text-center pt-4">
             <Text color="white" size="xl">
               Agrega la informacion del producto o Servicio
             </Text>
@@ -67,12 +65,9 @@ export const ProductInformation = ({
         </div>
       </div>
 
-      <div className="flex w-[340px] justify-center bg-white rounded-lg relative -top-24 -right-[10px]">
+      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
         <ContainerCard>
           <div className="flex flex-col gap-2 p-4">
-            <div className="">
-              <SearchInput value={searchInput} setValue={setSearchInput} />
-            </div>
             <Input
               label="category"
               placeholder="Ropa"
@@ -82,7 +77,7 @@ export const ProductInformation = ({
             />
             <Input
               label="tipo de producto"
-              placeholder="Playera M"
+              placeholder="M, XL, L"
               value={product[PRODUCT_KEYS.TYPE]}
               keyValue={PRODUCT_KEYS.TYPE}
               setValue={handleSetValueProduct}
@@ -99,6 +94,14 @@ export const ProductInformation = ({
               placeholder="598 MXN"
               value={product[PRODUCT_KEYS.PRICE]}
               keyValue={PRODUCT_KEYS.PRICE}
+              setValue={handleSetValueProduct}
+              type="number"
+            />
+            <Input
+              label="precio de compra"
+              placeholder="398 MXN"
+              value={product[PRODUCT_KEYS.PURCHASE_PRICE]}
+              keyValue={PRODUCT_KEYS.PURCHASE_PRICE}
               setValue={handleSetValueProduct}
               type="number"
             />

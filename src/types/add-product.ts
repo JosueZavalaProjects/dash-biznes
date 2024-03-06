@@ -13,6 +13,7 @@ export type Product = {
   type: string;
   name: string;
   price: number;
+  purchasePrice: number;
   amount: number;
   unit: Unit;
 };
@@ -22,5 +23,6 @@ export type ProductKeys =
   | "type"
   | "name"
   | "price"
+  | "purchasePrice"
   | "amount"
   | "unit";
