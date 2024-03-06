@@ -10,17 +10,22 @@ import { SuccessIcon } from "../../../../../../../public/assets";
 import useSalesPointState from "../../../states/sales-point-state";
 
 export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
-  const { payment, products, total, clearSale } = useSalesPointState();
+  const { payment, paymentMethod, products, total, clearSale } =
+    useSalesPointState();
   const salesRef = collection(db, "sales");
 
   const handleAddSaleToDB = async (ticketNumber: number) => {
-    await addDoc(collection(db, "sales"), {
+    let string = JSON.stringify({
       products,
       payment,
       total,
+      paymentMethod,
       ticket: ticketNumber + 1,
       date: new Date().toString(),
     });
+    let newObj = JSON.parse(string);
+
+    await addDoc(salesRef, newObj);
   };
 
   const handleGetTicketLasSale = async () => {
@@ -31,7 +36,6 @@ export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
 
     qwerySnapshot.forEach((doc) => {
       ticketNumber = doc.data().ticket;
-      console.log({ ticketNumber });
     });
     return ticketNumber;
   };
