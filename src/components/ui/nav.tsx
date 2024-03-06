@@ -70,6 +70,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
               <Link
                 key={index}
                 href={link.href}
+                as={link.href}
                 className={cn(
                   buttonVariants({
                     variant: link.href === pathName ? "default" : "ghost",
