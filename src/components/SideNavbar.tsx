@@ -11,6 +11,8 @@ import {
   UsersRound,
   Settings,
   ChevronRight,
+  PlusCircle,
+  Store,
 } from "lucide-react";
 
 import { useWindowWidth } from "@react-hook/window-size";
@@ -66,15 +68,15 @@ export default function SideNavbar({}: Props) {
             variant: "ghost",
           },
           {
-            title: "Ajustes",
-            href: "/settings",
-            icon: Settings,
+            title: "Punto de Venta",
+            href: "/sales-point",
+            icon: Store,
             variant: "ghost",
           },
           {
             title: "Agregar",
             href: "#",
-            icon: Settings,
+            icon: PlusCircle,
             variant: "ghost",
             onClick: () => setShowAddModal(true),
           },
