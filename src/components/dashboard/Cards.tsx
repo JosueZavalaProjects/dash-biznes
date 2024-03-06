@@ -36,8 +36,6 @@ export const Cards = () => {
     const inventoryAmount = newProducts.reduce((a, b) => a + b);
     const inventoryLength = newProducts.length;
 
-    /* setInventoryCount(inventoryLength);
-     */
     setInventorySpent(inventoryAmount);
     handleSetCards(
       CARD_DATA_KEYS.INVENTORY,

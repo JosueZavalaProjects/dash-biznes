@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { Nav } from "./ui/nav";
 
 type Props = {};
 
@@ -11,11 +10,13 @@ import {
   LayoutDashboard,
   UsersRound,
   Settings,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
-import { Button } from "./ui/button";
 
 import { useWindowWidth } from "@react-hook/window-size";
+
+import { Button } from "./ui/button";
+import { Nav } from "./ui/nav";
 
 export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -47,26 +48,26 @@ export default function SideNavbar({}: Props) {
             title: "Dashboard",
             href: "/",
             icon: LayoutDashboard,
-            variant: "default"
+            variant: "default",
           },
           {
-            title: "Clientes",
-            href: "/users",
+            title: "Invetario",
+            href: "/inventory",
             icon: UsersRound,
-            variant: "ghost"
+            variant: "ghost",
           },
           {
             title: "ventas",
             href: "/orders",
             icon: ShoppingCart,
-            variant: "ghost"
+            variant: "ghost",
           },
           {
             title: "Ajustes",
             href: "/settings",
             icon: Settings,
-            variant: "ghost"
-          }
+            variant: "ghost",
+          },
         ]}
       />
     </div>
