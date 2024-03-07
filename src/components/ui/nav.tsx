@@ -49,6 +49,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                       link.variant === "default" &&
                         "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                     )}
+                    replace
                   >
                     <link.icon className="h-4 w-4" />
                     <span className="sr-only">{link.title}</span>
@@ -70,7 +71,6 @@ export function Nav({ links, isCollapsed }: NavProps) {
               <Link
                 key={index}
                 href={link.href}
-                as={link.href}
                 className={cn(
                   buttonVariants({
                     variant: link.href === pathName ? "default" : "ghost",
@@ -83,6 +83,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 onClick={() => {
                   link.onClick ? link.onClick() : {};
                 }}
+                replace
               >
                 <link.icon className="mr-2 h-4 w-4" />
                 {link.title}
