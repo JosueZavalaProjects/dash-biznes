@@ -1,17 +1,15 @@
 "use client";
 
 import { LucideIcon } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+
 import { CollapseNavLink, NavLink } from "./navLink";
 
 interface NavProps {

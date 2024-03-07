@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
-import SideNavbar from "@/components/SideNavbar";
+import SideNavbar from "@/components/SideNav/SideNavbar";
 
 import { cn } from "../lib/utils";
+import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         {/* <p className="border">Sidebar</p> */}
         <div id="portal" />
         <SideNavbar />
+        <MobileNavbar />
         {/* main page */}
         <div className="p-8 w-full">{children}</div>
       </body>
