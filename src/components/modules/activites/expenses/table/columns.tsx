@@ -1,8 +1,8 @@
-import { Sale } from "@/types/sales";
+import { Purchase } from "@/types/purchases";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<Sale>[] = [
+export const columns: ColumnDef<Purchase>[] = [
   {
     accessorKey: "ticketNumber",
     header: "Número de Ticket",

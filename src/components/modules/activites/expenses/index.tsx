@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
-import { data as SalesData } from "@/constants/activities/sales";
+import { data as PurchaseData } from "@/constants/activities/purchases";
 import { db } from "@/services/firebase";
-import { Sale } from "@/types/sales";
+import { Purchase } from "@/types/purchases";
 
 import { DataTable } from "../../../DataTable";
 import { columns } from "./table/columns";
+
 require("dayjs/locale/es");
 
-export const SalesTable = () => {
-  const [sales, setSales] = useState<Sale[]>(SalesData);
+export const PurchasesTable = () => {
+  const [sales, setSales] = useState<Purchase[]>(PurchaseData);
   const salesRef = collection(db, "sales");
   dayjs.locale("es");
 
-  const handleGetSales = async () => {
+  /*   const handleGetSales = async () => {
     const newProducts = await getDataSales();
 
     setSales(newProducts);
@@ -43,7 +44,7 @@ export const SalesTable = () => {
 
   useEffect(() => {
     handleGetSales();
-  }, []);
+  }, []); */
 
   return <DataTable columns={columns} data={sales} />;
 };

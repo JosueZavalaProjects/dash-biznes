@@ -1,6 +1,6 @@
 import { create, useStore } from "zustand";
 
-import { ACTIVITIES_NAV, CONTENTS, TAB_KEYS } from "@/constants/activities";
+import { ACTIVITIES_NAV, CONTENTS, TAB_KEYS } from "@/constants/activities/purchases";
 import { NavOptions, TabContent } from "@/types/UI/common";
 
 type InitialState = {
