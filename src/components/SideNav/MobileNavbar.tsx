@@ -9,10 +9,13 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+import { cn } from "@/lib/utils";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { AddModal } from "../modals/AddModal";
+import { buttonVariants } from "../ui/button";
 
 type FooterIcons = {
   icon: LucideIcon;
@@ -29,6 +32,7 @@ const FOOTER_ICONS: FooterIcons[] = [
 ];
 
 export const MobileNavbar = () => {
+  const pathName = usePathname();
   const [showModal, setShowModal] = useState<boolean>(false);
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
@@ -43,7 +47,14 @@ export const MobileNavbar = () => {
               if (element.modal) {
                 return (
                   <div
-                    className="grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]"
+                    className={cn(
+                      "grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]",
+                      buttonVariants({
+                        variant:
+                          element.link === pathName ? "default" : "ghost",
+                        size: "icon",
+                      })
+                    )}
                     key={`footerlink_${index}`}
                     onClick={() =>
                       element.modal ? setShowModal(!showModal) : {}
@@ -56,7 +67,14 @@ export const MobileNavbar = () => {
               return (
                 <Link href={element.link || ""} key={`footerlink_${index}`}>
                   <div
-                    className="grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]"
+                    className={cn(
+                      "grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]",
+                      buttonVariants({
+                        variant:
+                          element.link === pathName ? "default" : "ghost",
+                        size: "icon",
+                      })
+                    )}
                     onClick={() =>
                       element.modal ? setShowModal(!showModal) : {}
                     }

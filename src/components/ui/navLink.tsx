@@ -30,7 +30,7 @@ const CollapseNavLink = ({ link }: NavLinkProps) => {
           }),
           "h-9 w-9 cursor-pointer",
           link.variant === "default" &&
-            "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+            "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-black"
         )}
         onClick={() => {
           link.onClick ? link.onClick() : {};
@@ -51,7 +51,7 @@ const CollapseNavLink = ({ link }: NavLinkProps) => {
         }),
         "h-9 w-9",
         link.variant === "default" &&
-          "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+          "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-black"
       )}
     >
       <link.icon className="h-4 w-4" />
@@ -73,7 +73,7 @@ const NavLink = ({ link, index }: NavLinkProps) => {
           }),
           "cursor-pointer",
           link.variant === "default" &&
-            "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+            "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-black",
           "justify-start"
         )}
         onClick={() => {
@@ -86,7 +86,7 @@ const NavLink = ({ link, index }: NavLinkProps) => {
           <span
             className={cn(
               "ml-auto",
-              link.variant === "default" && "text-background dark:text-white"
+              link.variant === "default" && "text-background dark:text-black"
             )}
           >
             {link.label}
@@ -106,7 +106,7 @@ const NavLink = ({ link, index }: NavLinkProps) => {
           size: "sm",
         }),
         link.variant === "default" &&
-          "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+          "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-black",
         "justify-start"
       )}
     >
@@ -116,7 +116,7 @@ const NavLink = ({ link, index }: NavLinkProps) => {
         <span
           className={cn(
             "ml-auto",
-            link.variant === "default" && "text-background dark:text-white"
+            link.variant === "default" && "text-background dark:text-black"
           )}
         >
           {link.label}
