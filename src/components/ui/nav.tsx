@@ -39,7 +39,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
               <Tooltip key={index} delayDuration={0}>
                 <TooltipTrigger asChild>
                   <Link
-                    href={link.href}
+                    href={""}
                     className={cn(
                       buttonVariants({
                         variant: link.href === pathName ? "default" : "ghost",
@@ -70,7 +70,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
             ) : (
               <Link
                 key={index}
-                href={link.href}
+                href={""}
                 className={cn(
                   buttonVariants({
                     variant: link.href === pathName ? "default" : "ghost",
