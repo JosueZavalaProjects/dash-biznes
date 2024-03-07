@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
+import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
 import SideNavbar from "@/components/SideNav/SideNavbar";
 
 import { cn } from "../lib/utils";
-import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,16 +1,14 @@
 "use client";
 import React from "react";
 
-import { SalesTable } from "@/components/modules/activites/sales";
-import PageTitle from "@/components/PageTitle";
+import Activities from "@/components/modules/activites";
 
 type Props = {};
 
-export default function SalesPage({}: Props) {
+export default function ActivitiesPage({}: Props) {
   return (
     <div className="flex flex-col gap-5  w-full">
-      <PageTitle title="Ventas" />
-      <SalesTable />
+      <Activities />
     </div>
   );
 }

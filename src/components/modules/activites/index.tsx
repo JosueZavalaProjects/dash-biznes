@@ -1,11 +1,11 @@
 "use client";
-import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { SimpleTabs } from "@/components/ui/simpleTabs";
+import { TabSelection } from "@/components/ui/tabSelection";
 
-import { TabSelection } from "../../components/ui/tabSelection";
+import useActivitiesState from "./states/activities-state";
 
-export default function SalesPointPage() {
-  const { tabsContents, menuNav, tabName, setTabName } = useSalesPointState();
+export default function Activities() {
+  const { tabsContents, menuNav, tabName, setTabName } = useActivitiesState();
 
   return (
     <div className="grid">

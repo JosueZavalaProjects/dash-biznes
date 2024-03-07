@@ -12,6 +12,7 @@ interface TabPanelProps {
   inactiveClassName: string;
   children?: React.ReactNode;
   [key: string]: any;
+  tabNameSelected: string;
 }
 
 export function TabPanel({
@@ -20,10 +21,9 @@ export function TabPanel({
   className,
   activeClassName,
   inactiveClassName,
+  tabNameSelected,
   ...props
 }: TabPanelProps) {
-  const { tabName: tabNameSelected } = useSalesPointState();
-
   const calculatedClassName = useMemo(() => {
     return [
       className,
