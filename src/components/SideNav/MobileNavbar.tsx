@@ -39,18 +39,33 @@ export const MobileNavbar = () => {
       {mobileWidth && (
         <div className="fixed bottom-4 left-[30%] bg-white mx-auto p-4 rounded-lg z-10">
           <div className="grid grid-cols-4 gap-4 justify-items-center p-1 w-full">
-            {FOOTER_ICONS.map((element, index) => (
-              <Link href={element.link || ""} key={`footerlink_${index}`}>
-                <div
-                  className="grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]"
-                  onClick={() =>
-                    element.modal ? setShowModal(!showModal) : {}
-                  }
-                >
-                  <element.icon className="h-8 w-8" />
-                </div>
-              </Link>
-            ))}
+            {FOOTER_ICONS.map((element, index) => {
+              if (element.modal) {
+                return (
+                  <div
+                    className="grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]"
+                    key={`footerlink_${index}`}
+                    onClick={() =>
+                      element.modal ? setShowModal(!showModal) : {}
+                    }
+                  >
+                    <element.icon className="h-8 w-8" />
+                  </div>
+                );
+              }
+              return (
+                <Link href={element.link || ""} key={`footerlink_${index}`}>
+                  <div
+                    className="grid justify-items-center cursor-pointer items-center w-[40px] h-[40px]"
+                    onClick={() =>
+                      element.modal ? setShowModal(!showModal) : {}
+                    }
+                  >
+                    <element.icon className="h-8 w-8" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
