@@ -11,10 +11,12 @@ type ModalProps = {
 };
 
 export const Modals = ({ show, setShow }: ModalProps) => {
-  const { paymentStep, setPayment, setPaymentMethod } = useSalesPointState();
+  const { paymentStep, setPayment, setPaymentStep, setPaymentMethod } =
+    useSalesPointState();
   const handleCloseModal = () => {
     setPayment(0);
     setPaymentMethod("");
+    setPaymentStep(1);
     setShow(false);
   };
   return (

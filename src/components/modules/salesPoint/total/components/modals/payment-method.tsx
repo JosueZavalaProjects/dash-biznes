@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
-import { PaymentMethod as MethodType } from "@/types/UI/common";
 
 import useSalesPointState from "../../../states/sales-point-state";
 

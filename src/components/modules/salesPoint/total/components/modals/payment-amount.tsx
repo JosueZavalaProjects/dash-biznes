@@ -8,8 +8,7 @@ import useSalesPointState from "../../../states/sales-point-state";
 
 export const PaymentAmount = () => {
   const [inputNumber, setInputNumber] = useState();
-  const { setPayment, setPaymentStep, paymentMethod, products, total } =
-    useSalesPointState();
+  const { setPayment, setPaymentStep, total } = useSalesPointState();
   const { CreateSale } = useSalesPoint();
 
   const handleNextStep = async (PaymentAmount: number) => {
