@@ -1,14 +1,24 @@
 import { SimpleButton } from "@/components/ui/simpleButton";
+import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { PaymentMethod as MethodType } from "@/types/UI/common";
 
 import useSalesPointState from "../../../states/sales-point-state";
 
 export const PaymentMethod = () => {
-  const { setPaymentMethod, setPaymentStep } = useSalesPointState();
+  const { setPaymentMethod, setPaymentStep, setPayment, total } =
+    useSalesPointState();
+  const { CreateSale } = useSalesPoint();
 
-  const handleSelectPayment = (paymentMethod: MethodType) => {
+  const handleSelectPayment = async (paymentMethod: MethodType) => {
     setPaymentMethod(paymentMethod);
-    setPaymentStep(2);
+    if (paymentMethod === "cash") {
+      setPaymentStep(2);
+      return;
+    }
+
+    setPayment(total);
+    await CreateSale();
+    setPaymentStep(3);
   };
   return (
     <div className="grid justify-items-center gap-4 text-black">
