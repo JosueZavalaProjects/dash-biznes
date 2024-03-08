@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import dayjs from "dayjs";
 require("dayjs/locale/es");
@@ -13,9 +13,13 @@ import { TotalTable } from "./components/table";
 
 export const Total = () => {
   const [show, setShow] = useState<boolean>(false);
-  const { products, total } = useSalesPointState();
+  const { products, total, clearSale } = useSalesPointState();
 
   dayjs.locale("es");
+
+  useEffect(() => {
+    clearSale();
+  }, []);
 
   return (
     <ContainerCard>

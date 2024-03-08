@@ -23,7 +23,7 @@ export const SalesTable = () => {
   };
 
   const getDataSales = async () => {
-    const q = query(salesRef, orderBy("date", "desc"));
+    const q = query(salesRef, orderBy("ticket", "desc"));
     const qwerySnapshot = await getDocs(q);
 
     const response: Sale[] = [];

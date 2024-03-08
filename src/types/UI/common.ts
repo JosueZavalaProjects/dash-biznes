@@ -53,4 +53,4 @@ export type TabContent = {
 };
 
 export type PaymentStep = 1 | 2 | 3 | 4;
-export type PaymentMethod = "cash" | "credit" | "debit" | "transfer";
+export type PaymentMethod = "cash" | "credit" | "debit" | "transfer" | "";

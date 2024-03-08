@@ -61,7 +61,7 @@ const INITIAL_STATE: InitialState = {
   tabsContents: CONTENTS,
   products: [],
   payment: 0,
-  paymentMethod: "cash",
+  paymentMethod: "",
   paymentStep: 1,
   total: 0,
 };
@@ -72,7 +72,7 @@ const SalesPointStore = create<SalesPointStateProps>((set) => ({
   tabsContents: CONTENTS,
   paymentStep: 1,
   payment: 0,
-  paymentMethod: "cash",
+  paymentMethod: "",
   products: [],
   total: 0,
   setTabName: (tabName: string) => set({ tabName }),

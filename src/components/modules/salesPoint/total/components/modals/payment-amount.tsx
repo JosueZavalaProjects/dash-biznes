@@ -52,7 +52,7 @@ export const PaymentAmount = () => {
       >
         1,000 MXN
       </SimpleButton>
-      <div className="flex flex-row justify-stretch items-center w-32 px-2 py-2  text-3xl border border-black rounded-xl overflow-hidden">
+      <div className="flex flex-row justify-stretch items-center w-40 px-2 py-2  text-3xl border border-black rounded-xl overflow-hidden">
         <div className="py-0 pr-2 text-gray-400">$</div>
         <input
           value={inputNumber}

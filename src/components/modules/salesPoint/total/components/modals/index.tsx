@@ -11,9 +11,14 @@ type ModalProps = {
 };
 
 export const Modals = ({ show, setShow }: ModalProps) => {
-  const { paymentStep } = useSalesPointState();
+  const { paymentStep, setPayment, setPaymentMethod } = useSalesPointState();
+  const handleCloseModal = () => {
+    setPayment(0);
+    setPaymentMethod("");
+    setShow(false);
+  };
   return (
-    <Modal show={show} onClose={() => setShow(false)}>
+    <Modal show={show} onClose={() => handleCloseModal()}>
       {paymentStep === 1 && <PaymentMethod />}
       {paymentStep === 2 && <PaymentAmount />}
       {paymentStep === 3 && <Change setShow={setShow} />}

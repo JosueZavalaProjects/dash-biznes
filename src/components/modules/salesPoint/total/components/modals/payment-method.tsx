@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { PaymentMethod as MethodType } from "@/types/UI/common";
@@ -5,12 +7,11 @@ import { PaymentMethod as MethodType } from "@/types/UI/common";
 import useSalesPointState from "../../../states/sales-point-state";
 
 export const PaymentMethod = () => {
-  const { setPaymentMethod, setPaymentStep, setPayment, total } =
+  const { setPaymentMethod, setPaymentStep, setPayment, total, paymentMethod } =
     useSalesPointState();
   const { CreateSale } = useSalesPoint();
 
-  const handleSelectPayment = async (paymentMethod: MethodType) => {
-    setPaymentMethod(paymentMethod);
+  const handleChangePaymentMethod = async () => {
     if (paymentMethod === "cash") {
       setPaymentStep(2);
       return;
@@ -20,11 +21,17 @@ export const PaymentMethod = () => {
     await CreateSale();
     setPaymentStep(3);
   };
+
+  useEffect(() => {
+    if (!paymentMethod) return;
+
+    handleChangePaymentMethod();
+  }, [paymentMethod]);
   return (
     <div className="grid justify-items-center gap-4 text-black">
       <div>
         <SimpleButton
-          onClick={() => handleSelectPayment("cash")}
+          onClick={() => setPaymentMethod("cash")}
           className={"px-8 py-4"}
         >
           Efectivo
@@ -32,13 +39,13 @@ export const PaymentMethod = () => {
       </div>
       <div className="flex w-full justify-between">
         <SimpleButton
-          onClick={() => handleSelectPayment("credit")}
+          onClick={() => setPaymentMethod("credit")}
           className={"px-8 py-4"}
         >
           Crédito
         </SimpleButton>
         <SimpleButton
-          onClick={() => handleSelectPayment("debit")}
+          onClick={() => setPaymentMethod("debit")}
           className={"px-8 py-4"}
         >
           Débito
@@ -46,7 +53,7 @@ export const PaymentMethod = () => {
       </div>
       <div>
         <SimpleButton
-          onClick={() => handleSelectPayment("transfer")}
+          onClick={() => setPaymentMethod("transfer")}
           className={"px-8 py-4"}
         >
           Transferencia
