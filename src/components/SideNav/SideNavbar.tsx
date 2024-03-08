@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   UsersRound,
   ChevronRight,
+  ChevronLeft,
   PlusCircle,
   GanttChartSquare,
 } from "lucide-react";
@@ -39,7 +40,8 @@ export default function SideNavbar({}: Props) {
               variant="secondary"
               className=" rounded-full p-2"
             >
-              <ChevronRight />
+              {isCollapsed && <ChevronRight />}
+              {!isCollapsed && <ChevronLeft />}
             </Button>
           </div>
         )}
