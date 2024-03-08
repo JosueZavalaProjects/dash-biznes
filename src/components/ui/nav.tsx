@@ -11,13 +11,14 @@ import {
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 import { CollapseNavLink, NavLink } from "./navLink";
+import { IconType } from "react-icons/lib";
 
 interface NavProps {
   isCollapsed: boolean;
   links: {
     title: string;
     label?: string;
-    icon: LucideIcon;
+    icon: LucideIcon | IconType;
     variant: "default" | "ghost";
     href: string;
     onClick?: () => void;

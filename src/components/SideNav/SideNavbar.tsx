@@ -4,6 +4,8 @@ import { useState } from "react";
 
 type Props = {};
 
+import { MdOutlineInventory } from "react-icons/md";
+
 import {
   LayoutDashboard,
   UsersRound,
@@ -64,7 +66,7 @@ export default function SideNavbar({}: Props) {
             {
               title: "Actividades",
               href: "/activities",
-              icon: GanttChartSquare,
+              icon: MdOutlineInventory,
               variant: "ghost",
             },
             {

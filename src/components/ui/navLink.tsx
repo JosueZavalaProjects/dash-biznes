@@ -1,3 +1,5 @@
+import { IconType } from "react-icons/lib";
+
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,7 +12,7 @@ type NavLinkProps = {
   link: {
     title: string;
     label?: string;
-    icon: LucideIcon;
+    icon: LucideIcon | IconType;
     variant: "default" | "ghost";
     href: string;
     onClick?: () => void;
