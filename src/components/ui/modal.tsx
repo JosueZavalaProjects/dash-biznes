@@ -24,7 +24,7 @@ const Modal: FC<ModalProps> = ({
   escClose = true,
 }) => {
   const contentStyles = cn(
-    "relative flex flex-col p-7 bg-white border shadow-xl rounded-sm max-h-screen rounded",
+    "relative flex flex-col p-7 bg-white border shadow-xl rounded-sm max-h-screen rounded-xl",
     {
       "w-96": size === "xs",
       "w-128": size === "md",
