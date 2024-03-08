@@ -31,52 +31,50 @@ export default function SideNavbar({}: Props) {
 
   return (
     <>
-      {!mobileWidth && (
-        <div className="relative min-w-[80px] border-r px-3  pb-10 pt-24 ">
-          {!mobileWidth && (
-            <div className="absolute right-[-20px] top-7">
-              <Button
-                onClick={toggleSidebar}
-                variant="secondary"
-                className=" rounded-full p-2"
-              >
-                <ChevronRight />
-              </Button>
-            </div>
-          )}
-          <AddModal show={showAddModal} setShow={setShowAddModal} />
-          <Nav
-            isCollapsed={mobileWidth ? true : isCollapsed}
-            links={[
-              {
-                title: "Dashboard",
-                href: "/",
-                icon: LayoutDashboard,
-                variant: "default",
-              },
-              {
-                title: "Invetario",
-                href: "/inventory",
-                icon: UsersRound,
-                variant: "ghost",
-              },
-              {
-                title: "Actividades",
-                href: "/activities",
-                icon: GanttChartSquare,
-                variant: "ghost",
-              },
-              {
-                title: "Agregar",
-                href: "#",
-                icon: PlusCircle,
-                variant: "ghost",
-                onClick: () => setShowAddModal(true),
-              },
-            ]}
-          />
-        </div>
-      )}
+      <div className="relative min-w-[80px] border-r px-3  pb-10 pt-24 hidden sm:flex">
+        {!mobileWidth && (
+          <div className="absolute right-[-20px] top-7">
+            <Button
+              onClick={toggleSidebar}
+              variant="secondary"
+              className=" rounded-full p-2"
+            >
+              <ChevronRight />
+            </Button>
+          </div>
+        )}
+        <AddModal show={showAddModal} setShow={setShowAddModal} />
+        <Nav
+          isCollapsed={mobileWidth ? true : isCollapsed}
+          links={[
+            {
+              title: "Dashboard",
+              href: "/",
+              icon: LayoutDashboard,
+              variant: "default",
+            },
+            {
+              title: "Invetario",
+              href: "/inventory",
+              icon: UsersRound,
+              variant: "ghost",
+            },
+            {
+              title: "Actividades",
+              href: "/activities",
+              icon: GanttChartSquare,
+              variant: "ghost",
+            },
+            {
+              title: "Agregar",
+              href: "#",
+              icon: PlusCircle,
+              variant: "ghost",
+              onClick: () => setShowAddModal(true),
+            },
+          ]}
+        />
+      </div>
     </>
   );
 }
