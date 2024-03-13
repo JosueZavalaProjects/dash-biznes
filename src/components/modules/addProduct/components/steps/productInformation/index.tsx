@@ -69,29 +69,29 @@ export const ProductInformation = ({
         <ContainerCard>
           <div className="flex flex-col gap-2 p-4">
             <Input
-              label="category"
-              placeholder="Ropa"
+              label="Categoria"
+              placeholder="Categoria de producto"
               value={product[PRODUCT_KEYS.CATEGORY]}
               keyValue={PRODUCT_KEYS.CATEGORY}
               setValue={handleSetValueProduct}
             />
             <Input
               label="tipo de producto"
-              placeholder="M, XL, L"
+              placeholder="Tipo de talla"
               value={product[PRODUCT_KEYS.TYPE]}
               keyValue={PRODUCT_KEYS.TYPE}
               setValue={handleSetValueProduct}
             />
             <Input
               label="nombre de producto"
-              placeholder="Playera de Barbie"
+              placeholder="Nombra tu producto"
               value={product[PRODUCT_KEYS.NAME]}
               keyValue={PRODUCT_KEYS.NAME}
               setValue={handleSetValueProduct}
             />
             <Input
               label="precio de venta"
-              placeholder="598 MXN"
+              placeholder="$"
               value={product[PRODUCT_KEYS.PRICE]}
               keyValue={PRODUCT_KEYS.PRICE}
               setValue={handleSetValueProduct}
@@ -99,7 +99,7 @@ export const ProductInformation = ({
             />
             <Input
               label="precio de compra"
-              placeholder="398 MXN"
+              placeholder="$"
               value={product[PRODUCT_KEYS.PURCHASE_PRICE]}
               keyValue={PRODUCT_KEYS.PURCHASE_PRICE}
               setValue={handleSetValueProduct}
