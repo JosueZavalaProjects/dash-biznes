@@ -1,4 +1,4 @@
-import { Product, ProductsMock } from "@/types/sales-point";
+import { Product, ProductsMock } from "@/types/salesPoint";
 
 export const CATEGORIES_MOCK = [
   "Ropa",

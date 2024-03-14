@@ -6,8 +6,8 @@ import { ContainerCard } from "@/components/ui/containerCard";
 import { Input } from "@/components/ui/input";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
-import { PRODUCT_KEYS } from "@/constants/add-product";
-import { Product, ProductKeys } from "@/types/add-product";
+import { PRODUCT_KEYS } from "@/constants/addProduct";
+import { Product, ProductKeys } from "@/types/addProduct";
 
 import { BackArrow } from "../../../../../../../public/assets";
 

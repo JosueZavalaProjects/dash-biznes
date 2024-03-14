@@ -17,13 +17,13 @@ export const AddModal = ({ show, setShow }: ModalProps) => {
           <Text size="2xl" color="gray">
             ¿Qué Necesitas Agregar?
           </Text>
-          <Link href={"/sales-point"} className="cursor-pointer">
+          <Link href={"/salesPoint"} className="cursor-pointer">
             <SimpleButton onClick={() => setShow(false)}>Ventas</SimpleButton>
           </Link>
-          <Link href={"/add-product"}>
+          <Link href={"/addProduct"}>
             <SimpleButton onClick={() => setShow(false)}>Producto</SimpleButton>
           </Link>
-          <Link href={"#"}>
+          <Link href={"/addExpense"}>
             <SimpleButton onClick={() => setShow(false)}>Gastos</SimpleButton>
           </Link>
         </div>

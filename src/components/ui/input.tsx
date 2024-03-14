@@ -1,13 +1,16 @@
-import { ProductKeys } from "@/types/add-product";
+import { ExpensesKeys } from "@/types/addExpense";
+import { ProductKeys } from "@/types/addProduct";
 
 import Text from "../ui/text";
+
+export type KeyValueTypes = ProductKeys;
 
 type InputProps = {
   label: string;
   placeholder?: string;
   value: string | number | undefined;
-  keyValue?: ProductKeys;
-  setValue: (newValue: string, keyValue?: ProductKeys) => void;
+  keyValue?: KeyValueTypes;
+  setValue: (newValue: string, keyValue: KeyValueTypes) => void;
   type?: "text" | "number";
 };
 
@@ -15,7 +18,7 @@ export const Input = ({
   label,
   placeholder,
   value,
-  keyValue,
+  keyValue = "name",
   setValue,
   type,
 }: InputProps) => {

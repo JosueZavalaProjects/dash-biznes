@@ -6,7 +6,7 @@ import { ContainerCard } from "@/components/ui/containerCard";
 import SearchInput from "@/components/ui/searchInput";
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { db } from "@/services/firebase";
-import { Product as ProductType } from "@/types/sales-point";
+import { Product as ProductType } from "@/types/salesPoint";
 
 import useSalesPointState from "../states/sales-point-state";
 import { CategoryCard } from "./components/categories/categoryCard";

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
-import { Unit, UnitsObject } from "@/types/add-product";
+import { Unit, UnitsObject } from "@/types/addProduct";
 
 import { BackArrow, CameraIcon } from "../../../../../../../public/assets";
 import { NumberButton } from "./numbers";

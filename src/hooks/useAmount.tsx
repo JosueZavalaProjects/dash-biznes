@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Unit } from "@/types/add-product";
+import { Unit } from "@/types/addProduct";
 
 export const useAmount = (unit: Unit) => {
   const [amount, setAmount] = useState<string>("");

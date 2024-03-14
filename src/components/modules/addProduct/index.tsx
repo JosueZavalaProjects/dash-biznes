@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import { addDoc, collection } from "firebase/firestore";
 
-import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/add-product";
+import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { useAmount } from "@/hooks/useAmount";
 import { db } from "@/services/firebase";
-import { Product, ProductKeys, Unit } from "@/types/add-product";
+import { Product, ProductKeys, Unit } from "@/types/addProduct";
 
 import { Modals } from "./components/modals";
 import { ProductInformation } from "./components/steps/productInformation";

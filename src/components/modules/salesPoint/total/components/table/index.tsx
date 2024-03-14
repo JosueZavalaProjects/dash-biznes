@@ -1,5 +1,5 @@
 import Text from "@/components/ui/text";
-import { ProductCheckout } from "@/types/sales-point";
+import { ProductCheckout } from "@/types/salesPoint";
 
 export const TotalTable = ({ products }: { products: ProductCheckout[] }) => {
   return (

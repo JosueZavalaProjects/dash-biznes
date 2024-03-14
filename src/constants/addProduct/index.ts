@@ -1,4 +1,4 @@
-import { Product, ProductKeys } from "@/types/add-product";
+import { Product, ProductKeys } from "@/types/addProduct";
 
 export const MOCK_PRODUCT: Product = {
   category: "",

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import { Icon } from "@/types/sales-point";
+import { Icon } from "@/types/salesPoint";
 
 type BlackButtonProps = {
   icon: Icon;

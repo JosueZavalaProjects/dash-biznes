@@ -3,7 +3,7 @@
 import { create, useStore } from "zustand";
 
 import { CONTENTS, SALES_POINT_NAV, TAB_KEYS } from "@/constants/salesPoint";
-import { ProductCheckout } from "@/types/sales-point";
+import { ProductCheckout } from "@/types/salesPoint";
 import {
   NavOptions,
   PaymentMethod,
