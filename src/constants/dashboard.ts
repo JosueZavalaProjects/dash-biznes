@@ -52,17 +52,20 @@ export const cardData: CardProps[] = [
     amount: "+12,234",
     description: "+19% desde el mes pasado",
     icon: CreditCard,
+    link: "/activities",
   },
   {
     label: CARD_DATA_KEYS.SPENTS,
     amount: "-573",
     description: "+201 desde el mes pasado",
     icon: Activity,
+    link: "/activities",
   },
   {
     label: CARD_DATA_KEYS.INVENTORY,
     amount: "+$234",
     description: "+23 productos totales",
     icon: Users,
+    link: "/inventory",
   },
 ];

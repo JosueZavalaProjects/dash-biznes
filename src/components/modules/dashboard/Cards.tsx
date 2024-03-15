@@ -1,10 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { collection, getDocs } from "firebase/firestore";
-
-import { CARD_DATA_KEYS, DUMMY_SPENTS, cardData } from "@/constants/dashboard";
-import { db } from "@/services/firebase";
+import { CARD_DATA_KEYS, cardData } from "@/constants/dashboard";
+import { useDashboard } from "@/hooks/useDashboard";
 import { formatCurrency } from "@/utils/common";
 
 import Card, { CardProps } from "../../Card";
@@ -12,8 +10,10 @@ import Card, { CardProps } from "../../Card";
 export const Cards = () => {
   const [inventorySpent, setInventorySpent] = useState<number>(0);
   const [totalSales, setTotalSales] = useState<number>(0);
+  const [totalExpenses, setTotalExpenses] = useState<number>(0);
 
   const [cards, setCards] = useState<CardProps[]>(cardData);
+  const { getTotalSales, getDataProducts, getTotalExpenses } = useDashboard();
 
   const handleSetCards = (
     key: string,
@@ -43,7 +43,7 @@ export const Cards = () => {
   };
 
   const handleGetSales = async () => {
-    const newSales = await getDataSales();
+    const newSales = await getTotalSales();
     const salesAmount = newSales.reduce((a, b) => a + b);
     setTotalSales(salesAmount);
 
@@ -51,39 +51,17 @@ export const Cards = () => {
   };
 
   const handleCalculateUtilities = () => {
-    const spents = inventorySpent + DUMMY_SPENTS;
+    const spents = inventorySpent + totalExpenses;
     const utilities = totalSales - spents;
     handleSetCards(CARD_DATA_KEYS.UTILITIES, utilities);
   };
 
-  const handleCalculateSpents = () => {
-    const spents = inventorySpent + DUMMY_SPENTS;
-    handleSetCards(CARD_DATA_KEYS.SPENTS, spents);
-  };
+  const handleCalculateSpents = async () => {
+    const responseExpenses = await getTotalExpenses();
+    const newExpenses = responseExpenses.reduce((a, b) => a + b);
 
-  const getDataProducts = async () => {
-    const qwerySnapshot = await getDocs(collection(db, "products"));
-
-    const response: number[] = [];
-
-    qwerySnapshot.forEach((doc) => {
-      const { purchasePrice, inventory } = doc.data();
-
-      response.push(purchasePrice * inventory);
-    });
-    return response;
-  };
-
-  const getDataSales = async () => {
-    const qwerySnapshot = await getDocs(collection(db, "sales"));
-
-    const response: number[] = [];
-
-    qwerySnapshot.forEach((doc) => {
-      const { total } = doc.data();
-      response.push(total);
-    });
-    return response;
+    setTotalExpenses(newExpenses);
+    handleSetCards(CARD_DATA_KEYS.SPENTS, newExpenses);
   };
 
   useEffect(() => {
@@ -108,6 +86,7 @@ export const Cards = () => {
           description={d.description}
           icon={d.icon}
           label={d.label}
+          link={d.link}
         />
       ))}
     </>
