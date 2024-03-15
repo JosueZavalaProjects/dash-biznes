@@ -1,3 +1,3 @@
-import { Sale } from "./sales";
+import { Expense } from "./addExpense";
 
-export type Purchase = Sale & {};
+export type Purchase = Expense & { date: string };

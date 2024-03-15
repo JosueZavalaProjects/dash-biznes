@@ -22,9 +22,9 @@ export const ACTIVITIES_NAV: NavOptions[] = [
 
 export const data: Purchase[] = [
   {
-    ticketNumber: "ORD001",
+    name: "Gasto",
+    type: "financial",
     date: "2023-01-15",
-    total: 500,
-    method: "Tarjeta de Credito",
+    amount: 500,
   },
 ];
