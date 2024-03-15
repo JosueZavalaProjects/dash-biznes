@@ -11,11 +11,18 @@ import {
   EXPENSES_TYPES_LABELS,
   MOCK_EXPENSE,
 } from "@/constants/addExpense";
+import { useExpenses } from "@/hooks/useExpenses";
 import { Expense } from "@/types/addExpense";
+import { ModalType } from "@/types/UI/common";
+import { RequestModal } from "@/components/modals/RequestModal";
 
 export const AddExpense = () => {
   const [expense, setExpense] = useState<Expense>(MOCK_EXPENSE);
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("false");
+  const [modalType, setModalType] = useState<ModalType>();
+  const { addExpense } = useExpenses();
 
   const handleSetValueExpense = (value: string, key?: KeyValueTypes) => {
     const keyValue = key || "name";
@@ -24,7 +31,6 @@ export const AddExpense = () => {
 
   const handleSetExpense = (value: string | number, key: KeyValueTypes) => {
     if (key === EXPENSES_KEYS.AMOUNT) value = +value;
-    if (typeof value === "string") value = value.toLowerCase();
 
     const newProduct = { ...expense, [key]: value };
 
@@ -32,8 +38,21 @@ export const AddExpense = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const nesType = e.target.value;
-    handleSetExpense(nesType, "type");
+    const newType = e.target.value;
+    handleSetExpense(newType, "type");
+  };
+
+  const handleAddExpense = async () => {
+    try {
+      setModalType("loading");
+      setShowModal(true);
+      const response = await addExpense(expense);
+
+      if (response.id) setModalType("success");
+    } catch (error: any) {
+      setErrorMessage(error?.message);
+      setModalType("error");
+    }
   };
 
   useEffect(() => {
@@ -47,6 +66,13 @@ export const AddExpense = () => {
 
   return (
     <section className="h-[41rem]">
+      <RequestModal
+        show={showModal}
+        setShow={setShowModal}
+        modalType={modalType}
+        successMessage="¡Listo! Gasto Agregado"
+        errorMessage={errorMessage}
+      />
       <div className="grid w-full gap-4 px-4 bg-main-blue rounded-lg">
         <div className="flex w-full justify-between bg-main-blue">
           <div className="flex text-center pt-4">
@@ -102,7 +128,7 @@ export const AddExpense = () => {
             <div className="flex justify-center pt-4">
               <SimpleButton
                 className="!py-4 !px-8"
-                onClick={() => alert(JSON.stringify(expense))}
+                onClick={() => handleAddExpense()}
                 disabled={!isValidForm}
               >
                 Agregar
