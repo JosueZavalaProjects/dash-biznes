@@ -12,7 +12,7 @@ export const columns: ColumnDef<Purchase>[] = [
     accessorKey: "type",
     header: "Tipo de gasto",
     cell: ({ row }) => {
-      const type = row.getValue("type") || "others";
+      const type: string = row.getValue("type") || "others";
       return <p>{EXPENSES_TYPES_LABELS[type]} </p>;
     },
   },
