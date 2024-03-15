@@ -1,4 +1,4 @@
-/** @format */
+"use client";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -6,15 +6,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
 import SideNavbar from "@/components/SideNav/SideNavbar";
+import { AuthConextProvider } from "@/context/AuthContext";
 
 import { cn } from "../lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+/* export const metadata: Metadata = {
   title: "Buzines",
   description: "Application for enterprises",
-};
+}; */
 
 export default function RootLayout({
   children,
@@ -34,11 +35,13 @@ export default function RootLayout({
       >
         {/* sidebar */}
         {/* <p className="border">Sidebar</p> */}
-        <div id="portal" />
-        <SideNavbar />
-        <MobileNavbar />
-        {/* main page */}
-        <div className="p-8 w-full">{children}</div>
+        <AuthConextProvider>
+          <div id="portal" />
+          <SideNavbar />
+          <MobileNavbar />
+          {/* main page */}
+          <div className="p-8 w-full">{children}</div>
+        </AuthConextProvider>
       </body>
     </html>
   );
