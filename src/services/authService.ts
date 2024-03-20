@@ -1,20 +1,24 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
 import { auth } from "./firebase";
 
-export const signInWithPassword = async (
+/* export const signInWithPassword = async (
   enteredEmail: string,
   enteredPassword: string
 ) => {
   const url = `${process.env.REACT_APP_FIREBASE_URL}/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
 
   return createAuthCall(url, enteredEmail, enteredPassword);
-};
+}; */
 
-export const signUp = async (enteredEmail: string, enteredPassword: string) => {
+/* export const signUp = async (enteredEmail: string, enteredPassword: string) => {
   const url = `${process.env.REACT_APP_FIREBASE_URL}/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
 
   return createAuthCall(url, enteredEmail, enteredPassword);
-};
+}; */
 
 export const signUpFirebase = async (
   enteredEmail: string,
@@ -23,7 +27,14 @@ export const signUpFirebase = async (
   return createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword);
 };
 
-const createAuthCall = (
+export const signInFirebase = async (
+  enteredEmail: string,
+  enteredPassword: string
+) => {
+  return signInWithEmailAndPassword(auth, enteredEmail, enteredPassword);
+};
+
+/* const createAuthCall = (
   url: string,
   enteredEmail: string,
   enteredPassword: string
@@ -39,4 +50,4 @@ const createAuthCall = (
       "Content-Type": "application/json",
     },
   });
-};
+}; */

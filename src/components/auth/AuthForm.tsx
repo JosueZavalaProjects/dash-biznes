@@ -1,15 +1,9 @@
-import { MutableRefObject, useContext, useRef, useState } from "react";
-/* import { useHistory } from "react-router-dom"; */
-/* import { signInWithPassword, signUp } from "../../services/authService"; */
+import { useContext, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
-import {
-  signInWithPassword,
-  signUp,
-  signUpFirebase,
-} from "@/services/authService";
+import { signInFirebase, signUpFirebase } from "@/services/authService";
 
 import classes from "./AuthForm.module.css";
 
@@ -34,7 +28,7 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (isLogin) {
-      response = signInWithPassword(enteredEmail, enteredPassword);
+      response = signInFirebase(enteredEmail, enteredPassword);
     } else {
       response = signUpFirebase(enteredEmail, enteredPassword);
     }
