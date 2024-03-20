@@ -14,10 +14,7 @@ import {
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
-  /* const history = useHistory(); */
   const router = useRouter();
-  /* const emailInputRef = useRef();
-  const passwordInputRef = useRef(); */
 
   const authCtx = useContext(AuthContext);
 
@@ -34,9 +31,6 @@ const AuthForm = () => {
     let response;
     event.preventDefault();
 
-    /* const enteredEmail = emailInputRef?.current.value;
-    const enteredPassword = passwordInputRef?.current.value; */
-
     setIsLoading(true);
 
     if (isLogin) {
@@ -45,34 +39,17 @@ const AuthForm = () => {
       response = signUpFirebase(enteredEmail, enteredPassword);
     }
 
-    /* response.then((res: any) => {
-      console.log(res);
-    }); */
-
     response
       .then((res: any) => {
-        //setIsLoading(false);
-
-        /*   if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data: any) => {
-            let errorMessage = "Authentication failed!";
-            throw new Error(errorMessage);
-          });
-        } */
         return res._tokenResponse;
       })
       .then((data: any) => {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
-        /* console.log(data.localId);
-        console.log(expirationTime.toISOString()); */
-        /* authCtx.login(data.idToken, expirationTime.toISOString()); */
+
         authCtx.login(data.localId, expirationTime.toISOString());
-        //history.replace("/");
-        /* router.push("/sales-point"); */
+        router.refresh();
       })
       .catch((err: any) => {
         alert(err.message);
@@ -93,7 +70,7 @@ const AuthForm = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEnteredEmail(e.currentTarget.value)
             }
-            /* ref={emailInputRef} */ required
+            required
           />
         </div>
         <div className={classes.control}>
@@ -105,7 +82,6 @@ const AuthForm = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEnteredPassword(e.currentTarget.value)
             }
-            /* ref={passwordInputRef} */
             required
           />
         </div>

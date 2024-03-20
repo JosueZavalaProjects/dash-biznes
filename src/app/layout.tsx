@@ -12,6 +12,7 @@ import AuthContext, { AuthContextProvider } from "@/context/AuthContext";
 import { cn } from "../lib/utils";
 import LoginPage from "./(non-auth)/login/page";
 import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,9 +36,11 @@ export default function RootLayout({
   /*
    */
   useEffect(() => {
-    console.log(authCtx.isLoggedIn);
-    setIsLogued(authCtx.isLoggedIn);
-  }, [authCtx?.isLoggedIn]);
+    const token = getCookie("token");
+    console.log({ token });
+    /* console.log(authCtx.isLoggedIn);
+    setIsLogued(authCtx.isLoggedIn); */
+  }, []);
 
   return (
     <html lang="en">
@@ -50,7 +53,7 @@ export default function RootLayout({
         {/* <p className="border">Sidebar</p> */}
 
         <AuthContextProvider>
-          {isLogued && (
+          {getCookie("token") && (
             <>
               <div id="portal" />
               <SideNavbar />
@@ -58,7 +61,7 @@ export default function RootLayout({
               <div className="p-8 w-full">{children}</div>
             </>
           )}
-          {!isLogued && (
+          {!getCookie("token") && (
             <>
               {isLogued}
               <LoginPage />

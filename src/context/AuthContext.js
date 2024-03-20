@@ -1,7 +1,8 @@
 "use client";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 
-import useLocalStorage from "@/hooks/useLocalStorage";
+/* import useLocalStorage from "@/hooks/useLocalStorage"; */
+import { setCookie } from "cookies-next";
 
 let logoutTimer;
 
@@ -67,15 +68,14 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const loginHandler = (token, expirationTime) => {
-    console.log({ token });
     setToken(token);
-    console.log(!!token);
     setUserIsLoggedIn(true);
-    /* window.localStorage.setItem("token", token);
-    window.localStorage.setItem("expirationTime", expirationTime);
+
+    setCookie("token", token);
+    setCookie("expirationTime", expirationTime);
 
     const remainingTime = calculationRemainingTime(expirationTime);
-    logoutTimer = setTimeout(logoutHandler, remainingTime); */
+    logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
 
   useEffect(() => {
