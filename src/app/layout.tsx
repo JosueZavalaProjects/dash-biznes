@@ -28,20 +28,7 @@ export default function RootLayout({
 }) {
   const [isLogued, setIsLogued] = useState(false);
   const authCtx = useContext(AuthContext);
-  const router = useRouter();
-  /* if (!authCtx?.isLoggedIn) router.push("/login"); */
-  /* 
-  const router = useRouter(); */
-  /* console.log(authCtx.login()); */
-  /*
-   */
-  useEffect(() => {
-    const token = getCookie("token");
-    console.log({ token });
-    /* console.log(authCtx.isLoggedIn);
-    setIsLogued(authCtx.isLoggedIn); */
-  }, []);
-
+  
   return (
     <html lang="en">
       <body
@@ -49,9 +36,6 @@ export default function RootLayout({
           "debug-screens": process.env.NODE_ENV === "development",
         })}
       >
-        {/* sidebar */}
-        {/* <p className="border">Sidebar</p> */}
-
         <AuthContextProvider>
           {getCookie("token") && (
             <>

@@ -3,6 +3,8 @@ import { CardContent } from "@/components/Card";
 import { Cards } from "@/components/modules/dashboard/Cards";
 import { Sales } from "@/components/modules/dashboard/Sales";
 import PageTitle from "@/components/PageTitle";
+import AuthContext from "@/context/AuthContext";
+import { useContext } from "react";
 
 export default function Home() {
   return (
@@ -14,7 +16,7 @@ export default function Home() {
       <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
         <CardContent>
           <p className="p-4 font-semibold">Utilidad general</p>
-          {/* <BarChart /> */}
+          <BarChart />
         </CardContent>
         <Sales />
       </section>
