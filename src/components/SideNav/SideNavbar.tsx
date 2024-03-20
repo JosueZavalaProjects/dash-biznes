@@ -14,7 +14,6 @@ import {
   PlusCircle,
 } from "lucide-react";
 
-import { UserAuth } from "@/context/AuthContext";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { AddModal } from "../modals/AddModal";
@@ -22,7 +21,6 @@ import { Button } from "../ui/button";
 import { Nav } from "../ui/nav";
 
 export default function SideNavbar({}: Props) {
-  const { user, googleSignIn, logOut } = UserAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
@@ -33,7 +31,7 @@ export default function SideNavbar({}: Props) {
     setIsCollapsed(!isCollapsed);
   }
 
-  const handleSignIn = async () => {
+/*   const handleSignIn = async () => {
     try {
       await googleSignIn();
     } catch (error) {
@@ -49,7 +47,7 @@ export default function SideNavbar({}: Props) {
     }
   };
 
-  console.log(user);
+  console.log(user); */
 
   return (
     <>
@@ -95,7 +93,7 @@ export default function SideNavbar({}: Props) {
               variant: "ghost",
               onClick: () => setShowAddModal(true),
             },
-            {
+          /*   {
               title: "LogIn",
               href: "#",
               icon: PlusCircle,
@@ -108,7 +106,7 @@ export default function SideNavbar({}: Props) {
               icon: PlusCircle,
               variant: "ghost",
               onClick: () => handleLogOut(),
-            },
+            }, */
           ]}
         />
       </div>

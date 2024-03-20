@@ -1,42 +1,108 @@
-import { useState, useContext, createContext, useEffect } from "react";
+"use client";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
-import { auth } from "@/services/firebase";
+let logoutTimer;
 
-const AuthContext = createContext();
+const AuthContext = React.createContext({
+  token: "",
+  isLoggedIn: false,
+  login: (token, expirationTime) => {},
+  logout: () => {},
+});
+/* const AuthContext = createContext(); */
 
-export const AuthConextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+const calculationRemainingTime = (expirationTime) => {
+  const currentTime = new Date().getTime();
+  const adjExpirationTime = new Date(expirationTime).getTime();
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+  const remainingDuration = adjExpirationTime - currentTime;
+  return remainingDuration;
+};
+
+const retrieveStoredToken = () => {
+  if (!isWindowDefined()) return;
+  const storedToken = window.localStorage?.getItem("token");
+  const storedExpirationDate = window.localStorage.getItem("expirationTime");
+
+  const remainingTime = calculationRemainingTime(storedExpirationDate);
+
+  if (remainingTime <= 60000) {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expirationTime");
+    return null;
+  }
+
+  return {
+    token: storedToken,
+    duration: remainingTime,
   };
+};
 
-  const logOut = () => {
-    signOut(auth);
+const isWindowDefined = () => typeof window !== "undefined";
+
+export const AuthContextProvider = (props) => {
+  const tokenData = retrieveStoredToken();
+  let initialToken;
+
+  if (tokenData) {
+    initialToken = tokenData.token;
+  }
+
+  const [token, setToken] = useState(initialToken);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(!token);
+
+  /* const userIsLoggedIn = !!token; */
+
+  const logoutHandler = useCallback(() => {
+    setToken(null);
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expirationTime");
+    setUserIsLoggedIn(false);
+
+    if (logoutTimer) {
+      clearTimeout(logoutTimer);
+    }
+  }, []);
+
+  const loginHandler = (token, expirationTime) => {
+    console.log({ token });
+    setToken(token);
+    console.log(!!token);
+    setUserIsLoggedIn(true);
+    /* window.localStorage.setItem("token", token);
+    window.localStorage.setItem("expirationTime", expirationTime);
+
+    const remainingTime = calculationRemainingTime(expirationTime);
+    logoutTimer = setTimeout(logoutHandler, remainingTime); */
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currenUser) => {
-      setUser(currenUser);
-    });
-    return () => unsubscribe();
-  }, [user]);
+    if (!isWindowDefined()) {
+      /* console.log(isWindowDefined()); */
+      return;
+    }
+    /* console.log(window); */
+
+    if (tokenData) {
+      /* console.log(tokenData.duration); */
+      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+    }
+  }, [tokenData, logoutHandler]);
+
+  const contextValue = {
+    token: token,
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
+  };
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
-      {children}
+    <AuthContext.Provider value={contextValue}>
+      {props.children}
     </AuthContext.Provider>
   );
 };
 
-export const UserAuth = () => {
-  return useContext(AuthContext);
-};
+export default AuthContext;
