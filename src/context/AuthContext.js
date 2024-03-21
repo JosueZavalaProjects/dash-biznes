@@ -2,7 +2,7 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 
 /* import useLocalStorage from "@/hooks/useLocalStorage"; */
-import { setCookie } from "cookies-next";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
 let logoutTimer;
 
@@ -24,14 +24,18 @@ const calculationRemainingTime = (expirationTime) => {
 
 const retrieveStoredToken = () => {
   if (!isWindowDefined()) return;
-  const storedToken = window.localStorage?.getItem("token");
-  const storedExpirationDate = window.localStorage.getItem("expirationTime");
+  /* const storedToken = window.localStorage?.getItem("token");
+  const storedExpirationDate = window.localStorage.getItem("expirationTime"); */
+  const storedToken = getCookie("token");
+  const storedExpirationDate = getCookie("expirationTime");
 
   const remainingTime = calculationRemainingTime(storedExpirationDate);
 
   if (remainingTime <= 60000) {
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("expirationTime");
+    /* window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expirationTime"); */
+    deleteCookie("token");
+    deleteCookie("expirationTime");
     return null;
   }
 
@@ -58,9 +62,11 @@ export const AuthContextProvider = (props) => {
 
   const logoutHandler = useCallback(() => {
     setToken(null);
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("expirationTime");
     setUserIsLoggedIn(false);
+    deleteCookie("token");
+    deleteCookie("expirationTime");
+    /* window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expirationTime"); */
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);

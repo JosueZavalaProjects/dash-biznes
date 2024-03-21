@@ -13,6 +13,7 @@ import { cn } from "../lib/utils";
 import LoginPage from "./(non-auth)/login/page";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
+import { Loading } from "@/components/modals/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [isLogued, setIsLogued] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const authCtx = useContext(AuthContext);
-  
+
+  useEffect(() => {
+    if (!authCtx) return;
+
+    setIsLogued(authCtx.isLoggedIn);
+    setIsLoading(false);
+  }, [authCtx]);
+
   return (
     <html lang="en">
       <body
@@ -37,7 +46,12 @@ export default function RootLayout({
         })}
       >
         <AuthContextProvider>
-          {getCookie("token") && (
+          {isLoading && (
+            <section className="flex items-center justify-center w-full">
+              <Loading />
+            </section>
+          )}
+          {!isLoading && getCookie("token") && (
             <>
               <div id="portal" />
               <SideNavbar />
@@ -45,7 +59,7 @@ export default function RootLayout({
               <div className="p-8 w-full">{children}</div>
             </>
           )}
-          {!getCookie("token") && (
+          {!isLoading && !getCookie("token") && (
             <>
               {isLogued}
               <LoginPage />

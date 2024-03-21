@@ -1,7 +1,6 @@
-/** @format */
 "use client";
-import AuthContext from "@/context/AuthContext";
 import React, { useContext } from "react";
+
 import {
   BarChart as BarGraph,
   ResponsiveContainer,
@@ -9,6 +8,8 @@ import {
   YAxis,
   Bar,
 } from "recharts";
+
+import AuthContext from "@/context/AuthContext";
 
 type Props = {};
 
@@ -64,9 +65,6 @@ const data = [
 ];
 
 export default function BarChart({}: Props) {
-  const authCtx = useContext(AuthContext);
-
-  console.log(authCtx);
   return (
     <ResponsiveContainer width={"100%"} height={350}>
       <BarGraph data={data}>
