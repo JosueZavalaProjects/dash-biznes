@@ -7,17 +7,20 @@ import {
   limit,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 
 import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
+import { Product as ProductType } from "@/types/salesPoint";
 
 export const useSalesPoint = () => {
   const { paymentMethod, products, total } = useSalesPointState();
   const authCtx = useContext(AuthContext);
 
   const salesRef = collection(db, "sales");
+  const productssRef = collection(db, "products");
 
   const _handleAddSaleToDB = async (
     ticketNumber: number,
@@ -49,10 +52,30 @@ export const useSalesPoint = () => {
     return ticketNumber;
   };
 
+  const GetDataProducts = async () => {
+    const q = query(productssRef, where("adminEmail", "==", authCtx.email));
+    const qwerySnapshot = await getDocs(q);
+
+    const response: ProductType[] = [];
+    qwerySnapshot.forEach((doc) => {
+      const { category, subcategory, inventory, name, price } = doc.data();
+      response.push({
+        id: doc.id,
+        name,
+        price,
+        category,
+        inventory,
+        subcategory,
+      });
+    });
+
+    return response;
+  };
+
   const CreateSale = async (PaymentAmount?: number) => {
     const ticketNumber = await _handleGetTicketLasSale();
     return await _handleAddSaleToDB(ticketNumber, PaymentAmount);
   };
 
-  return { CreateSale };
+  return { CreateSale, GetDataProducts };
 };

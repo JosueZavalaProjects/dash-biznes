@@ -12,6 +12,7 @@ import useSalesPointState from "../states/sales-point-state";
 import { CategoryCard } from "./components/categories/categoryCard";
 import { AddItems } from "./components/items/addItems";
 import { Product } from "./components/products";
+import { useSalesPoint } from "@/hooks/useSalesPoint";
 
 export const Order = () => {
   const [items, setItems] = useState<number>(1);
@@ -26,6 +27,7 @@ export const Order = () => {
   const [productSelected, setProductSelected] = useState<number>(-1);
 
   const { updateProduct } = useSalesPointState();
+  const { GetDataProducts } = useSalesPoint();
 
   const handleAddProduct = () => {
     const productToAdd = [...filteredProducts][productSelected];
@@ -34,7 +36,7 @@ export const Order = () => {
   };
 
   const handleGetProducts = async () => {
-    const productsReponse = await getDataProducts();
+    const productsReponse = await GetDataProducts();
     if (!productsReponse) return;
 
     const uniqueCategories = productsReponse
@@ -46,25 +48,6 @@ export const Order = () => {
     setProducts(productsReponse);
     setFilteredProducts(productsReponse);
     setCategorires(uniqueCategories);
-  };
-
-  const getDataProducts = async () => {
-    const qwerySnapshot = await getDocs(collection(db, "products"));
-
-    const response: ProductType[] = [];
-    qwerySnapshot.forEach((doc) => {
-      const { category, subcategory, inventory, name, price } = doc.data();
-      response.push({
-        id: doc.id,
-        name,
-        price,
-        category,
-        inventory,
-        subcategory,
-      });
-    });
-
-    return response;
   };
 
   useEffect(() => {
