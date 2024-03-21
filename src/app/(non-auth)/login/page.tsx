@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 
-import { InventoryTable } from "@/components/modules/inventory";
-import PageTitle from "@/components/PageTitle";
 import AuthForm from "@/components/auth/AuthForm";
 
 type Props = {};

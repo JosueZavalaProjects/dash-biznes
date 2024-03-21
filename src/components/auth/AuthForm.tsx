@@ -42,7 +42,8 @@ const AuthForm = () => {
           new Date().getTime() + +data.expiresIn * 1000
         );
 
-        authCtx.login(data.localId, expirationTime.toISOString());
+        const { localId, email } = data;
+        authCtx.login(localId, email, expirationTime.toISOString());
         router.refresh();
       })
       .catch((err: any) => {
