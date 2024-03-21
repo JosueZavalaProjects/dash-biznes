@@ -3,8 +3,6 @@ import { CardContent } from "@/components/Card";
 import { Cards } from "@/components/modules/dashboard/Cards";
 import { Sales } from "@/components/modules/dashboard/Sales";
 import PageTitle from "@/components/PageTitle";
-import AuthContext from "@/context/AuthContext";
-import { useContext } from "react";
 
 export default function Home() {
   return (

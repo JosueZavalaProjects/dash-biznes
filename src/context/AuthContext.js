@@ -1,7 +1,6 @@
 "use client";
-import React, { createContext, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-/* import useLocalStorage from "@/hooks/useLocalStorage"; */
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
 let logoutTimer;
@@ -12,7 +11,6 @@ const AuthContext = React.createContext({
   login: (token, expirationTime) => {},
   logout: () => {},
 });
-/* const AuthContext = createContext(); */
 
 const calculationRemainingTime = (expirationTime) => {
   const currentTime = new Date().getTime();
@@ -24,16 +22,13 @@ const calculationRemainingTime = (expirationTime) => {
 
 const retrieveStoredToken = () => {
   if (!isWindowDefined()) return;
-  /* const storedToken = window.localStorage?.getItem("token");
-  const storedExpirationDate = window.localStorage.getItem("expirationTime"); */
+
   const storedToken = getCookie("token");
   const storedExpirationDate = getCookie("expirationTime");
 
   const remainingTime = calculationRemainingTime(storedExpirationDate);
 
   if (remainingTime <= 60000) {
-    /* window.localStorage.removeItem("token");
-    window.localStorage.removeItem("expirationTime"); */
     deleteCookie("token");
     deleteCookie("expirationTime");
     return null;
@@ -58,15 +53,11 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(!token);
 
-  /* const userIsLoggedIn = !!token; */
-
   const logoutHandler = useCallback(() => {
     setToken(null);
     setUserIsLoggedIn(false);
     deleteCookie("token");
     deleteCookie("expirationTime");
-    /* window.localStorage.removeItem("token");
-    window.localStorage.removeItem("expirationTime"); */
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -86,13 +77,10 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     if (!isWindowDefined()) {
-      /* console.log(isWindowDefined()); */
       return;
     }
-    /* console.log(window); */
 
     if (tokenData) {
-      /* console.log(tokenData.duration); */
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);

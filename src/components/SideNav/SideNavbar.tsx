@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-type Props = {};
-
+import { useContext, useState } from "react";
 import { MdOutlineInventory } from "react-icons/md";
 
 import {
@@ -12,17 +9,24 @@ import {
   ChevronRight,
   ChevronLeft,
   PlusCircle,
+  MinusCircle,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
+import AuthContext from "@/context/AuthContext";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { AddModal } from "../modals/AddModal";
 import { Button } from "../ui/button";
 import { Nav } from "../ui/nav";
 
+type Props = {};
+
 export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
+  const authCtx = useContext(AuthContext);
+  const router = useRouter();
 
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
@@ -31,23 +35,15 @@ export default function SideNavbar({}: Props) {
     setIsCollapsed(!isCollapsed);
   }
 
-/*   const handleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLogOut = async () => {
     try {
-      await logOut();
+      await authCtx.logout();
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(user); */
 
   return (
     <>
@@ -93,20 +89,21 @@ export default function SideNavbar({}: Props) {
               variant: "ghost",
               onClick: () => setShowAddModal(true),
             },
-          /*   {
+            /*   {
               title: "LogIn",
               href: "#",
               icon: PlusCircle,
               variant: "ghost",
               onClick: () => handleSignIn(),
             },
+            */
             {
               title: "LogOut",
               href: "#",
-              icon: PlusCircle,
+              icon: MinusCircle,
               variant: "ghost",
               onClick: () => handleLogOut(),
-            }, */
+            },
           ]}
         />
       </div>
