@@ -33,7 +33,6 @@ export const AddProduct = (): React.ReactElement => {
 
   const handleAddProduct = async () => {
     try {
-      /* await addProductToDB(); */
       const newProduct = { ...product, amount: +amount };
       await CreateProduct(newProduct);
       setModalStep(2);
@@ -42,20 +41,6 @@ export const AddProduct = (): React.ReactElement => {
       console.log(error);
     }
   };
-
-  /* const addProductToDB = async () => {
-    const { name, category, price, type, unit, purchasePrice } = product;
-    await addDoc(collection(db, "products"), {
-      name,
-      category,
-      price,
-      purchasePrice,
-      subcategory: type,
-      unit,
-      inventory: amount,
-      date: new Date().toString(),
-    });
-  }; */
 
   return (
     <>
