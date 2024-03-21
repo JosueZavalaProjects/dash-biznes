@@ -1,11 +1,9 @@
 "use client";
 import { useState } from "react";
 
-import { addDoc, collection } from "firebase/firestore";
-
 import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { useAmount } from "@/hooks/useAmount";
-import { db } from "@/services/firebase";
+import { useProduct } from "@/hooks/useProduct";
 import { Product, ProductKeys, Unit } from "@/types/addProduct";
 
 import { Modals } from "./components/modals";
@@ -20,6 +18,7 @@ export const AddProduct = (): React.ReactElement => {
   const [modalStep, setModalStep] = useState<number>(1);
 
   const { amount, handleSetAmount, removeDecimalPart } = useAmount(unit);
+  const { CreateProduct } = useProduct();
 
   const handleSetProduct = (value: string | number, key: ProductKeys) => {
     if (key === PRODUCT_KEYS.PRICE) value = +value;
@@ -34,7 +33,9 @@ export const AddProduct = (): React.ReactElement => {
 
   const handleAddProduct = async () => {
     try {
-      await addProductToDB();
+      /* await addProductToDB(); */
+      const newProduct = { ...product, amount: +amount };
+      await CreateProduct(newProduct);
       setModalStep(2);
       setProduct(MOCK_PRODUCT);
     } catch (error) {
@@ -42,7 +43,7 @@ export const AddProduct = (): React.ReactElement => {
     }
   };
 
-  const addProductToDB = async () => {
+  /* const addProductToDB = async () => {
     const { name, category, price, type, unit, purchasePrice } = product;
     await addDoc(collection(db, "products"), {
       name,
@@ -54,7 +55,7 @@ export const AddProduct = (): React.ReactElement => {
       inventory: amount,
       date: new Date().toString(),
     });
-  };
+  }; */
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import {
   addDoc,
   collection,
@@ -8,10 +10,12 @@ import {
 } from "firebase/firestore";
 
 import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
+import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 
 export const useSalesPoint = () => {
   const { paymentMethod, products, total } = useSalesPointState();
+  const authCtx = useContext(AuthContext);
 
   const salesRef = collection(db, "sales");
 
@@ -19,6 +23,7 @@ export const useSalesPoint = () => {
     ticketNumber: number,
     PaymentAmount?: number
   ) => {
+    const userEmail = authCtx.email;
     let string = JSON.stringify({
       products,
       payment: PaymentAmount || total,
@@ -26,6 +31,7 @@ export const useSalesPoint = () => {
       paymentMethod,
       ticket: ticketNumber + 1,
       date: new Date().toString(),
+      email: userEmail,
     });
     let newObj = JSON.parse(string);
 

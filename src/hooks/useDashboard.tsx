@@ -1,11 +1,14 @@
 import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "@/services/firebase";
+import { useContext } from "react";
+import AuthContext from "@/context/AuthContext";
 
 export const useDashboard = () => {
   const salesRef = collection(db, "sales");
   const productsRef = collection(db, "products");
   const expensesRef = collection(db, "expenses");
+  const authCtx = useContext(AuthContext);
 
   const getTotalSales = async () => {
     const qwerySnapshot = await getDocs(salesRef);

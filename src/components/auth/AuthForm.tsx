@@ -43,7 +43,7 @@ const AuthForm = () => {
         );
 
         const { localId, email } = data;
-        authCtx.login(localId, email, expirationTime.toISOString());
+        authCtx.login(email, localId, expirationTime.toISOString());
         router.refresh();
       })
       .catch((err: any) => {
