@@ -1,13 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import dayjs from "dayjs";
-import { collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 import { TAB_KEYS } from "@/constants/activities/purchases";
 import { uesrSalesData } from "@/constants/dashboard";
-import { db } from "@/services/firebase";
+import { useSales } from "@/hooks/useSales";
 
 import { CardContent } from "../../Card";
 import SalesCard, { SalesProps } from "../../SalesCard";
@@ -18,6 +16,7 @@ export const Sales = () => {
   const [countSales, setCountSales] = useState<number>(0);
   const { setTabName } = useActivitiesState();
   const router = useRouter();
+  const { GetRecentSales } = useSales();
 
   const hanldeOnclick = () => {
     setTabName(TAB_KEYS.SALES);
@@ -25,26 +24,9 @@ export const Sales = () => {
   };
 
   const handleGetSales = async () => {
-    const newSales = await getDataSales();
+    const newSales = await GetRecentSales();
     setCountSales(newSales.length);
     setUserSales(newSales.splice(0, 5));
-  };
-
-  const getDataSales = async () => {
-    const qwerySnapshot = await getDocs(collection(db, "sales"));
-
-    const response: SalesProps[] = [];
-
-    qwerySnapshot.forEach((doc) => {
-      const { total, date } = doc.data();
-
-      response.push({
-        ticketNumber: "Ticket 220",
-        date: dayjs(date).format("DD [de] MMMM YYYY"),
-        saleAmount: total,
-      });
-    });
-    return response;
   };
 
   useEffect(() => {

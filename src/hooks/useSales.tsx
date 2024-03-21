@@ -3,6 +3,7 @@ import { useContext } from "react";
 import dayjs from "dayjs";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
+import { SalesProps } from "@/components/SalesCard";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { Sale } from "@/types/sales";
@@ -30,5 +31,23 @@ export const useSales = () => {
     return response;
   };
 
-  return { GetDataSales };
+  const GetRecentSales = async () => {
+    const q = query(salesRef, where("adminEmail", "==", authCtx.email));
+    const qwerySnapshot = await getDocs(q);
+
+    const response: SalesProps[] = [];
+
+    qwerySnapshot.forEach((doc) => {
+      const { total, date } = doc.data();
+
+      response.push({
+        ticketNumber: "Ticket 220",
+        date: dayjs(date).format("DD [de] MMMM YYYY"),
+        saleAmount: total,
+      });
+    });
+    return response;
+  };
+
+  return { GetDataSales, GetRecentSales };
 };
