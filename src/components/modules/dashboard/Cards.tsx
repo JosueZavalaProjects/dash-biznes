@@ -13,7 +13,7 @@ export const Cards = () => {
   const [totalExpenses, setTotalExpenses] = useState<number>(0);
 
   const [cards, setCards] = useState<CardProps[]>(cardData);
-  const { getTotalSales, getDataProducts, getTotalExpenses } = useDashboard();
+  const { GetTotalSales, GetDataProducts, GetTotalExpenses } = useDashboard();
 
   const handleSetCards = (
     key: string,
@@ -30,7 +30,7 @@ export const Cards = () => {
   };
 
   const handleGetProducts = async () => {
-    const newProducts = await getDataProducts();
+    const newProducts = await GetDataProducts();
     const inventoryAmount = newProducts.reduce((a, b) => a + b);
     const inventoryLength = newProducts.length;
 
@@ -43,7 +43,7 @@ export const Cards = () => {
   };
 
   const handleGetSales = async () => {
-    const newSales = await getTotalSales();
+    const newSales = await GetTotalSales();
     const salesAmount = newSales.reduce((a, b) => a + b);
     setTotalSales(salesAmount);
 
@@ -57,7 +57,7 @@ export const Cards = () => {
   };
 
   const handleCalculateSpents = async () => {
-    const responseExpenses = await getTotalExpenses();
+    const responseExpenses = await GetTotalExpenses();
     const newExpenses = responseExpenses.reduce((a, b) => a + b);
 
     setTotalExpenses(newExpenses);

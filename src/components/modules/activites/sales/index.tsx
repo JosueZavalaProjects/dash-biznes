@@ -1,44 +1,25 @@
 import { useEffect, useState } from "react";
 
 import dayjs from "dayjs";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 import { data as SalesData } from "@/constants/activities/sales";
-import { db } from "@/services/firebase";
+import { useSales } from "@/hooks/useSales";
 import { Sale } from "@/types/sales";
 
 import { DataTable } from "../../../DataTable";
 import { columns } from "./table/columns";
+
 require("dayjs/locale/es");
 
 export const SalesTable = () => {
   const [sales, setSales] = useState<Sale[]>(SalesData);
-  const salesRef = collection(db, "sales");
+  const { GetDataSales } = useSales();
   dayjs.locale("es");
 
   const handleGetSales = async () => {
-    const newProducts = await getDataSales();
+    const newProducts = await GetDataSales();
 
     setSales(newProducts);
-  };
-
-  const getDataSales = async () => {
-    const q = query(salesRef, orderBy("ticket", "desc"));
-    const qwerySnapshot = await getDocs(q);
-
-    const response: Sale[] = [];
-
-    qwerySnapshot.forEach((doc) => {
-      const { total, paymentMethod, date, ticket } = doc.data();
-
-      response.push({
-        ticketNumber: ticket || "N/A",
-        date: dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
-        total,
-        method: paymentMethod || "cash",
-      });
-    });
-    return response;
   };
 
   useEffect(() => {

@@ -1,12 +1,9 @@
-import dayjs from "dayjs";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { useContext } from "react";
 
+import dayjs from "dayjs";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+
+import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { Expense } from "@/types/addExpense";
 import { Purchase } from "@/types/purchases";
@@ -14,6 +11,7 @@ require("dayjs/locale/es");
 
 export const useExpenses = () => {
   const expensesRef = collection(db, "expenses");
+  const authCtx = useContext(AuthContext);
   dayjs.locale("es");
 
   const addExpense = async (expense: Expense) => {
@@ -24,13 +22,14 @@ export const useExpenses = () => {
       type,
       amount,
       date: new Date().toString(),
+      adminEmail: authCtx.email,
     });
 
     return response;
   };
 
   const getExpenses = async () => {
-    const q = query(expensesRef, orderBy("date", "desc"));
+    const q = query(expensesRef, where("adminEmail", "==", authCtx.email));
     const qwerySnapshot = await getDocs(q);
 
     const response: Purchase[] = [];

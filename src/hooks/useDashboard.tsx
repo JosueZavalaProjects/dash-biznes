@@ -1,8 +1,9 @@
-import { collection, getDocs } from "firebase/firestore";
-
-import { db } from "@/services/firebase";
 import { useContext } from "react";
+
+import { collection, getDocs, query, where } from "firebase/firestore";
+
 import AuthContext from "@/context/AuthContext";
+import { db } from "@/services/firebase";
 
 export const useDashboard = () => {
   const salesRef = collection(db, "sales");
@@ -10,8 +11,10 @@ export const useDashboard = () => {
   const expensesRef = collection(db, "expenses");
   const authCtx = useContext(AuthContext);
 
-  const getTotalSales = async () => {
-    const qwerySnapshot = await getDocs(salesRef);
+  const GetTotalSales = async () => {
+    const q = query(salesRef, where("adminEmail", "==", authCtx.email));
+
+    const qwerySnapshot = await getDocs(q);
 
     const response: number[] = [];
 
@@ -22,8 +25,9 @@ export const useDashboard = () => {
     return response;
   };
 
-  const getTotalExpenses = async () => {
-    const qwerySnapshot = await getDocs(expensesRef);
+  const GetTotalExpenses = async () => {
+    const q = query(expensesRef, where("adminEmail", "==", authCtx.email));
+    const qwerySnapshot = await getDocs(q);
 
     const response: number[] = [];
 
@@ -34,8 +38,9 @@ export const useDashboard = () => {
     return response;
   };
 
-  const getDataProducts = async () => {
-    const qwerySnapshot = await getDocs(productsRef);
+  const GetDataProducts = async () => {
+    const q = query(productsRef, where("adminEmail", "==", authCtx.email));
+    const qwerySnapshot = await getDocs(q);
 
     const response: number[] = [];
 
@@ -47,5 +52,5 @@ export const useDashboard = () => {
     return response;
   };
 
-  return { getTotalSales, getDataProducts, getTotalExpenses };
+  return { GetTotalSales, GetDataProducts, GetTotalExpenses };
 };

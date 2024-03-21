@@ -23,7 +23,6 @@ export const useSalesPoint = () => {
     ticketNumber: number,
     PaymentAmount?: number
   ) => {
-    const userEmail = authCtx.email;
     let string = JSON.stringify({
       products,
       payment: PaymentAmount || total,
@@ -31,7 +30,7 @@ export const useSalesPoint = () => {
       paymentMethod,
       ticket: ticketNumber + 1,
       date: new Date().toString(),
-      email: userEmail,
+      adminEmail: authCtx.email,
     });
     let newObj = JSON.parse(string);
 
