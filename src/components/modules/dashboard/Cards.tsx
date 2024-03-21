@@ -31,7 +31,10 @@ export const Cards = () => {
 
   const handleGetProducts = async () => {
     const newProducts = await GetDataProducts();
-    const inventoryAmount = newProducts.reduce((a, b) => a + b);
+    const inventoryAmount = newProducts?.length
+      ? newProducts.reduce((a, b) => a + b)
+      : 0;
+
     const inventoryLength = newProducts.length;
 
     setInventorySpent(inventoryAmount);
@@ -44,7 +47,7 @@ export const Cards = () => {
 
   const handleGetSales = async () => {
     const newSales = await GetTotalSales();
-    const salesAmount = newSales.reduce((a, b) => a + b);
+    const salesAmount = newSales?.length ? newSales.reduce((a, b) => a + b) : 0;
     setTotalSales(salesAmount);
 
     handleSetCards(CARD_DATA_KEYS.SALES, salesAmount);
@@ -58,7 +61,9 @@ export const Cards = () => {
 
   const handleCalculateSpents = async () => {
     const responseExpenses = await GetTotalExpenses();
-    const newExpenses = responseExpenses.reduce((a, b) => a + b);
+    const newExpenses = responseExpenses?.length
+      ? responseExpenses.reduce((a, b) => a + b)
+      : 0;
 
     setTotalExpenses(newExpenses);
     handleSetCards(CARD_DATA_KEYS.SPENTS, newExpenses);

@@ -43,27 +43,27 @@ export const CARD_DATA_KEYS = {
 export const cardData: CardProps[] = [
   {
     label: CARD_DATA_KEYS.UTILITIES,
-    amount: "$5,231.89",
+    amount: "$0.00",
     description: "+20.1% desde el mes pasado",
     icon: DollarSign,
   },
   {
     label: CARD_DATA_KEYS.SALES,
-    amount: "+12,234",
+    amount: "$0.00",
     description: "+19% desde el mes pasado",
     icon: CreditCard,
     link: "/activities",
   },
   {
     label: CARD_DATA_KEYS.SPENTS,
-    amount: "-573",
+    amount: "$0.00",
     description: "+201 desde el mes pasado",
     icon: Activity,
     link: "/activities",
   },
   {
     label: CARD_DATA_KEYS.INVENTORY,
-    amount: "+$234",
+    amount: "$0.00",
     description: "+23 productos totales",
     icon: Users,
     link: "/inventory",
