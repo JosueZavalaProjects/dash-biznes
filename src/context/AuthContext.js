@@ -44,22 +44,21 @@ const retrieveStoredToken = () => {
 const isWindowDefined = () => typeof window !== "undefined";
 
 export const AuthContextProvider = (props) => {
-  const tokenData = retrieveStoredToken();
   let initialToken;
-
-  if (tokenData) {
-    initialToken = tokenData.token;
-  }
-
   const [token, setToken] = useState(initialToken);
   const [email, setEmail] = useState("");
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(!token);
+
+  const tokenData = retrieveStoredToken();
+
+  if (tokenData) initialToken = tokenData.token;
 
   const logoutHandler = useCallback(() => {
     setToken(null);
     setUserIsLoggedIn(false);
     deleteCookie("token");
     deleteCookie("expirationTime");
+    deleteCookie("email");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -73,6 +72,7 @@ export const AuthContextProvider = (props) => {
 
     setCookie("token", token);
     setCookie("expirationTime", expirationTime);
+    setCookie("email", userEmail);
 
     const remainingTime = calculationRemainingTime(expirationTime);
     logoutTimer = setTimeout(logoutHandler, remainingTime);
@@ -87,6 +87,14 @@ export const AuthContextProvider = (props) => {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);
+
+  useEffect(() => {
+    const _email = getCookie("email");
+    const _token = getCookie("token");
+
+    if (_email) setEmail(_email);
+    if (_token) setToken(_token);
+  }, []);
 
   const contextValue = {
     token: token,

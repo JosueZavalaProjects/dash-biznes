@@ -45,7 +45,6 @@ export const useProduct = () => {
 
     const response: InventoryProduct[] = [];
 
-    console.log(qwerySnapshot);
     qwerySnapshot.forEach((doc) => {
       const { name, category, subcategory, price, inventory, date } =
         doc.data();
