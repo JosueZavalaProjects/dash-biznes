@@ -65,11 +65,9 @@ export const useProduct = () => {
     return response;
   };
 
-  const DeleteProduct = async () => {
-    /* const productsRef = db.collection("products"); */
-    const response = await deleteDoc(
-      doc(db, "products", "tHL0H1Phck72RY5FcwHo")
-    );
+  const DeleteProduct = async (productId: string) => {
+    const response = await deleteDoc(doc(db, "products", productId));
+
     return response;
   };
 

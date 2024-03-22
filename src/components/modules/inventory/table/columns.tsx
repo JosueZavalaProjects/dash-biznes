@@ -55,10 +55,10 @@ export const InventoryColumns = ({
         const id: string = row.getValue("id");
         return (
           <p>
-            <SimpleButton onClick={() => handleClick(id)}>
+            <SimpleButton onClick={() => alert(id)}>
               <FaEdit />
             </SimpleButton>
-            <SimpleButton onClick={() => alert(id)}>
+            <SimpleButton onClick={() => handleClick(id)}>
               <FaRegTrashAlt />
             </SimpleButton>
           </p>

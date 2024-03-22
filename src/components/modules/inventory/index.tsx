@@ -16,9 +16,9 @@ export const InventoryTable = () => {
 
     setInventoryData(newProducts);
   };
-  const handleDeleteProduct = (id: string) => {
+  const handleDeleteProduct = async (id: string) => {
+    const response = await DeleteProduct(id);
     console.log({ id });
-    /* DeleteProduct(); */
   };
 
   useEffect(() => {
@@ -26,11 +26,13 @@ export const InventoryTable = () => {
   }, []);
 
   return (
-    <DataTable
-      columns={InventoryColumns({
-        handleClick: handleDeleteProduct,
-      })}
-      data={inventoryData}
-    />
+    <>
+      <DataTable
+        columns={InventoryColumns({
+          handleClick: handleDeleteProduct,
+        })}
+        data={inventoryData}
+      />
+    </>
   );
 };
