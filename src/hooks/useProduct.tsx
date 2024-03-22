@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   orderBy,
   query,
@@ -17,7 +19,7 @@ import { Product as InventoryProduct } from "@/types/inventory";
 
 export const useProduct = () => {
   const productsRef = collection(db, "products");
-  const authCtx = useContext(AuthContext);
+  const authCtx: any = useContext(AuthContext);
 
   const CreateProduct = async (product: Product) => {
     const { name, category, price, amount, type, unit, purchasePrice } =
@@ -50,6 +52,7 @@ export const useProduct = () => {
         doc.data();
 
       response.push({
+        id: doc.id,
         name,
         category,
         subcategory,
@@ -62,5 +65,13 @@ export const useProduct = () => {
     return response;
   };
 
-  return { CreateProduct, GetDataProducts };
+  const DeleteProduct = async () => {
+    /* const productsRef = db.collection("products"); */
+    const response = await deleteDoc(
+      doc(db, "products", "tHL0H1Phck72RY5FcwHo")
+    );
+    return response;
+  };
+
+  return { CreateProduct, GetDataProducts, DeleteProduct };
 };

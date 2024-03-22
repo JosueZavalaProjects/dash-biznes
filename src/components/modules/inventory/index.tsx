@@ -9,17 +9,28 @@ import { InventoryColumns } from "./table/columns";
 
 export const InventoryTable = () => {
   const [inventoryData, setInventoryData] = useState<Product[]>(productData);
-  const { GetDataProducts } = useProduct();
+  const { GetDataProducts, DeleteProduct } = useProduct();
 
   const handleGetProducts = async () => {
     const newProducts = await GetDataProducts();
 
     setInventoryData(newProducts);
   };
+  const handleDeleteProduct = (id: string) => {
+    console.log({ id });
+    /* DeleteProduct(); */
+  };
 
   useEffect(() => {
     handleGetProducts();
   }, []);
 
-  return <DataTable columns={InventoryColumns} data={inventoryData} />;
+  return (
+    <DataTable
+      columns={InventoryColumns({
+        handleClick: handleDeleteProduct,
+      })}
+      data={inventoryData}
+    />
+  );
 };
