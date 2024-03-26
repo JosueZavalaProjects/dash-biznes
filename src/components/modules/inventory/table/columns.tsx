@@ -6,11 +6,13 @@ import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
 
 type InventoryColumnsProps = {
-  handleClick: (id: string) => void;
+  handleDeleteProduct: (id: string) => void;
+  handleEditProduct: (id: string) => void;
 };
 
 export const InventoryColumns = ({
-  handleClick,
+  handleDeleteProduct,
+  handleEditProduct,
 }: InventoryColumnsProps): ColumnDef<Product>[] => {
   return [
     {
@@ -55,10 +57,10 @@ export const InventoryColumns = ({
         const id: string = row.getValue("id");
         return (
           <p>
-            <SimpleButton onClick={() => alert(id)}>
+            <SimpleButton onClick={() => handleEditProduct(id)}>
               <FaEdit />
             </SimpleButton>
-            <SimpleButton onClick={() => handleClick(id)}>
+            <SimpleButton onClick={() => handleDeleteProduct(id)}>
               <FaRegTrashAlt />
             </SimpleButton>
           </p>

@@ -10,6 +10,7 @@ import { PRODUCT_KEYS } from "@/constants/addProduct";
 import { Product, ProductKeys } from "@/types/addProduct";
 
 import { BackArrow } from "../../../../../../../public/assets";
+import { ProductForm } from "./productForm";
 
 type ProductInformationProps = {
   setStep: (nextStep: number) => void;
@@ -66,6 +67,15 @@ export const ProductInformation = ({
       </div>
 
       <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
+        <ProductForm
+          product={product}
+          handleSetValueProduct={handleSetValueProduct}
+          handleAddButton={() => setShowModal(true)}
+          isValidForm={isValidForm}
+        />
+      </div>
+
+      {/* <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
         <ContainerCard>
           <div className="flex flex-col gap-2 p-4">
             <Input
@@ -116,7 +126,7 @@ export const ProductInformation = ({
             </div>
           </div>
         </ContainerCard>
-      </div>
+      </div> */}
     </section>
   );
 };

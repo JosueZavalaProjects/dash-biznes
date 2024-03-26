@@ -2,10 +2,12 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
+  QuerySnapshot,
   addDoc,
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -43,11 +45,11 @@ export const useProduct = () => {
       where("adminEmail", "==", authCtx.email),
       orderBy("date", "desc")
     );
-    const qwerySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
 
     const response: InventoryProduct[] = [];
 
-    qwerySnapshot.forEach((doc) => {
+    querySnapshot.forEach((doc) => {
       const { name, category, subcategory, price, inventory, date } =
         doc.data();
 
@@ -71,5 +73,12 @@ export const useProduct = () => {
     return response;
   };
 
-  return { CreateProduct, GetDataProducts, DeleteProduct };
+  const GetProductByID = async (id: string) => {
+    const docRef = doc(db, "products", id);
+    const querySnapshot = await getDoc(docRef);
+
+    return querySnapshot.data();
+  };
+
+  return { CreateProduct, GetDataProducts, DeleteProduct, GetProductByID };
 };
