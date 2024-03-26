@@ -14,17 +14,22 @@ type InventoryModalProps = {
   setShowModal: (newValue: boolean) => void;
   modalStep: InventoryModalStep;
   product: Product;
+  handleSetProduct: (value: string | number, key?: ProductKeys) => void;
 };
 export const InventoryModal = ({
   showModal,
   setShowModal,
   modalStep = InventoryModalStep.edit,
   product,
+  handleSetProduct,
 }: InventoryModalProps) => {
   return (
     <Modal show={showModal} onClose={() => setShowModal(false)} size="lg">
       {modalStep === InventoryModalStep.edit && (
-        <EditProduct product={product} />
+        <EditProduct
+          product={product}
+          handleSetValueProduct={handleSetProduct}
+        />
       )}
     </Modal>
   );

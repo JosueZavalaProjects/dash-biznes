@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { MOCK_PRODUCT } from "@/constants/addProduct";
+import { DocumentData } from "firebase/firestore";
+
+import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { data as productData } from "@/constants/inventory";
 import { useProduct } from "@/hooks/useProduct";
 import { Product as ToAddProduct, ProductKeys } from "@/types/addProduct";
@@ -9,7 +11,6 @@ import { Product } from "@/types/inventory";
 import { DataTable } from "../../DataTable";
 import { InventoryModal, InventoryModalStep } from "./modal";
 import { InventoryColumns } from "./table/columns";
-import { DocumentData } from "firebase/firestore";
 
 export const InventoryTable = () => {
   const [inventoryData, setInventoryData] = useState<Product[]>(productData);
@@ -34,7 +35,7 @@ export const InventoryTable = () => {
   const handleEditProduct = async (id: string) => {
     setShowModal(true);
     const productResponse: DocumentData | undefined = await GetProductByID(id);
-    console.log(productResponse);
+
     const { category, subcategory, name, price, purchasePrice } =
       productResponse || {};
 
@@ -49,6 +50,16 @@ export const InventoryTable = () => {
     setProduct(newProduct);
   };
 
+  const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
+    const keyValue = key || "name";
+    if (key === PRODUCT_KEYS.PRICE) value = +value;
+    if (typeof value === "string") value = value.toLowerCase();
+
+    const newProduct = { ...product, [keyValue]: value };
+
+    setProduct(newProduct);
+  };
+
   useEffect(() => {
     handleGetProducts();
   }, []);
@@ -60,6 +71,7 @@ export const InventoryTable = () => {
         setShowModal={setShowModal}
         modalStep={modalStep}
         product={product}
+        handleSetProduct={handleSetValueProduct}
       />
       <DataTable
         columns={InventoryColumns({
