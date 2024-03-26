@@ -15,6 +15,7 @@ type InventoryModalProps = {
   modalStep: InventoryModalStep;
   product: Product;
   handleSetProduct: (value: string | number, key?: ProductKeys) => void;
+  isLoading: boolean;
 };
 export const InventoryModal = ({
   showModal,
@@ -22,6 +23,7 @@ export const InventoryModal = ({
   modalStep = InventoryModalStep.edit,
   product,
   handleSetProduct,
+  isLoading,
 }: InventoryModalProps) => {
   return (
     <Modal show={showModal} onClose={() => setShowModal(false)} size="lg">
@@ -29,6 +31,7 @@ export const InventoryModal = ({
         <EditProduct
           product={product}
           handleSetValueProduct={handleSetProduct}
+          isLoading={isLoading}
         />
       )}
     </Modal>

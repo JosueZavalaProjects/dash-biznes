@@ -15,6 +15,7 @@ import { InventoryColumns } from "./table/columns";
 export const InventoryTable = () => {
   const [inventoryData, setInventoryData] = useState<Product[]>(productData);
   const [showModal, setShowModal] = useState(false);
+  const [isLoadingModal, setIsLoadingModal] = useState(false);
   const [modalStep, setModalStep] = useState<InventoryModalStep>(
     InventoryModalStep.edit
   );
@@ -34,20 +35,29 @@ export const InventoryTable = () => {
 
   const handleEditProduct = async (id: string) => {
     setShowModal(true);
-    const productResponse: DocumentData | undefined = await GetProductByID(id);
+    setIsLoadingModal(true);
+    try {
+      const productResponse: DocumentData | undefined = await GetProductByID(
+        id
+      );
 
-    const { category, subcategory, name, price, purchasePrice } =
-      productResponse || {};
+      const { category, subcategory, name, price, purchasePrice } =
+        productResponse || {};
 
-    const newProduct = {
-      ...product,
-      category,
-      type: subcategory,
-      name,
-      price,
-      purchasePrice,
-    };
-    setProduct(newProduct);
+      const newProduct = {
+        ...product,
+        category,
+        type: subcategory,
+        name,
+        price,
+        purchasePrice,
+      };
+      setProduct(newProduct);
+    } catch {
+      throw new Error("Error getting product");
+    } finally {
+      setIsLoadingModal(false);
+    }
   };
 
   const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
@@ -72,6 +82,7 @@ export const InventoryTable = () => {
         modalStep={modalStep}
         product={product}
         handleSetProduct={handleSetValueProduct}
+        isLoading={isLoadingModal}
       />
       <DataTable
         columns={InventoryColumns({

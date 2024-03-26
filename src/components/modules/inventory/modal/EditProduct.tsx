@@ -1,19 +1,19 @@
-import { useState } from "react";
-
-import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
+import Text from "@/components/ui/text";
 import { Product, ProductKeys } from "@/types/addProduct";
 
-import { ProductInformation } from "../../addProduct/components/steps/productInformation";
 import { ProductForm } from "../../addProduct/components/steps/productInformation/productForm";
+import { Loading } from "@/components/modals/components/Loading";
 
 type EditProductProps = {
   product: Product;
   handleSetValueProduct: (value: string | number, key?: ProductKeys) => void;
+  isLoading: boolean;
 };
 
 export const EditProduct = ({
   product,
   handleSetValueProduct,
+  isLoading = true,
 }: EditProductProps) => {
   /* const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
     const keyValue = key || "name";
@@ -28,13 +28,25 @@ export const EditProduct = ({
   const isValidForm = true;
 
   return (
-    <div className="flex sm:w-[440px] justify-center bg-white rounded-lg  mx-auto">
-      <ProductForm
-        product={product}
-        handleSetValueProduct={handleSetValueProduct}
-        handleAddButton={() => {}}
-        isValidForm={isValidForm}
-      />
-    </div>
+    <section>
+      <div className="">
+        <Text size="3xl">Editar Producto</Text>
+      </div>
+      {isLoading && (
+        <div className="flex justify-center">
+          <Loading />
+        </div>
+      )}
+      {!isLoading && (
+        <div className="flex sm:w-[440px] justify-center bg-white rounded-lg mx-auto py-8">
+          <ProductForm
+            product={product}
+            handleSetValueProduct={handleSetValueProduct}
+            handleAddButton={() => {}}
+            isValidForm={isValidForm}
+          />
+        </div>
+      )}
+    </section>
   );
 };
