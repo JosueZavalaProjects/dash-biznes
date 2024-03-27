@@ -19,7 +19,6 @@ export const EditProduct = ({
   updateProduct,
   handleCancel,
 }: EditProductProps) => {
-  const handleAddButton = () => {};
   const isValidForm = true;
 
   return (

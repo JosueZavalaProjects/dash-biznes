@@ -79,7 +79,7 @@ export const InventoryTable = () => {
 
     response
       .then((res) => {
-        console.log({ res });
+        setModalStep(InventoryModalStep.editConfirm);
       })
       .catch((e) => {
         console.log(e);
@@ -103,6 +103,7 @@ export const InventoryTable = () => {
         handleSetProduct={handleSetValueProduct}
         isLoading={isLoadingModal}
         updateProduct={handleUpdateProduct}
+        setModalStep={setModalStep}
       />
       <DataTable
         columns={InventoryColumns({
