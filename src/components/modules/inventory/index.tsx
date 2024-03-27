@@ -16,12 +16,14 @@ export const InventoryTable = () => {
   const [inventoryData, setInventoryData] = useState<Product[]>(productData);
   const [showModal, setShowModal] = useState(false);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
+  const [productId, setProductId] = useState<string>("");
   const [modalStep, setModalStep] = useState<InventoryModalStep>(
     InventoryModalStep.edit
   );
   const [product, setProduct] = useState<ToAddProduct>(MOCK_PRODUCT);
 
-  const { GetDataProducts, DeleteProduct, GetProductByID } = useProduct();
+  const { GetDataProducts, DeleteProduct, GetProductByID, UpdateProduct } =
+    useProduct();
 
   const handleGetProducts = async () => {
     const newProducts = await GetDataProducts();
@@ -33,9 +35,10 @@ export const InventoryTable = () => {
     console.log({ id });
   };
 
-  const handleEditProduct = async (id: string) => {
+  const handleGetProduct = async (id: string) => {
     setShowModal(true);
     setIsLoadingModal(true);
+    setProductId(id);
     try {
       const productResponse: DocumentData | undefined = await GetProductByID(
         id
@@ -70,6 +73,22 @@ export const InventoryTable = () => {
     setProduct(newProduct);
   };
 
+  const handleUpdateProduct = () => {
+    const response = UpdateProduct(productId, product);
+    setIsLoadingModal(true);
+
+    response
+      .then((res) => {
+        console.log({ res });
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {
+        setIsLoadingModal(false);
+      });
+  };
+
   useEffect(() => {
     handleGetProducts();
   }, []);
@@ -83,11 +102,12 @@ export const InventoryTable = () => {
         product={product}
         handleSetProduct={handleSetValueProduct}
         isLoading={isLoadingModal}
+        updateProduct={handleUpdateProduct}
       />
       <DataTable
         columns={InventoryColumns({
           handleDeleteProduct: handleDeleteProduct,
-          handleEditProduct: handleEditProduct,
+          handleEditProduct: handleGetProduct,
         })}
         data={inventoryData}
       />

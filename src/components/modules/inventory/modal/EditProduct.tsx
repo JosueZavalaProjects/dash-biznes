@@ -8,22 +8,17 @@ type EditProductProps = {
   product: Product;
   handleSetValueProduct: (value: string | number, key?: ProductKeys) => void;
   isLoading: boolean;
+  updateProduct: () => void;
+  handleCancel: () => void;
 };
 
 export const EditProduct = ({
   product,
   handleSetValueProduct,
   isLoading = true,
+  updateProduct,
+  handleCancel,
 }: EditProductProps) => {
-  /* const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
-    const keyValue = key || "name";
-    if (key === PRODUCT_KEYS.PRICE) value = +value;
-    if (typeof value === "string") value = value.toLowerCase();
-
-    const newProduct = { ...product, [keyValue]: value };
-
-    setProduct(newProduct);
-  }; */
   const handleAddButton = () => {};
   const isValidForm = true;
 
@@ -42,8 +37,11 @@ export const EditProduct = ({
           <ProductForm
             product={product}
             handleSetValueProduct={handleSetValueProduct}
-            handleAddButton={() => {}}
+            handleAddButton={updateProduct}
             isValidForm={isValidForm}
+            buttonText="Actualizar"
+            cancelButton={true}
+            cancelAction={handleCancel}
           />
         </div>
       )}

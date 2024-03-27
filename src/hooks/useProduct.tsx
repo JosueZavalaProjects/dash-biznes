@@ -11,6 +11,7 @@ import {
   getDocs,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 
@@ -80,5 +81,26 @@ export const useProduct = () => {
     return querySnapshot.data();
   };
 
-  return { CreateProduct, GetDataProducts, DeleteProduct, GetProductByID };
+  const UpdateProduct = async (id: string, product: Product) => {
+    const docRef = doc(db, "products", id);
+    const { name, category, price, type, purchasePrice } = product;
+    const newProduct = {
+      name,
+      category,
+      price,
+      purchasePrice,
+      subcategory: type,
+      updatedDate: new Date().toString(),
+    };
+
+    return await updateDoc(docRef, newProduct);
+  };
+
+  return {
+    CreateProduct,
+    GetDataProducts,
+    DeleteProduct,
+    GetProductByID,
+    UpdateProduct,
+  };
 };

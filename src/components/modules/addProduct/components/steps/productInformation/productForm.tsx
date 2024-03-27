@@ -9,6 +9,9 @@ type ProductFormProps = {
   handleSetValueProduct: (value: string, key?: ProductKeys) => void;
   handleAddButton: () => void;
   isValidForm: boolean;
+  buttonText?: string;
+  cancelButton?: boolean;
+  cancelAction?: () => void;
 };
 
 export const ProductForm = ({
@@ -16,6 +19,9 @@ export const ProductForm = ({
   handleSetValueProduct,
   handleAddButton,
   isValidForm,
+  buttonText,
+  cancelButton,
+  cancelAction,
 }: ProductFormProps) => {
   return (
     <ContainerCard>
@@ -57,14 +63,23 @@ export const ProductForm = ({
           setValue={handleSetValueProduct}
           type="number"
         />
-        <div className="flex justify-center pt-4">
+        <div className="flex justify-center pt-4 gap-4">
           <SimpleButton
             className="!py-4 !px-8"
             onClick={handleAddButton}
             disabled={!isValidForm}
           >
-            Agregar
+            {buttonText || "Agregar"}
           </SimpleButton>
+          {cancelButton && (
+            <SimpleButton
+              bgColor="negative"
+              className="!py-4 !px-8"
+              onClick={cancelAction}
+            >
+              Cancelar
+            </SimpleButton>
+          )}
         </div>
       </div>
     </ContainerCard>

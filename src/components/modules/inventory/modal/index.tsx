@@ -16,6 +16,7 @@ type InventoryModalProps = {
   product: Product;
   handleSetProduct: (value: string | number, key?: ProductKeys) => void;
   isLoading: boolean;
+  updateProduct: () => void;
 };
 export const InventoryModal = ({
   showModal,
@@ -24,6 +25,7 @@ export const InventoryModal = ({
   product,
   handleSetProduct,
   isLoading,
+  updateProduct,
 }: InventoryModalProps) => {
   return (
     <Modal show={showModal} onClose={() => setShowModal(false)} size="lg">
@@ -32,6 +34,8 @@ export const InventoryModal = ({
           product={product}
           handleSetValueProduct={handleSetProduct}
           isLoading={isLoading}
+          updateProduct={updateProduct}
+          handleCancel={() => setShowModal(false)}
         />
       )}
     </Modal>
