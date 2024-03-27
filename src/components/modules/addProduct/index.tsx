@@ -22,7 +22,6 @@ export const AddProduct = (): React.ReactElement => {
 
   const handleSetProduct = (value: string | number, key: ProductKeys) => {
     if (key === PRODUCT_KEYS.PRICE) value = +value;
-    if (typeof value === "string") value = value.toLowerCase();
 
     const newProduct = { ...product, [key]: value };
 

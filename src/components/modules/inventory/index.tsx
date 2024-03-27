@@ -66,7 +66,6 @@ export const InventoryTable = () => {
   const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
     const keyValue = key || "name";
     if (key === PRODUCT_KEYS.PRICE) value = +value;
-    if (typeof value === "string") value = value.toLowerCase();
 
     const newProduct = { ...product, [keyValue]: value };
 
