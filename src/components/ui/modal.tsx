@@ -5,7 +5,7 @@ import cn from "classnames";
 
 import Portal from "@/hoc/portal";
 
-type Size = "xs" | "md" | "lg" | "xl" | "none";
+export type Size = "xs" | "md" | "lg" | "xl" | "none";
 
 export type ModalProps = {
   children: React.ReactNode;

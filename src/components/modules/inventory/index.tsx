@@ -6,10 +6,10 @@ import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { data as productData } from "@/constants/inventory";
 import { useProduct } from "@/hooks/useProduct";
 import { Product as ToAddProduct, ProductKeys } from "@/types/addProduct";
-import { Product } from "@/types/inventory";
+import { InventoryModalStep, Product } from "@/types/inventory";
 
 import { DataTable } from "../../DataTable";
-import { InventoryModal, InventoryModalStep } from "./modal";
+import { InventoryModal } from "./modal";
 import { InventoryColumns } from "./table/columns";
 
 export const InventoryTable = () => {
@@ -30,9 +30,24 @@ export const InventoryTable = () => {
 
     setInventoryData(newProducts);
   };
-  const handleDeleteProduct = async (id: string) => {
-    const response = await DeleteProduct(id);
-    console.log({ id });
+
+  const handleOpenDeleteModal = (id: string) => {
+    setShowModal(true);
+    setModalStep(InventoryModalStep.delete);
+    setProductId(id);
+  };
+
+  const handleDeleteProduct = async () => {
+    setIsLoadingModal(true);
+    try {
+      const response = await DeleteProduct(productId);
+      console.log({ response });
+      //TODO: Modal Delete confirm
+    } catch {
+      throw new Error("Something went wrong");
+    } finally {
+      setIsLoadingModal(false);
+    }
   };
 
   const handleGetProduct = async (id: string) => {
@@ -102,11 +117,12 @@ export const InventoryTable = () => {
         handleSetProduct={handleSetValueProduct}
         isLoading={isLoadingModal}
         updateProduct={handleUpdateProduct}
+        deleteProduct={handleDeleteProduct}
         setModalStep={setModalStep}
       />
       <DataTable
         columns={InventoryColumns({
-          handleDeleteProduct: handleDeleteProduct,
+          handleDeleteProduct: handleOpenDeleteModal,
           handleEditProduct: handleGetProduct,
         })}
         data={inventoryData}

@@ -7,3 +7,10 @@ export type Product = {
   inventory: number;
   dateAdded: string;
 };
+
+export enum InventoryModalStep {
+  edit,
+  delete,
+  deleteConfirm,
+  editConfirm,
+}

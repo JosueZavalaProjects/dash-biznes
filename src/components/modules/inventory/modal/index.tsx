@@ -1,15 +1,11 @@
 import Modal from "@/components/ui/modal";
+import { INVENTORY_MODAL_SIZE } from "@/constants/inventory";
 import { Product, ProductKeys } from "@/types/addProduct";
+import { InventoryModalStep } from "@/types/inventory";
 
-import { EditProduct } from "./EditProduct";
 import { EditConfirm } from "./confirmation/EditConfirm";
-
-export enum InventoryModalStep {
-  edit,
-  delete,
-  deleteConfirm,
-  editConfirm,
-}
+import { DeleteProductModal } from "./DeleteProduct";
+import { EditProduct } from "./EditProduct";
 
 type InventoryModalProps = {
   showModal: boolean;
@@ -19,6 +15,7 @@ type InventoryModalProps = {
   handleSetProduct: (value: string | number, key?: ProductKeys) => void;
   isLoading: boolean;
   updateProduct: () => void;
+  deleteProduct: () => Promise<void>;
   setModalStep: (step: InventoryModalStep) => void;
 };
 export const InventoryModal = ({
@@ -29,6 +26,7 @@ export const InventoryModal = ({
   handleSetProduct,
   isLoading,
   updateProduct,
+  deleteProduct,
   setModalStep,
 }: InventoryModalProps) => {
   const handleContinueAction = () => {
@@ -36,7 +34,11 @@ export const InventoryModal = ({
     setShowModal(false);
   };
   return (
-    <Modal show={showModal} onClose={() => setShowModal(false)} size="lg">
+    <Modal
+      show={showModal}
+      onClose={() => setShowModal(false)}
+      size={INVENTORY_MODAL_SIZE[modalStep]}
+    >
       {modalStep === InventoryModalStep.edit && (
         <EditProduct
           product={product}
@@ -48,6 +50,13 @@ export const InventoryModal = ({
       )}
       {modalStep === InventoryModalStep.editConfirm && (
         <EditConfirm continueAction={handleContinueAction} />
+      )}
+      {modalStep === InventoryModalStep.delete && (
+        <DeleteProductModal
+          isLoading={isLoading}
+          deleteProduct={deleteProduct}
+          closeModal={() => setShowModal(false)}
+        />
       )}
     </Modal>
   );

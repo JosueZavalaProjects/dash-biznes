@@ -1,13 +1,12 @@
-import { Product } from "@/types/inventory";
+import { Size as ModalSize } from "@/components/ui/modal";
+import { InventoryModalStep, Product } from "@/types/inventory";
 
-export const data: Product[] = [
+export const data: Product[] = [];
+
+export const INVENTORY_MODAL_SIZE: { [key in InventoryModalStep]: ModalSize } =
   {
-    id: "tHL0H1Phck72RY5FcwHo",
-    name: "playera de las tortugas ninja",
-    category: "2023-01-01",
-    subcategory: "Credit Card",
-    price: 500,
-    inventory: 50,
-    dateAdded: "20 Enero 2024",
-  },
-];
+    [InventoryModalStep.delete]: "md",
+    [InventoryModalStep.deleteConfirm]: "md",
+    [InventoryModalStep.edit]: "lg",
+    [InventoryModalStep.editConfirm]: "lg",
+  };
