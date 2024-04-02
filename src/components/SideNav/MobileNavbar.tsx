@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
+import { IconType } from "react-icons/lib";
+import { MdOutlineInventory } from "react-icons/md";
 
 import {
   GanttChartSquare,
   LayoutDashboard,
   LucideIcon,
   PlusCircle,
-  UsersRound,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,7 +18,7 @@ import { AddModal } from "../modals/AddModal";
 import { buttonVariants } from "../ui/button";
 
 type FooterIcons = {
-  icon: LucideIcon;
+  icon: LucideIcon | IconType;
   alt: string;
   link?: string;
   modal?: boolean;
@@ -25,7 +26,7 @@ type FooterIcons = {
 
 const FOOTER_ICONS: FooterIcons[] = [
   { icon: LayoutDashboard, alt: "Dashboard", link: "/" },
-  { icon: UsersRound, alt: "Inventory", link: "/inventory" },
+  { icon: MdOutlineInventory, alt: "Inventory", link: "/inventory" },
   { icon: GanttChartSquare, alt: "Activities", link: "/activities" },
   { icon: PlusCircle, alt: "Agregar", modal: true },
 ];
