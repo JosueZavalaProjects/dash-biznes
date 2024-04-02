@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   PlusCircle,
   MinusCircle,
+  GanttChartSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -73,13 +74,13 @@ export default function SideNavbar({}: Props) {
             {
               title: "Invetario",
               href: "/inventory",
-              icon: UsersRound,
+              icon: MdOutlineInventory,
               variant: "ghost",
             },
             {
               title: "Actividades",
               href: "/activities",
-              icon: MdOutlineInventory,
+              icon: GanttChartSquare,
               variant: "ghost",
             },
             {
