@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { IconType } from "react-icons/lib";
 import { MdOutlineInventory } from "react-icons/md";
 
 import {
@@ -15,7 +16,6 @@ import { cn } from "@/lib/utils";
 
 import { AddModal } from "../modals/AddModal";
 import { buttonVariants } from "../ui/button";
-import { IconType } from "react-icons/lib";
 
 type FooterIcons = {
   icon: LucideIcon | IconType;
