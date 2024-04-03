@@ -31,6 +31,7 @@ export default function RootLayout({
   }, [authCtx]);
 
   useEffect(() => {
+    // La cookie "products" solo de persistir en salesPoint
     if (pathname !== "/salesPoint") deleteCookie("products");
   }, [pathname]);
 

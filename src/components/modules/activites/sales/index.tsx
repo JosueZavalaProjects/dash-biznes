@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
+import { setCookie } from "cookies-next";
 import dayjs from "dayjs";
+import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 import { data as SalesData } from "@/constants/activities/sales";
@@ -8,12 +10,9 @@ import { useSales } from "@/hooks/useSales";
 import { Sale, SalesModalStep } from "@/types/sales";
 
 import { DataTable } from "../../../DataTable";
+import useSalesPointState from "../../salesPoint/states/sales-point-state";
 import { SalesModal } from "./modals/deleteModal";
 import { SalesColumns } from "./table/columns";
-import useSalesPointState from "../../salesPoint/states/sales-point-state";
-import { ProductCheckout } from "@/types/salesPoint";
-import { DocumentData } from "firebase/firestore";
-import { setCookie } from "cookies-next";
 
 require("dayjs/locale/es");
 
@@ -41,8 +40,8 @@ export const SalesTable = () => {
     const saleReponse: DocumentData | undefined = await GetSaleByID(id);
     const { products } = saleReponse || {};
 
-    setCookie("products", JSON.stringify(products));
     router.push("/salesPoint");
+    setCookie("products", JSON.stringify(products));
   };
 
   const handleShowModal = (id: string) => {

@@ -37,6 +37,7 @@ export const Total = () => {
   };
 
   useEffect(() => {
+    // En caso de existir la cookie se esta editando la venta
     const products = getCookie("products");
     if (products) {
       const cookiesProducts = JSON.parse(products);
