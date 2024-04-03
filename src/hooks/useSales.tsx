@@ -5,6 +5,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   query,
   where,
@@ -57,11 +58,18 @@ export const useSales = () => {
     return response;
   };
 
+  const GetSaleByID = async (id: string) => {
+    const docRef = doc(db, "sales", id);
+    const querySnapshot = await getDoc(docRef);
+
+    return querySnapshot.data();
+  };
+
   const DeleteSale = async (saleId: string) => {
     const response = await deleteDoc(doc(db, "sales", saleId));
 
     return response;
   };
 
-  return { GetDataSales, GetRecentSales, DeleteSale };
+  return { GetDataSales, GetRecentSales, DeleteSale, GetSaleByID };
 };

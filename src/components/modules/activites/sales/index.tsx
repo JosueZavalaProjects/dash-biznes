@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 
 import { data as SalesData } from "@/constants/activities/sales";
 import { useSales } from "@/hooks/useSales";
@@ -9,6 +10,10 @@ import { Sale, SalesModalStep } from "@/types/sales";
 import { DataTable } from "../../../DataTable";
 import { SalesModal } from "./modals/deleteModal";
 import { SalesColumns } from "./table/columns";
+import useSalesPointState from "../../salesPoint/states/sales-point-state";
+import { ProductCheckout } from "@/types/salesPoint";
+import { DocumentData } from "firebase/firestore";
+import { setCookie } from "cookies-next";
 
 require("dayjs/locale/es");
 
@@ -21,7 +26,9 @@ export const SalesTable = () => {
     SalesModalStep.delete
   );
 
-  const { GetDataSales, DeleteSale } = useSales();
+  const { GetDataSales, DeleteSale, GetSaleByID } = useSales();
+  const { updateProduct } = useSalesPointState();
+  const router = useRouter();
   dayjs.locale("es");
 
   const handleGetSales = async () => {
@@ -30,8 +37,12 @@ export const SalesTable = () => {
     setSales(newProducts);
   };
 
-  const handleEditSale = (id: string) => {
-    console.log(id);
+  const handleEditSale = async (id: string) => {
+    const saleReponse: DocumentData | undefined = await GetSaleByID(id);
+    const { products } = saleReponse || {};
+
+    setCookie("products", JSON.stringify(products));
+    router.push("/salesPoint");
   };
 
   const handleShowModal = (id: string) => {

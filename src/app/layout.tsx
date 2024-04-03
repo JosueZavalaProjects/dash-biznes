@@ -1,7 +1,8 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 
-import { getCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
+import { usePathname } from "next/navigation";
 
 import "./globals.css";
 import { Loading } from "@/components/modals/components/Loading";
@@ -20,6 +21,7 @@ export default function RootLayout({
   const [isLogued, setIsLogued] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const authCtx = useContext(AuthContext);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!authCtx) return;
@@ -27,6 +29,10 @@ export default function RootLayout({
     setIsLogued(authCtx.isLoggedIn);
     setIsLoading(false);
   }, [authCtx]);
+
+  useEffect(() => {
+    if (pathname !== "/salesPoint") deleteCookie("products");
+  }, [pathname]);
 
   return (
     <html lang="en">

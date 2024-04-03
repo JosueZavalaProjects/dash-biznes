@@ -1,4 +1,6 @@
+import { deleteCookie } from "cookies-next";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import Modal from "../ui/modal";
 import { SimpleButton } from "../ui/simpleButton";
@@ -10,6 +12,12 @@ type ModalProps = {
 };
 
 export const AddModal = ({ show, setShow }: ModalProps) => {
+  const pathname = usePathname();
+  const handleSalesPoint = () => {
+    deleteCookie("products");
+    setShow(false);
+    if (pathname === "/salesPoint") window.location.href = "/salesPoint";
+  };
   return (
     <Modal show={show} onClose={() => setShow(false)}>
       <div className="grid py-12">
@@ -18,7 +26,9 @@ export const AddModal = ({ show, setShow }: ModalProps) => {
             ¿Qué Necesitas Agregar?
           </Text>
           <Link href={"/salesPoint"} className="cursor-pointer">
-            <SimpleButton onClick={() => setShow(false)}>Ventas</SimpleButton>
+            <SimpleButton onClick={() => handleSalesPoint()}>
+              Ventas
+            </SimpleButton>
           </Link>
           <Link href={"/addProduct"}>
             <SimpleButton onClick={() => setShow(false)}>Producto</SimpleButton>
