@@ -1,7 +1,14 @@
 import { useContext } from "react";
 
 import dayjs from "dayjs";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { SalesProps } from "@/components/SalesCard";
 import AuthContext from "@/context/AuthContext";
@@ -22,6 +29,7 @@ export const useSales = () => {
       const { total, paymentMethod, date, ticket } = doc.data();
 
       response.push({
+        id: doc.id,
         ticketNumber: ticket || "N/A",
         date: dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
         total,
@@ -49,5 +57,11 @@ export const useSales = () => {
     return response;
   };
 
-  return { GetDataSales, GetRecentSales };
+  const DeleteSale = async (saleId: string) => {
+    const response = await deleteDoc(doc(db, "sales", saleId));
+
+    return response;
+  };
+
+  return { GetDataSales, GetRecentSales, DeleteSale };
 };

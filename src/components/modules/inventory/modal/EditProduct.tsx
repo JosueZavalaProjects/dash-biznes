@@ -1,8 +1,8 @@
+import { Loading } from "@/components/modals/components/Loading";
 import Text from "@/components/ui/text";
 import { Product, ProductKeys } from "@/types/addProduct";
 
 import { ProductForm } from "../../addProduct/components/steps/productInformation/productForm";
-import { Loading } from "@/components/modals/components/Loading";
 
 type EditProductProps = {
   product: Product;

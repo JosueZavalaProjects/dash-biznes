@@ -14,8 +14,8 @@ import { InventoryColumns } from "./table/columns";
 
 export const InventoryTable = () => {
   const [inventoryData, setInventoryData] = useState<Product[]>(productData);
-  const [showModal, setShowModal] = useState(false);
-  const [isLoadingModal, setIsLoadingModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoadingModal, setIsLoadingModal] = useState<boolean>(false);
   const [productId, setProductId] = useState<string>("");
   const [modalStep, setModalStep] = useState<InventoryModalStep>(
     InventoryModalStep.edit
