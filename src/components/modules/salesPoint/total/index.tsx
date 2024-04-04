@@ -10,6 +10,7 @@ import { ContainerCard } from "@/components/ui/containerCard";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 import { TAB_KEYS } from "@/constants/salesPoint";
+import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
 import useSalesPointState from "../states/sales-point-state";
@@ -21,6 +22,7 @@ export const Total = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const { products, total, clearSale, updateProduct, setTabName } =
     useSalesPointState();
+  const { UpdateSale } = useSalesPoint();
   const router = useRouter();
 
   dayjs.locale("es");
@@ -34,6 +36,21 @@ export const Total = () => {
   const handleCancelEdit = () => {
     clearSale();
     router.push("activities");
+  };
+
+  const handleUpdateSale = async () => {
+    const saleId = getCookie("saleID");
+
+    if (!saleId) {
+      console.log("No hay id de la venta para actualizar");
+      return;
+    }
+    try {
+      const response = await UpdateSale(saleId);
+      console.log(response);
+    } catch (e) {
+      throw new Error("Something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -85,7 +102,9 @@ export const Total = () => {
                 <SimpleButton bgColor="gray" onClick={() => handleCancelEdit()}>
                   Cancelar
                 </SimpleButton>
-                <SimpleButton>Guardar</SimpleButton>
+                <SimpleButton onClick={() => handleUpdateSale()}>
+                  Guardar
+                </SimpleButton>
               </div>
             )}
             {!isEdit && (

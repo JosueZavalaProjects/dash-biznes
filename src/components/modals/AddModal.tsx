@@ -15,6 +15,7 @@ export const AddModal = ({ show, setShow }: ModalProps) => {
   const pathname = usePathname();
   const handleSalesPoint = () => {
     deleteCookie("products");
+    deleteCookie("saleID");
     setShow(false);
     if (pathname === "/salesPoint") window.location.href = "/salesPoint";
   };

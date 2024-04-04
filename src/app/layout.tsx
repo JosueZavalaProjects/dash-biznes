@@ -32,7 +32,10 @@ export default function RootLayout({
 
   useEffect(() => {
     // La cookie "products" solo de persistir en salesPoint
-    if (pathname !== "/salesPoint") deleteCookie("products");
+    if (pathname !== "/salesPoint") {
+      deleteCookie("products");
+      deleteCookie("saleID");
+    }
   }, [pathname]);
 
   return (

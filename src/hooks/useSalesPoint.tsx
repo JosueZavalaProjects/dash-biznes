@@ -3,10 +3,12 @@ import { useContext } from "react";
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 
@@ -77,5 +79,21 @@ export const useSalesPoint = () => {
     return await _handleAddSaleToDB(ticketNumber, PaymentAmount);
   };
 
-  return { CreateSale, GetDataProducts };
+  const UpdateSale = async (id: string) => {
+    let string = JSON.stringify({
+      products,
+      payment: total,
+      total,
+      paymentMethod,
+      date: new Date().toString(),
+      adminEmail: authCtx.email,
+    });
+    let newObj = JSON.parse(string);
+
+    const docRef = doc(db, "sales", id);
+
+    return await updateDoc(docRef, newObj);
+  };
+
+  return { CreateSale, GetDataProducts, UpdateSale };
 };

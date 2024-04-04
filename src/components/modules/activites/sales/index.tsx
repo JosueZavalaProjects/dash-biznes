@@ -39,6 +39,7 @@ export const SalesTable = () => {
     const { products } = saleReponse || {};
 
     setCookie("products", JSON.stringify(products));
+    setCookie("saleID", id);
     router.push("/salesPoint");
   };
 
@@ -55,7 +56,6 @@ export const SalesTable = () => {
       console.log({ response });
       setModalStep(SalesModalStep.deleteConfirm);
       handleGetSales();
-      //TODO: Modal Delete confirm
     } catch {
       throw new Error("Something went wrong");
     } finally {
