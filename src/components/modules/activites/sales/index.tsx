@@ -10,7 +10,6 @@ import { useSales } from "@/hooks/useSales";
 import { Sale, SalesModalStep } from "@/types/sales";
 
 import { DataTable } from "../../../DataTable";
-import useSalesPointState from "../../salesPoint/states/sales-point-state";
 import { SalesModal } from "./modals/deleteModal";
 import { SalesColumns } from "./table/columns";
 
@@ -26,7 +25,6 @@ export const SalesTable = () => {
   );
 
   const { GetDataSales, DeleteSale, GetSaleByID } = useSales();
-  const { updateProduct } = useSalesPointState();
   const router = useRouter();
   dayjs.locale("es");
 
@@ -40,8 +38,8 @@ export const SalesTable = () => {
     const saleReponse: DocumentData | undefined = await GetSaleByID(id);
     const { products } = saleReponse || {};
 
-    router.push("/salesPoint");
     setCookie("products", JSON.stringify(products));
+    router.push("/salesPoint");
   };
 
   const handleShowModal = (id: string) => {

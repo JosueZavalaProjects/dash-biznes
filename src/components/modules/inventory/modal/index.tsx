@@ -3,6 +3,7 @@ import { INVENTORY_MODAL_SIZE } from "@/constants/inventory";
 import { Product, ProductKeys } from "@/types/addProduct";
 import { InventoryModalStep } from "@/types/inventory";
 
+import { DeleteConfirm } from "./confirmation/DeleteConfirm";
 import { EditConfirm } from "./confirmation/EditConfirm";
 import { DeleteProductModal } from "./DeleteProduct";
 import { EditProduct } from "./EditProduct";
@@ -57,6 +58,9 @@ export const InventoryModal = ({
           deleteProduct={deleteProduct}
           closeModal={() => setShowModal(false)}
         />
+      )}
+      {modalStep === InventoryModalStep.deleteConfirm && (
+        <DeleteConfirm continueAction={() => setShowModal(false)} />
       )}
     </Modal>
   );

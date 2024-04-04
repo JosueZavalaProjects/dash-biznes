@@ -41,8 +41,9 @@ export const InventoryTable = () => {
     setIsLoadingModal(true);
     try {
       const response = await DeleteProduct(productId);
-      console.log({ response });
-      //TODO: Modal Delete confirm
+
+      setModalStep(InventoryModalStep.deleteConfirm);
+      handleGetProducts();
     } catch {
       throw new Error("Something went wrong");
     } finally {
@@ -94,6 +95,7 @@ export const InventoryTable = () => {
     response
       .then((res) => {
         setModalStep(InventoryModalStep.editConfirm);
+        handleGetProducts();
       })
       .catch((e) => {
         console.log(e);
