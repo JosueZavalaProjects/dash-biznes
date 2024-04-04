@@ -29,10 +29,13 @@ export const useSales = () => {
     qwerySnapshot.forEach((doc) => {
       const { total, paymentMethod, date, ticket } = doc.data();
 
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+
       response.push({
         id: doc.id,
         ticketNumber: ticket || "N/A",
-        date: dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        date: dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
         total,
         method: paymentMethod || "cash",
       });
@@ -71,5 +74,52 @@ export const useSales = () => {
     return response;
   };
 
-  return { GetDataSales, GetRecentSales, DeleteSale, GetSaleByID };
+  const GetSalesByDate = async () => {
+    /* const principio = "2020/07/01";
+    const final = "2024/07/31"; */
+    const startOfDay = new Date("2024-04-01");
+    const endOfDay = new Date("2024-04-30");
+    /* startOfDay.setHours(0, 0, 0, 0); */
+
+    const q = query(
+      salesRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
+    const qwerySnapshot = await getDocs(q);
+
+    const response: Sale[] = [];
+    qwerySnapshot.forEach((doc) => {
+      const { total, paymentMethod, date, ticket } = doc.data();
+
+      /* console.log(date); */
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      /* newDate.setHours(0, 0, seconds, nanoseconds); */
+
+      response.push({
+        id: doc.id,
+        ticketNumber: ticket || "N/A",
+        date: newDate,
+        total,
+        method: paymentMethod || "cash",
+      });
+    });
+    return response;
+
+    /* dc.getDocument()
+      .getReference()
+      .collection("partidos")
+      .where("fecha", ">=", principio)
+      .where("fecha", "<=", final); */
+  };
+
+  return {
+    GetDataSales,
+    GetRecentSales,
+    DeleteSale,
+    GetSaleByID,
+    GetSalesByDate,
+  };
 };

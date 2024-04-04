@@ -1,6 +1,8 @@
 import { useContext } from "react";
 
 import {
+  Firestore,
+  Timestamp,
   addDoc,
   collection,
   doc,
@@ -28,16 +30,15 @@ export const useSalesPoint = () => {
     ticketNumber: number,
     PaymentAmount?: number
   ) => {
-    let string = JSON.stringify({
+    let newObj = {
       products,
       payment: PaymentAmount || total,
       total,
       paymentMethod,
       ticket: ticketNumber + 1,
-      date: new Date().toString(),
+      date: Timestamp.fromDate(new Date()),
       adminEmail: authCtx.email,
-    });
-    let newObj = JSON.parse(string);
+    };
 
     await addDoc(salesRef, newObj);
   };
@@ -80,15 +81,14 @@ export const useSalesPoint = () => {
   };
 
   const UpdateSale = async (id: string) => {
-    let string = JSON.stringify({
+    let newObj = {
       products,
       payment: total,
       total,
       paymentMethod,
-      date: new Date().toString(),
+      date: Timestamp.fromDate(new Date()),
       adminEmail: authCtx.email,
-    });
-    let newObj = JSON.parse(string);
+    };
 
     const docRef = doc(db, "sales", id);
 

@@ -47,7 +47,7 @@ export const SetUnits = ({
             className="cursor-pointer"
           />
           <div className="flex flex-col">
-            <Text color="white" size="sm">
+           {/*  <Text color="white" size="sm">
               Balance
             </Text>
             <div className="flex items-end gap-2">
@@ -57,16 +57,16 @@ export const SetUnits = ({
               <Text color="white" size="sm">
                 MXN
               </Text>
-            </div>
+            </div> */}
           </div>
         </div>
-        <Image
+     {/*    <Image
           src={CameraIcon}
           width={38}
           height={31}
           alt="camara icon"
           className="cursor-pointer"
-        />
+        /> */}
       </div>
       <div className="grid gap-4 justify-items-center items-cener py-4">
         <div className="flex flex-col w-full items-center">

@@ -1,7 +1,7 @@
 export type Sale = {
   id: string;
   ticketNumber: string;
-  date: string;
+  date: string | Date;
   total: number;
   method: string;
 };
