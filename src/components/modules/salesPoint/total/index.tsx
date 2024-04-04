@@ -13,6 +13,7 @@ import { TAB_KEYS } from "@/constants/salesPoint";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
+import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
 import useSalesPointState from "../states/sales-point-state";
 import { Modals } from "./components/modals";
 import { TotalTable } from "./components/table";
@@ -20,6 +21,9 @@ import { TotalTable } from "./components/table";
 export const Total = () => {
   const [show, setShow] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { products, total, clearSale, updateProduct, setTabName } =
     useSalesPointState();
   const { UpdateSale } = useSalesPoint();
@@ -40,16 +44,19 @@ export const Total = () => {
 
   const handleUpdateSale = async () => {
     const saleId = getCookie("saleID");
+    setShowUpdateModal(true);
 
     if (!saleId) {
       console.log("No hay id de la venta para actualizar");
       return;
     }
     try {
+      setIsLoading(true);
       const response = await UpdateSale(saleId);
-      console.log(response);
     } catch (e) {
       throw new Error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,6 +76,11 @@ export const Total = () => {
 
   return (
     <ContainerCard>
+      <UpdateSaleModal
+        showModal={showUpdateModal}
+        setShowModal={setShowUpdateModal}
+        isLoading={isLoading}
+      />
       <Modals show={show} setShow={setShow} />
       <div className="grid gap-2">
         <div className="grid p-2">
