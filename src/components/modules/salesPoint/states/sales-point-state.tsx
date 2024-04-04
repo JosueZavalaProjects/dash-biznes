@@ -28,6 +28,7 @@ type SalesPointStateProps = InitialState & {
   setPaymentMethod: (paymentMethod: PaymentMethod) => void;
   setPayment: (paymentMethod: number) => void;
   updateProduct: (product: ProductCheckout) => void;
+  removeProduct: (product: ProductCheckout) => void;
   clearSale: () => void;
 };
 
@@ -45,6 +46,17 @@ const handleUpdateProduct = (
   }
 
   return [...products, item];
+};
+
+const handleRemoveProduct = (
+  item: ProductCheckout,
+  state: SalesPointStateProps
+): ProductCheckout[] => {
+  const { products } = state;
+
+  const newProducts = products.filter((element) => element?.id !== item?.id);
+
+  return newProducts;
 };
 
 const calculateItemTotal = (item: ProductCheckout) => item.price * item.amount;
@@ -82,6 +94,14 @@ const SalesPointStore = create<SalesPointStateProps>((set) => ({
   updateProduct: (item: ProductCheckout) => {
     set((state: SalesPointStateProps) => {
       const products = handleUpdateProduct(item, state);
+      const total = handleCalculateTotal(products);
+
+      return { products, total };
+    });
+  },
+  removeProduct: (item: ProductCheckout) => {
+    set((state: SalesPointStateProps) => {
+      const products = handleRemoveProduct(item, state);
       const total = handleCalculateTotal(products);
 
       return { products, total };

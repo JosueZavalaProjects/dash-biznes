@@ -1,5 +1,9 @@
+import { FaRegTrashAlt } from "react-icons/fa";
+
 import Text from "@/components/ui/text";
 import { ProductCheckout } from "@/types/salesPoint";
+
+import useSalesPointState from "../../../states/sales-point-state";
 
 export const TotalTable = ({ products }: { products: ProductCheckout[] }) => {
   return (
@@ -24,6 +28,7 @@ export const TotalTable = ({ products }: { products: ProductCheckout[] }) => {
 };
 
 const RowTable = ({ product }: { product: ProductCheckout }) => {
+  const { removeProduct } = useSalesPointState();
   return (
     <tr className="text-center border-y">
       <td className="py-4">
@@ -34,6 +39,12 @@ const RowTable = ({ product }: { product: ProductCheckout }) => {
       <td className="text-center py-4">{product.name}</td>
       <td className="py-4">{product.price}</td>
       <td className="py-4">{product.amount * product.price}</td>
+      <td className="py-4">
+        <FaRegTrashAlt
+          className="cursor-pointer h-5 w-5"
+          onClick={() => removeProduct(product)}
+        />
+      </td>
     </tr>
   );
 };
