@@ -5,11 +5,9 @@ import { MdOutlineInventory } from "react-icons/md";
 
 import {
   LayoutDashboard,
-  UsersRound,
   ChevronRight,
   ChevronLeft,
   PlusCircle,
-  MinusCircle,
   GanttChartSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -35,16 +33,6 @@ export default function SideNavbar({}: Props) {
   function toggleSidebar() {
     setIsCollapsed(!isCollapsed);
   }
-
-  const handleLogOut = async () => {
-    try {
-      await authCtx.logout();
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>
@@ -89,21 +77,6 @@ export default function SideNavbar({}: Props) {
               icon: PlusCircle,
               variant: "ghost",
               onClick: () => setShowAddModal(true),
-            },
-            /*   {
-              title: "LogIn",
-              href: "#",
-              icon: PlusCircle,
-              variant: "ghost",
-              onClick: () => handleSignIn(),
-            },
-            */
-            {
-              title: "LogOut",
-              href: "#",
-              icon: MinusCircle,
-              variant: "ghost",
-              onClick: () => handleLogOut(),
             },
           ]}
         />

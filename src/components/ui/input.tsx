@@ -3,10 +3,10 @@ import { ProductKeys } from "@/types/addProduct";
 
 import Text from "../ui/text";
 
-export type KeyValueTypes = ProductKeys;
+export type KeyValueTypes = ProductKeys | "email";
 
 type InputProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
   value: string | number | undefined;
   keyValue?: KeyValueTypes;
@@ -25,9 +25,11 @@ export const Input = ({
   return (
     <div>
       <div className="grid gap-2">
-        <Text color="gray" className="capitalize">
-          {label}
-        </Text>
+        {label && (
+          <Text color="gray" className="capitalize">
+            {label}
+          </Text>
+        )}
         <div className="flex h-auto w-full bg-white text-black border border-light-gray rounded-xl text-lg focus-within:border-france-blue">
           <div className="flex-1">
             <input
