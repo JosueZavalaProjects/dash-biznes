@@ -11,10 +11,6 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
     let lastMonth;
     let options = [];
 
-    /* console.log(firstMonth); */
-    /* console.log(lastMonth); */
-    /* console.log(currentYear); */
-
     // Todos los meses del mismo año
     if (firstMonth >= OPTIONS_LENGTH) {
       lastMonth = firstMonth - OPTIONS_LENGTH;
@@ -31,8 +27,8 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
 
     // Meses tambien del año anterior
     if (firstMonth < OPTIONS_LENGTH) {
-      lastMonth = firstMonth - OPTIONS_LENGTH; //Always negative
-      /* console.log(lastMonth); */
+      lastMonth = firstMonth - OPTIONS_LENGTH; //last month ALWAYS negative
+
       for (let i = firstMonth; i > 0; i--) {
         const month = i >= 10 ? i : `0${i}`;
         const label = i === firstMonth ? "Mes actual" : MONTH_LABELS[i - 1];
@@ -46,13 +42,14 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
         const month = i >= 10 ? i : `0${i}`;
         const object = {
           value: `${currentYear - 1}-${month}-01`,
-          label: MONTH_LABELS[i - 1],
+          label: `${MONTH_LABELS[i - 1]} ${currentYear - 1}`,
         };
         options.push(object);
       }
     }
     return options;
-    /** Current = 4 (abril)
+    /** Ejemplo 
+     * Current = 4 (abril)
      * Marzo
      * Febrero
      * Enero

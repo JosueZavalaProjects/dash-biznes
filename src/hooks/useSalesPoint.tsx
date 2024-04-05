@@ -1,7 +1,6 @@
 import { useContext } from "react";
 
 import {
-  Firestore,
   Timestamp,
   addDoc,
   collection,
