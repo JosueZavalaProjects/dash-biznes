@@ -44,6 +44,7 @@ export const useSales = () => {
   };
 
   const GetRecentSales = async () => {
+    // TODO: Agregar filto de meses
     const q = query(salesRef, where("adminEmail", "==", authCtx.email));
     const qwerySnapshot = await getDocs(q);
 
@@ -51,10 +52,12 @@ export const useSales = () => {
 
     qwerySnapshot.forEach((doc) => {
       const { total, date } = doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
 
       response.push({
         ticketNumber: "Ticket 220",
-        date: dayjs(date).format("DD [de] MMMM YYYY"),
+        date: dayjs(newDate).format("DD [de] MMMM YYYY") || "No Date",
         saleAmount: total,
       });
     });

@@ -12,6 +12,7 @@ import AuthContext, { AuthContextProvider } from "@/context/AuthContext";
 
 import { cn } from "../lib/utils";
 import LoginPage from "./(non-auth)/login/page";
+import { SettingsNav } from "@/components/SideNav/SettingsNav";
 
 export default function RootLayout({
   children,
@@ -54,6 +55,7 @@ export default function RootLayout({
           {!isLoading && getCookie("token") && (
             <>
               <div id="portal" />
+              <SettingsNav />
               <SideNavbar />
               <MobileNavbar />
               <div className="p-8 w-full">{children}</div>
