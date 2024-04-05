@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
 
+import { KeyValueTypes } from "@/components/ui/input";
 import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { useAmount } from "@/hooks/useAmount";
 import { useProduct } from "@/hooks/useProduct";
-import { Product, ProductKeys, Unit } from "@/types/addProduct";
+import { Product, Unit } from "@/types/addProduct";
 
 import { Modals } from "./components/modals";
 import { ProductInformation } from "./components/steps/productInformation";
@@ -20,7 +21,7 @@ export const AddProduct = (): React.ReactElement => {
   const { amount, handleSetAmount, removeDecimalPart } = useAmount(unit);
   const { CreateProduct } = useProduct();
 
-  const handleSetProduct = (value: string | number, key: ProductKeys) => {
+  const handleSetProduct = (value: string | number, key: KeyValueTypes) => {
     if (key === PRODUCT_KEYS.PRICE) value = +value;
 
     const newProduct = { ...product, [key]: value };

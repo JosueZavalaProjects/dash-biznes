@@ -1,12 +1,12 @@
 import { ContainerCard } from "@/components/ui/containerCard";
-import { Input } from "@/components/ui/input";
+import { Input, KeyValueTypes } from "@/components/ui/input";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { PRODUCT_KEYS } from "@/constants/addProduct";
-import { Product, ProductKeys } from "@/types/addProduct";
+import { Product } from "@/types/addProduct";
 
 type ProductFormProps = {
   product: Product;
-  handleSetValueProduct: (value: string, key?: ProductKeys) => void;
+  handleSetValueProduct: (value: string, key?: KeyValueTypes) => void;
   handleAddButton: () => void;
   isValidForm: boolean;
   buttonText?: string;

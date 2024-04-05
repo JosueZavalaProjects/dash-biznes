@@ -1,6 +1,7 @@
+import { KeyValueTypes } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import { INVENTORY_MODAL_SIZE } from "@/constants/inventory";
-import { Product, ProductKeys } from "@/types/addProduct";
+import { Product } from "@/types/addProduct";
 import { InventoryModalStep } from "@/types/inventory";
 
 import { DeleteConfirm } from "./confirmation/DeleteConfirm";
@@ -13,7 +14,7 @@ type InventoryModalProps = {
   setShowModal: (newValue: boolean) => void;
   modalStep: InventoryModalStep;
   product: Product;
-  handleSetProduct: (value: string | number, key?: ProductKeys) => void;
+  handleSetProduct: (value: string | number, key?: KeyValueTypes) => void;
   isLoading: boolean;
   updateProduct: () => void;
   deleteProduct: () => Promise<void>;

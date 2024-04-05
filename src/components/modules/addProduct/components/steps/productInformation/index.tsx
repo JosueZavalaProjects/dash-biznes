@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
+import { KeyValueTypes } from "@/components/ui/input";
 import Text from "@/components/ui/text";
-import { Product, ProductKeys } from "@/types/addProduct";
+import { Product } from "@/types/addProduct";
 
 import { BackArrow } from "../../../../../../../public/assets";
 import { ProductForm } from "./productForm";
 
 type ProductInformationProps = {
   setStep: (nextStep: number) => void;
-  handleSetProduct: (value: string, key: ProductKeys) => void;
+  handleSetProduct: (value: string, key: KeyValueTypes) => void;
   setShowModal: (show: boolean) => void;
   product: Product;
 };
@@ -23,7 +24,7 @@ export const ProductInformation = ({
 }: ProductInformationProps) => {
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
-  const handleSetValueProduct = (value: string, key?: ProductKeys) => {
+  const handleSetValueProduct = (value: string, key?: KeyValueTypes) => {
     const keyValue = key || "name";
     handleSetProduct(value, keyValue);
   };

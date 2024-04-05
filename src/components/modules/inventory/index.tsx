@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import { DocumentData } from "firebase/firestore";
 
+import { KeyValueTypes } from "@/components/ui/input";
 import { MOCK_PRODUCT, PRODUCT_KEYS } from "@/constants/addProduct";
 import { data as productData } from "@/constants/inventory";
 import { useProduct } from "@/hooks/useProduct";
-import { Product as ToAddProduct, ProductKeys } from "@/types/addProduct";
+import { Product as ToAddProduct } from "@/types/addProduct";
 import { InventoryModalStep, Product } from "@/types/inventory";
 
 import { DataTable } from "../../DataTable";
@@ -79,7 +80,10 @@ export const InventoryTable = () => {
     }
   };
 
-  const handleSetValueProduct = (value: string | number, key?: ProductKeys) => {
+  const handleSetValueProduct = (
+    value: string | number,
+    key?: KeyValueTypes
+  ) => {
     const keyValue = key || "name";
     if (key === PRODUCT_KEYS.PRICE) value = +value;
 

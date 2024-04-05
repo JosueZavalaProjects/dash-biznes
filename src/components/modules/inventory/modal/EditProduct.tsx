@@ -1,12 +1,13 @@
 import { Loading } from "@/components/modals/components/Loading";
+import { KeyValueTypes } from "@/components/ui/input";
 import Text from "@/components/ui/text";
-import { Product, ProductKeys } from "@/types/addProduct";
+import { Product } from "@/types/addProduct";
 
 import { ProductForm } from "../../addProduct/components/steps/productInformation/productForm";
 
 type EditProductProps = {
   product: Product;
-  handleSetValueProduct: (value: string | number, key?: ProductKeys) => void;
+  handleSetValueProduct: (value: string | number, key?: KeyValueTypes) => void;
   isLoading: boolean;
   updateProduct: () => void;
   handleCancel: () => void;
