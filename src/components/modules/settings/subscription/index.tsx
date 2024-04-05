@@ -1,9 +1,16 @@
+"use client";
+import { useState } from "react";
+
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 
+import { SubcriptionModal } from "./modals";
+
 export const Subscription = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div className="grid gap-16 px-8">
+      <SubcriptionModal show={showModal} setShow={setShowModal} />
       <Text size="3xl" color="dark">
         Subscripción
       </Text>
@@ -54,7 +61,9 @@ export const Subscription = () => {
               que puedes reiniciar tu subscripción en cualquier momento.
             </Text>
             <div className="">
-              <SimpleButton>Cancelar tu subscripción</SimpleButton>
+              <SimpleButton onClick={() => setShowModal(true)}>
+                Cancelar tu subscripción
+              </SimpleButton>
             </div>
           </div>
         </div>
