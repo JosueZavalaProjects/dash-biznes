@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 
 import { setCookie } from "cookies-next";
@@ -10,8 +11,11 @@ import { useSales } from "@/hooks/useSales";
 import { Sale, SalesModalStep } from "@/types/sales";
 
 import { DataTable } from "../../../DataTable";
+import useActivitiesState from "../states/activities-state";
 import { SalesModal } from "./modals/deleteModal";
 import { SalesColumns } from "./table/columns";
+import { useDates } from "@/hooks/useDates";
+import useActivitiesDateState from "../states/activities-dates-state";
 
 require("dayjs/locale/es");
 
@@ -24,14 +28,30 @@ export const SalesTable = () => {
     SalesModalStep.delete
   );
 
-  const { GetDataSales, DeleteSale, GetSaleByID } = useSales();
+  const { GetDataSales, DeleteSale, GetSalesByDate, GetSaleByID } = useSales();
+  const { GetCurrentDate, GetLastDate } = useDates();
+  const { startDate, endDate } = useActivitiesDateState();
+
+  /* const generateInitialDates = () => {
+    const startDate = GetCurrentDate();
+    const endDate = GetLastDate(startDate);
+    setStartDate(startDate);
+    setEndDate(endDate);
+  }; */
+  /* const { startDate, endDate } = useActivitiesState(); */
   const router = useRouter();
   dayjs.locale("es");
 
-  const handleGetSales = async () => {
+  /* const handleGetSales = async () => {
     const newProducts = await GetDataSales();
 
     setSales(newProducts);
+  }; */
+
+  const handleGetSalesByDate = async (startDate: string, endDate: string) => {
+    const result = await GetSalesByDate(startDate, endDate);
+    console.log(result);
+    setSales(result);
   };
 
   const handleEditSale = async (id: string) => {
@@ -55,7 +75,8 @@ export const SalesTable = () => {
       const response = await DeleteSale(saleId);
       console.log({ response });
       setModalStep(SalesModalStep.deleteConfirm);
-      handleGetSales();
+      /* handleGetSales(); */
+      handleGetSalesByDate(startDate, endDate);
     } catch {
       throw new Error("Something went wrong");
     } finally {
@@ -63,9 +84,15 @@ export const SalesTable = () => {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     handleGetSales();
-  }, []);
+  }, []); */
+
+  useEffect(() => {
+    if (!startDate && !endDate) return;
+
+    handleGetSalesByDate(startDate, endDate);
+  }, [startDate, endDate]);
 
   return (
     <>

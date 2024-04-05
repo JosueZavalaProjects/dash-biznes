@@ -15,10 +15,12 @@ import { SalesProps } from "@/components/SalesCard";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { Sale } from "@/types/sales";
+import useActivitiesState from "@/components/modules/activites/states/activities-state";
 
 export const useSales = () => {
   const salesRef = collection(db, "sales");
   const authCtx = useContext(AuthContext);
+  /* const { startDate, endDate } = useActivitiesState(); */
 
   const GetDataSales = async () => {
     const q = query(salesRef, where("adminEmail", "==", authCtx.email));
@@ -74,11 +76,11 @@ export const useSales = () => {
     return response;
   };
 
-  const GetSalesByDate = async () => {
+  const GetSalesByDate = async (startDate: string, endDate: string) => {
     /* const principio = "2020/07/01";
     const final = "2024/07/31"; */
-    const startOfDay = new Date("2024-04-01");
-    const endOfDay = new Date("2024-04-30");
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
     /* startOfDay.setHours(0, 0, 0, 0); */
 
     const q = query(
