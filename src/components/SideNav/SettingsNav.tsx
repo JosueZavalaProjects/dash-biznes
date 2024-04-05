@@ -14,9 +14,14 @@ export const SettingsNav = () => {
       />
       {showMenu && (
         <div className="grid absolute bg-white text-gray-500 w-60 right-0.5 mt-2 rounded-lg border border-gray-200 z-10 ">
-          <div className="hover:bg-main-blue hover:text-white p-4 rounded-lg">
-            Cancelar Subscripción
-          </div>
+          <Link href={"/subscription"}>
+            <div
+              className="hover:bg-main-blue hover:text-white p-4 rounded-lg"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              Cancelar Subscripción
+            </div>
+          </Link>
           <Link href={"/profile"}>
             <div
               className="hover:bg-main-blue hover:text-white p-4 rounded-lg"
