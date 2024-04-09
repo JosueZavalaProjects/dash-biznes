@@ -24,7 +24,7 @@ const Modal: FC<ModalProps> = ({
   escClose = true,
 }) => {
   const contentStyles = cn(
-    "relative flex flex-col p-7 bg-white border shadow-xl rounded-sm max-h-screen rounded-xl",
+    " flex flex-col p-7 bg-white border shadow-xl rounded-sm max-h-screen rounded-xl",
     {
       "w-96": size === "xs",
       "w-128": size === "md",
@@ -66,9 +66,19 @@ const Modal: FC<ModalProps> = ({
 
   return (
     <Portal>
-      <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-opacity-50 bg-eerie-black -backdrop-filter-blur">
-        <div className={contentStyles}>
-          <div className="absolute top-0 right-0 mt-4 mr-4">
+      <div
+        className={`absolute items-center justify-center w-screen h-screen bg-opacity-50 bg-eerie-black -backdrop-filter-blur z-20 ${
+          !show ? "hidden" : "flex"
+        }`}
+      >
+        <div
+          className={`fixed top-0 left-0 z-40 items-center justify-center w-screen h-screen ${
+            !show ? "hidden" : "flex"
+          }`} //bg-opacity-50 bg-eerie-black -backdrop-filter-blur
+          onClick={onClose}
+        ></div>
+        <div className={`absolute z-50 ${contentStyles}`}>
+          <div className="absolute top-0 right-0 mt-4 mr-4 z-50">
             <button
               onClick={onClose}
               className="text-2xl text-gray-900 cursor-pointer"
@@ -79,6 +89,11 @@ const Modal: FC<ModalProps> = ({
           {children}
         </div>
       </div>
+      {/* <div
+        className="flex items-center justify-center absolute top-0 left-0 w-screen h-screen z-30 bg-opacity-50 bg-eerie-black -backdrop-filter-blur"
+        onClick={() => alert("Hello")}
+      >
+      </div> */}
     </Portal>
   );
 };
