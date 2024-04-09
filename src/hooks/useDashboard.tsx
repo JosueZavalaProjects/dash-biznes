@@ -68,7 +68,7 @@ export const useDashboard = () => {
 
     const response: GraphResult[] = [];
     qwerySnapshot.forEach((doc) => {
-      const { total, paymentMethod, date, ticket } = doc.data();
+      const { total, date } = doc.data();
 
       const { seconds } = date;
       const newDate = new Date(seconds * 1000);
@@ -82,5 +82,41 @@ export const useDashboard = () => {
     return response;
   };
 
-  return { GetTotalSales, GetDataProducts, GetTotalExpenses, GetSalesByDate };
+  const GetExpensesByDate = async (startDate: string, endDate: string) => {
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
+
+    const q = query(
+      expensesRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
+    const qwerySnapshot = await getDocs(q);
+
+    const response: GraphResult[] = [];
+
+    qwerySnapshot.forEach((doc) => {
+      const { amount, date } = doc.data();
+
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("YYYY-MM-DD");
+
+      response.push({
+        date: _date || "No Date",
+        total: amount,
+      });
+    });
+
+    return response;
+  };
+
+  return {
+    GetTotalSales,
+    GetDataProducts,
+    GetTotalExpenses,
+    GetSalesByDate,
+    GetExpensesByDate,
+  };
 };

@@ -14,9 +14,10 @@ import { Sales } from "./Sales";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
+  const [expensesData, setExpensesData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { GetSalesByDate } = useDashboard();
+  const { GetSalesByDate, GetExpensesByDate } = useDashboard();
   const { GetCurrentYearDates } = useDates();
 
   const GetGraphsData = async () => {
@@ -24,16 +25,18 @@ export const Dashboard = () => {
     const { startDate, endDate } = GetCurrentYearDates();
 
     try {
-      /* console.log({ startDate });
-      console.log({ endDate }); */
       const salesResult = await GetSalesByDate(startDate, endDate);
-      /* console.log({ salesResult }); */
+      const expensesResult = await GetExpensesByDate(startDate, endDate);
+
       const newUtilites = CreateGraphData(salesResult);
-      /* console.log({ newUtilites }); */
+      const newExpenses = CreateGraphData(expensesResult);
 
       setUtilitiesData(newUtilites);
-    } catch {
-      throw new Error("Error al cargar informacion de gráficas");
+      setExpensesData(newExpenses);
+    } catch (e) {
+      const result = (e as Error).message;
+
+      throw new Error(result);
     } finally {
       setIsLoading(false);
     }
@@ -65,10 +68,8 @@ export const Dashboard = () => {
       );
       const month = MONTH_LABELS[+property - 1].slice(0, 3);
       data.push({ name: month, total });
-      /* console.log(`${name}: ${total}`); */
     }
     return data;
-    /* console.log(data); */
   };
 
   useEffect(() => {
@@ -87,6 +88,24 @@ export const Dashboard = () => {
           <BarChart data={utilitiesData} isLoading={isLoading} />
         </CardContent>
         <Sales />
+      </section>
+      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
+        <CardContent>
+          <p className="p-4 font-semibold">Resumen de Gastos</p>
+          <BarChart
+            data={expensesData}
+            isLoading={isLoading}
+            fillColor="#F05F40"
+          />
+        </CardContent>
+        <CardContent>
+          <p className="p-4 font-semibold">Resumen de Ventas</p>
+          <BarChart
+            data={utilitiesData}
+            isLoading={isLoading}
+            fillColor="#8FC93A"
+          />
+        </CardContent>
       </section>
     </div>
   );

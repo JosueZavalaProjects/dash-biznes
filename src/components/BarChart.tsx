@@ -13,9 +13,13 @@ import { GraphData } from "@/types/dashboard";
 
 import { Loading } from "./modals/components/Loading";
 
-type Props = { data: GraphData[]; isLoading: boolean };
+type Props = { data: GraphData[]; isLoading: boolean; fillColor?: string };
 
-export default function BarChart({ data, isLoading }: Props) {
+export default function BarChart({
+  data,
+  isLoading,
+  fillColor = "#007bff",
+}: Props) {
   return (
     <>
       {isLoading && (
@@ -23,7 +27,12 @@ export default function BarChart({ data, isLoading }: Props) {
           <Loading />
         </div>
       )}
-      {!isLoading && (
+      {!isLoading && !data.length && (
+        <div className="grid w-full h-full justify-items-center items-center">
+          No Data
+        </div>
+      )}
+      {!isLoading && data.length > 0 && (
         <ResponsiveContainer width={"100%"} height={350}>
           <BarGraph data={data}>
             <XAxis
@@ -40,7 +49,7 @@ export default function BarChart({ data, isLoading }: Props) {
               fontSize={12}
               tickFormatter={(value) => `$${value}`}
             />
-            <Bar dataKey={"total"} radius={[4, 4, 0, 0]} fill="#007bff" />
+            <Bar dataKey={"total"} radius={[4, 4, 0, 0]} fill={fillColor} />
           </BarGraph>
         </ResponsiveContainer>
       )}

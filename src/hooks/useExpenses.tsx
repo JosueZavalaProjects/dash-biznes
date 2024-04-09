@@ -1,7 +1,14 @@
 import { useContext } from "react";
 
 import dayjs from "dayjs";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
@@ -21,7 +28,8 @@ export const useExpenses = () => {
       name,
       type,
       amount,
-      date: new Date().toString(),
+      date: Timestamp.fromDate(new Date()),
+
       adminEmail: authCtx.email,
     });
 
@@ -36,10 +44,13 @@ export const useExpenses = () => {
 
     qwerySnapshot.forEach((doc) => {
       const { name, type, amount, date } = doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss");
 
       response.push({
         name: name || "",
-        date: dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        date: _date || "No Date",
         amount,
         type: type || "others",
       });
