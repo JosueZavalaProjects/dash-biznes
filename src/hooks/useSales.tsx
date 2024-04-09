@@ -44,7 +44,7 @@ export const useSales = () => {
   };
 
   const GetRecentSales = async () => {
-    // TODO: Agregar filto de meses
+    // TODO: Agregar filtro de meses
     const q = query(salesRef, where("adminEmail", "==", authCtx.email));
     const qwerySnapshot = await getDocs(q);
 

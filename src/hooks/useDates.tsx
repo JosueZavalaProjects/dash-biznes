@@ -17,8 +17,17 @@ export const useDates = () => {
     return `${currentYear}-${month}-01`;
   };
 
+  const GetCurrentYearDates = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const startDate = `${currentYear}-01-01`;
+    const endDate = `${currentYear}-12-31`;
+
+    return { startDate, endDate };
+  };
+
   const _daysInMonth = (year: number, month: number) =>
     new Date(year, month, 0).getDate();
 
-  return { GetLastDate, GetCurrentDate };
+  return { GetLastDate, GetCurrentDate, GetCurrentYearDates };
 };

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { IconType } from "react-icons/lib";
 
 import { LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,7 @@ import useActivitiesState from "./modules/activites/states/activities-state";
 
 export type CardProps = {
   label: string;
-  icon: LucideIcon;
+  icon: LucideIcon | IconType;
   amount: string;
   description: string;
   link?: string;

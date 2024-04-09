@@ -4,6 +4,8 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
+import dayjs from "dayjs";
+import { GraphResult } from "@/types/dashboard";
 
 export const useDashboard = () => {
   const salesRef = collection(db, "sales");
@@ -52,5 +54,33 @@ export const useDashboard = () => {
     return response;
   };
 
-  return { GetTotalSales, GetDataProducts, GetTotalExpenses };
+  const GetSalesByDate = async (startDate: string, endDate: string) => {
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
+
+    const q = query(
+      salesRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
+    const qwerySnapshot = await getDocs(q);
+
+    const response: GraphResult[] = [];
+    qwerySnapshot.forEach((doc) => {
+      const { total, paymentMethod, date, ticket } = doc.data();
+
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("YYYY-MM-DD");
+
+      response.push({
+        date: _date || "No Date",
+        total,
+      });
+    });
+    return response;
+  };
+
+  return { GetTotalSales, GetDataProducts, GetTotalExpenses, GetSalesByDate };
 };
