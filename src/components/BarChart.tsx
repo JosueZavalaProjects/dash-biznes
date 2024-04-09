@@ -27,7 +27,7 @@ export default function BarChart({
           <Loading />
         </div>
       )}
-      {!isLoading && !data.length && (
+      {!isLoading && !(data.length >= 0) && (
         <div className="grid w-full h-full justify-items-center items-center">
           No Data
         </div>

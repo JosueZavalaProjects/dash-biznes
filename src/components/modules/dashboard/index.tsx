@@ -14,6 +14,7 @@ import { Sales } from "./Sales";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
+  const [salesData, setSalesData] = useState<GraphData[]>([]);
   const [expensesData, setExpensesData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -28,11 +29,13 @@ export const Dashboard = () => {
       const salesResult = await GetSalesByDate(startDate, endDate);
       const expensesResult = await GetExpensesByDate(startDate, endDate);
 
-      const newUtilites = CreateGraphData(salesResult);
+      const newSales = CreateGraphData(salesResult);
       const newExpenses = CreateGraphData(expensesResult);
+      const newUtilities = CreateUtilitiesGraphData(newSales, newExpenses);
 
-      setUtilitiesData(newUtilites);
+      setSalesData(newSales);
       setExpensesData(newExpenses);
+      setUtilitiesData(newUtilities);
     } catch (e) {
       const result = (e as Error).message;
 
@@ -40,6 +43,26 @@ export const Dashboard = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const CreateUtilitiesGraphData = (
+    sales: GraphData[],
+    expenses: GraphData[]
+  ): GraphData[] => {
+    const salesMonths = sales.map((sale) => sale.name);
+    const expensesMonths = expenses.map((expense) => expense.name);
+
+    const months = Array.from(new Set(salesMonths.concat(expensesMonths)));
+
+    const utilities: GraphData[] = months.map((month) => {
+      const sale = sales.find((sale) => sale.name === month);
+      const expense = expenses.find((expense) => expense.name === month);
+      const utility = (sale?.total || 0) - (expense?.total || 0);
+
+      return { name: month, total: utility };
+    });
+
+    return utilities;
   };
 
   const CreateGraphData = (resultData: GraphResult[]): GraphData[] => {
@@ -101,7 +124,7 @@ export const Dashboard = () => {
         <CardContent>
           <p className="p-4 font-semibold">Resumen de Ventas</p>
           <BarChart
-            data={utilitiesData}
+            data={salesData}
             isLoading={isLoading}
             fillColor="#8FC93A"
           />
