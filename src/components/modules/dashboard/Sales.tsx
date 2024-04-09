@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { TAB_KEYS } from "@/constants/activities/purchases";
 import { uesrSalesData } from "@/constants/dashboard";
+import { useDates } from "@/hooks/useDates";
 import { useSales } from "@/hooks/useSales";
 
 import { CardContent } from "../../Card";
@@ -14,9 +15,11 @@ import useActivitiesState from "../activites/states/activities-state";
 export const Sales = () => {
   const [userSales, setUserSales] = useState<SalesProps[]>(uesrSalesData);
   const [countSales, setCountSales] = useState<number>(0);
+
   const { setTabName } = useActivitiesState();
   const router = useRouter();
   const { GetRecentSales } = useSales();
+  const { GetCurrentDate, GetLastDate } = useDates();
 
   const hanldeOnclick = () => {
     setTabName(TAB_KEYS.SALES);
@@ -24,7 +27,10 @@ export const Sales = () => {
   };
 
   const handleGetSales = async () => {
-    const newSales = await GetRecentSales();
+    const startDate = GetCurrentDate();
+    const endDate = GetLastDate(startDate);
+
+    const newSales = await GetRecentSales(startDate, endDate);
     setCountSales(newSales.length);
     setUserSales(newSales.splice(0, 5));
   };

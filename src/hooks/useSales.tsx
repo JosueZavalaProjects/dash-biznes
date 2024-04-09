@@ -15,10 +15,12 @@ import { SalesProps } from "@/components/SalesCard";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { Sale } from "@/types/sales";
+require("dayjs/locale/es");
 
 export const useSales = () => {
   const salesRef = collection(db, "sales");
   const authCtx = useContext(AuthContext);
+  dayjs.locale("es");
 
   const GetDataSales = async () => {
     const q = query(salesRef, where("adminEmail", "==", authCtx.email));
@@ -43,20 +45,27 @@ export const useSales = () => {
     return response;
   };
 
-  const GetRecentSales = async () => {
-    // TODO: Agregar filtro de meses
-    const q = query(salesRef, where("adminEmail", "==", authCtx.email));
+  const GetRecentSales = async (startDate: string, endDate: string) => {
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
+
+    const q = query(
+      salesRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
     const qwerySnapshot = await getDocs(q);
 
     const response: SalesProps[] = [];
 
     qwerySnapshot.forEach((doc) => {
-      const { total, date } = doc.data();
+      const { total, date, ticket } = doc.data();
       const { seconds } = date;
       const newDate = new Date(seconds * 1000);
 
       response.push({
-        ticketNumber: "Ticket 220",
+        ticketNumber: `Ticket ${ticket}`,
         date: dayjs(newDate).format("DD [de] MMMM YYYY") || "No Date",
         saleAmount: total,
       });
