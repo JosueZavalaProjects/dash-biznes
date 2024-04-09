@@ -7,12 +7,12 @@ import { usePathname } from "next/navigation";
 import "./globals.css";
 import { Loading } from "@/components/modals/components/Loading";
 import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
+import { SettingsNav } from "@/components/SideNav/SettingsNav";
 import SideNavbar from "@/components/SideNav/SideNavbar";
 import AuthContext, { AuthContextProvider } from "@/context/AuthContext";
 
 import { cn } from "../lib/utils";
 import LoginPage from "./(non-auth)/login/page";
-import { SettingsNav } from "@/components/SideNav/SettingsNav";
 
 export default function RootLayout({
   children,
@@ -58,7 +58,7 @@ export default function RootLayout({
               <SettingsNav />
               <SideNavbar />
               <MobileNavbar />
-              <div className="p-8 w-full">{children}</div>
+              <div className="p-8 w-full mb-[5rem] sm:mb-0">{children}</div>
             </>
           )}
           {!isLoading && !getCookie("token") && (
