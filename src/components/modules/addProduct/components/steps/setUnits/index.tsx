@@ -31,13 +31,8 @@ export const SetUnits = ({
   };
 
   return (
-    <div className="grid gap-4 bg-main-blue p-4 mx-auto w-[25rem]">
-      <div className="grid justify-items-center items-center">
-        <Text color="white" size="4xl" as="h1">
-          Inventario
-        </Text>
-      </div>
-      <div className="flex justify-between px-4">
+    <div className="grid gap-4 bg-main-blue p-4 mt-6 mx-auto lg:w-[25rem]">
+      <div className="flex px-4">
         <div className="flex gap-4">
           <Image
             src={BackArrow}
@@ -46,27 +41,12 @@ export const SetUnits = ({
             alt="back arrow"
             className="cursor-pointer"
           />
-          <div className="flex flex-col">
-           {/*  <Text color="white" size="sm">
-              Balance
-            </Text>
-            <div className="flex items-end gap-2">
-              <Text color="white" size="2xl">
-                704.00
-              </Text>
-              <Text color="white" size="sm">
-                MXN
-              </Text>
-            </div> */}
-          </div>
         </div>
-     {/*    <Image
-          src={CameraIcon}
-          width={38}
-          height={31}
-          alt="camara icon"
-          className="cursor-pointer"
-        /> */}
+        <div className="grid justify-items-center items-center w-full">
+          <Text color="white" size="4xl" as="h1">
+            Inventario
+          </Text>
+        </div>
       </div>
       <div className="grid gap-4 justify-items-center items-cener py-4">
         <div className="flex flex-col w-full items-center">

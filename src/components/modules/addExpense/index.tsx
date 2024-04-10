@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import { RequestModal } from "@/components/modals/RequestModal";
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
 import { SimpleButton } from "@/components/ui/simpleButton";
@@ -14,7 +15,6 @@ import {
 import { useExpenses } from "@/hooks/useExpenses";
 import { Expense } from "@/types/addExpense";
 import { ModalType } from "@/types/UI/common";
-import { RequestModal } from "@/components/modals/RequestModal";
 
 export const AddExpense = () => {
   const [expense, setExpense] = useState<Expense>(MOCK_EXPENSE);
@@ -65,7 +65,7 @@ export const AddExpense = () => {
   }, [expense]);
 
   return (
-    <section className="h-[41rem]">
+    <section className="h-[41rem] mt-6">
       <RequestModal
         show={showModal}
         setShow={setShowModal}
@@ -87,7 +87,7 @@ export const AddExpense = () => {
         <div className="flex gap-4 pb-28 static"></div>
       </div>
 
-      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
+      <div className="flex bg-white justify-center rounded-lg relative -top-24 right-0 mx-2 sm:mx-auto sm:w-[440px] sm:-right-[10px]">
         <ContainerCard>
           <div className="flex flex-col gap-2 p-4">
             <Input

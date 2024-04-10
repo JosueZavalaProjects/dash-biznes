@@ -58,9 +58,7 @@ export default function RootLayout({
               <SettingsNav />
               <SideNavbar />
               <MobileNavbar />
-              <div className="flex p-8 w-full mb-[5rem] sm:mb-0">
-                {children}
-              </div>
+              <div className="p-8 w-full mb-[5rem] sm:mb-0">{children}</div>
             </>
           )}
           {!isLoading && !getCookie("token") && (

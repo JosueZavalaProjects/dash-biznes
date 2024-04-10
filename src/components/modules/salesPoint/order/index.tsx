@@ -88,7 +88,7 @@ export const Order = () => {
   }, [searchValue]);
 
   return (
-    <div className="grid p-4 gap-4">
+    <div className="grid gap-4">
       {/* Categorias */}
       <ContainerCard>
         <div className="flex gap-4 p-6">
