@@ -58,5 +58,35 @@ export const useExpenses = () => {
     return response;
   };
 
-  return { addExpense, getExpenses };
+  const getExpensesByDate = async (startDate: string, endDate: string) => {
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
+
+    const q = query(
+      expensesRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
+    const qwerySnapshot = await getDocs(q);
+
+    const response: Purchase[] = [];
+
+    qwerySnapshot.forEach((doc) => {
+      const { name, type, amount, date } = doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss");
+
+      response.push({
+        name: name || "",
+        date: _date || "No Date",
+        amount,
+        type: type || "others",
+      });
+    });
+    return response;
+  };
+
+  return { addExpense, getExpenses, getExpensesByDate };
 };

@@ -5,22 +5,26 @@ import { useExpenses } from "@/hooks/useExpenses";
 import { Purchase } from "@/types/purchases";
 
 import { DataTable } from "../../../DataTable";
+import useActivitiesDateState from "../states/activities-dates-state";
 import { columns } from "./table/columns";
 
 export const PurchasesTable = () => {
   const [expenses, setExpenses] = useState<Purchase[]>(PurchaseData);
 
-  const { getExpenses } = useExpenses();
+  const { getExpensesByDate } = useExpenses();
+  const { startDate, endDate } = useActivitiesDateState();
 
-  const handleGetSales = async () => {
-    const newExpenses = await getExpenses();
+  const handleGetSalesByDate = async (startDate: string, endDate: string) => {
+    const newExpenses = await getExpensesByDate(startDate, endDate);
 
     setExpenses(newExpenses);
   };
 
   useEffect(() => {
-    handleGetSales();
-  }, []);
+    if (!startDate && !endDate) return;
+
+    handleGetSalesByDate(startDate, endDate);
+  }, [startDate, endDate]);
 
   return <DataTable columns={columns} data={expenses} />;
 };

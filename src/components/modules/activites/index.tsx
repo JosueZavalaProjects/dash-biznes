@@ -42,9 +42,7 @@ export default function Activities() {
         tabName={tabName}
         setTabName={setTabName}
       />
-      {tabName === TAB_KEYS.SALES && (
-        <SelectMonths handleChange={handleChange} />
-      )}
+      <SelectMonths handleChange={handleChange} />
 
       <SimpleTabs tabsContents={tabsContents} tabNameSelected={tabName} />
     </div>
