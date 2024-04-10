@@ -17,14 +17,6 @@ export const ProfileInfo = ({ email, name }: ProfileInfoProps) => {
       </div>
       <div className="flex w-full sm:w-1/2 sm:gap-8">
         <Text size="xl" color="dark" weight="bold" className="w-1/2">
-          Nombre
-        </Text>
-        <Text size="xl" color="dark" className="w-1/2">
-          {name}
-        </Text>
-      </div>
-      <div className="flex w-full sm:w-1/2 sm:gap-8">
-        <Text size="xl" color="dark" weight="bold" className="w-1/2">
           Contraseña
         </Text>
         <Text size="xl" color="dark" className="w-1/2">
