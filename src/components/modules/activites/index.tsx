@@ -36,7 +36,7 @@ export default function Activities() {
   }, []);
 
   return (
-    <div className="grid">
+    <div className="grid w-full pt-4">
       <TabSelection
         navItems={menuNav}
         tabName={tabName}

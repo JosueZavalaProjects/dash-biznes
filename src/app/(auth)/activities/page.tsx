@@ -7,7 +7,7 @@ type Props = {};
 
 export default function ActivitiesPage({}: Props) {
   return (
-    <div className="flex flex-col gap-5  w-full">
+    <div className="flex flex-col gap-5 w-full">
       <Activities />
     </div>
   );

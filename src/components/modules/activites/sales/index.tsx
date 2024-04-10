@@ -75,7 +75,7 @@ export const SalesTable = () => {
   }, [startDate, endDate]);
 
   return (
-    <>
+    <div className="w-full">
       <SalesModal
         showModal={showModal}
         setShowModal={setShowModal}
@@ -91,6 +91,6 @@ export const SalesTable = () => {
         })}
         data={sales}
       />
-    </>
+    </div>
   );
 };

@@ -52,23 +52,17 @@ export const ProfileForm = ({
         <Text size="xl" color="dark" weight="bold" className="w-1/2">
           Email
         </Text>
-        <Input
-          value={email}
-          setValue={handleSetValues}
-          type="text"
-          keyValue="email"
-        />
+        <Text size="xl" color="dark" className="w-1/2">
+          {email || "email@test.com"}
+        </Text>
       </div>
       <div className="flex w-full sm:w-1/2 sm:gap-8">
         <Text size="xl" color="dark" weight="bold" className="w-1/2">
           Nombre
         </Text>
-        <Input
-          value={name}
-          setValue={handleSetValues}
-          type="text"
-          keyValue="name"
-        />
+        <Text size="xl" color="dark" className="w-1/2">
+          {name}
+        </Text>
       </div>
       <div className="flex w-full sm:w-1/2 sm:gap-8">
         <Text size="xl" color="dark" weight="bold" className="w-1/2">
