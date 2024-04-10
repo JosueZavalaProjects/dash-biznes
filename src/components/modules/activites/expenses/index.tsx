@@ -14,7 +14,10 @@ export const PurchasesTable = () => {
   const { getExpensesByDate } = useExpenses();
   const { startDate, endDate } = useActivitiesDateState();
 
-  const handleGetSalesByDate = async (startDate: string, endDate: string) => {
+  const handleGetExpensesByDate = async (
+    startDate: string,
+    endDate: string
+  ) => {
     const newExpenses = await getExpensesByDate(startDate, endDate);
 
     setExpenses(newExpenses);
@@ -23,7 +26,7 @@ export const PurchasesTable = () => {
   useEffect(() => {
     if (!startDate && !endDate) return;
 
-    handleGetSalesByDate(startDate, endDate);
+    handleGetExpensesByDate(startDate, endDate);
   }, [startDate, endDate]);
 
   return <DataTable columns={columns} data={expenses} />;
