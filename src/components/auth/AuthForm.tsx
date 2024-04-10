@@ -38,9 +38,9 @@ const AuthForm = () => {
         return res._tokenResponse;
       })
       .then((data: any) => {
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
+        const HOURS = 48;
+        const expires = +data.expiresIn * 1000 * HOURS;
+        const expirationTime = new Date(new Date().getTime() + expires);
 
         const { localId, email } = data;
         authCtx.login(email, localId, expirationTime.toISOString());
