@@ -54,6 +54,9 @@ export const useProduct = () => {
     querySnapshot.forEach((doc) => {
       const { name, category, subcategory, price, inventory, date } =
         doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("DD/MM/YYYY");
 
       response.push({
         id: doc.id,
@@ -62,8 +65,7 @@ export const useProduct = () => {
         subcategory,
         price,
         inventory,
-        dateAdded:
-          dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        dateAdded: _date || "No Date",
       });
     });
     return response;
