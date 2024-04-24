@@ -112,6 +112,7 @@ export const Order = () => {
             setItems={setItems}
             disabled={productSelected < 0 || items <= 0}
             addProduct={handleAddProduct}
+            inventory={[...filteredProducts][productSelected]?.inventory || 0}
           />
           <div className="w-full">
             <SearchInput value={searchValue} setValue={setSearchValue} />
