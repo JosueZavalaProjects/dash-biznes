@@ -1,5 +1,7 @@
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
+import cn from "classnames";
+
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { Product } from "@/types/inventory";
 import { formatCurrency } from "@/utils/common";
@@ -49,6 +51,26 @@ export const InventoryColumns = ({
     {
       accessorKey: "dateAdded",
       header: "Fecha de Agregado",
+    },
+    {
+      accessorKey: "inventory",
+      header: "Disponibilidad",
+      cell: ({ row }) => {
+        const amount: number = row.getValue("inventory");
+        return (
+          <p>
+            <span
+              className={cn("", {
+                "text-green-primary": amount > 0,
+                "text-red-primary": amount <= 0,
+              })}
+            >
+              {amount > 0 && "En existencia"}
+              {amount <= 0 && "Sin existencia"}
+            </span>
+          </p>
+        );
+      },
     },
     {
       accessorKey: "id",
