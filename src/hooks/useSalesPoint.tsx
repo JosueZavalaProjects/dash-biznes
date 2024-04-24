@@ -74,9 +74,21 @@ export const useSalesPoint = () => {
     return response;
   };
 
+  const _updateProduct = async () => {
+    products.forEach(async (product) => {
+      const { id, amount, inventory } = product;
+      const newObj = {
+        inventory: inventory - amount,
+      };
+      const docRef = doc(db, "products", id);
+      return await updateDoc(docRef, newObj);
+    });
+  };
+
   const CreateSale = async (PaymentAmount?: number) => {
     const ticketNumber = await _handleGetTicketLasSale();
-    return await _handleAddSaleToDB(ticketNumber, PaymentAmount);
+    await _handleAddSaleToDB(ticketNumber, PaymentAmount);
+    return await _updateProduct();
   };
 
   const UpdateSale = async (id: string) => {

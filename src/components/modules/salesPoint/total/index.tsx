@@ -84,15 +84,9 @@ export const Total = () => {
       <Modals show={show} setShow={setShow} />
       <div className="grid gap-2">
         <div className="grid p-2">
-          {/* <Text color="eerie-black" size="sm" weight="medium">
-            Mesa 21 - No. de Cliente: 2
-          </Text> */}
           <Text color="silver" size="sm" className="capitalize">
             {dayjs(Date().toString()).format("DD [de] MMMM YYYY")}
           </Text>
-          {/* <Text color="silver" size="xs" className="capitalize">
-            Ticket: 241
-          </Text> */}
           <Text color="silver" size="sm" className="capitalize">
             Caja 1
           </Text>

@@ -23,7 +23,7 @@ export const Order = () => {
   const [categories, setCategorires] = useState<string[]>([""]);
   const [productSelected, setProductSelected] = useState<number>(-1);
 
-  const { updateProduct } = useSalesPointState();
+  const { updateProduct, paymentStep, setPaymentStep } = useSalesPointState();
   const { GetDataProducts } = useSalesPoint();
 
   const handleAddProduct = () => {
@@ -50,6 +50,13 @@ export const Order = () => {
   useEffect(() => {
     handleGetProducts();
   }, []);
+
+  useEffect(() => {
+    if (paymentStep === 4) {
+      handleGetProducts();
+      setPaymentStep(1);
+    }
+  }, [paymentStep]);
 
   useEffect(() => {
     if (indexCategorySelected < 0 || !categories) return;

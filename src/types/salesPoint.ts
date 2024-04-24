@@ -14,7 +14,7 @@ export type Product = {
   price: number;
   category: string;
   subcategory: string;
-  inventory?: number;
+  inventory: number;
 };
 
 export type ProductCheckout = Product & {
