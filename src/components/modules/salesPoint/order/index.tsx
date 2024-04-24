@@ -20,7 +20,7 @@ export const Order = () => {
   const [products, setProducts] = useState<ProductType[]>(PRODUCTS_MOCK);
   const [filteredProducts, setFilteredProducts] =
     useState<ProductType[]>(PRODUCTS_MOCK);
-  const [categories, setCategorires] = useState<string[]>(["Mock Cateogry"]);
+  const [categories, setCategorires] = useState<string[]>([""]);
   const [productSelected, setProductSelected] = useState<number>(-1);
 
   const { updateProduct } = useSalesPointState();
