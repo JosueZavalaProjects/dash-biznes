@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -35,7 +36,7 @@ export const useProduct = () => {
       unit,
       inventory: amount,
       purchaseAmount: amount,
-      date: new Date().toString(),
+      date: Timestamp.fromDate(new Date()),
       adminEmail: authCtx.email,
     });
   };
@@ -90,7 +91,7 @@ export const useProduct = () => {
       price,
       purchasePrice,
       subcategory: type,
-      updatedDate: new Date().toString(),
+      updatedDate: Timestamp.fromDate(new Date()),
     };
 
     return await updateDoc(docRef, newProduct);

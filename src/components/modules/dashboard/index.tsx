@@ -16,9 +16,11 @@ export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
   const [salesData, setSalesData] = useState<GraphData[]>([]);
   const [expensesData, setExpensesData] = useState<GraphData[]>([]);
+  const [productsData, setProductsData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { GetSalesByDate, GetExpensesByDate } = useDashboard();
+  const { GetSalesByDate, GetExpensesByDate, GetProductsByDate } =
+    useDashboard();
   const { GetCurrentYearDates } = useDates();
 
   const GetGraphsData = async () => {
@@ -28,13 +30,20 @@ export const Dashboard = () => {
     try {
       const salesResult = await GetSalesByDate(startDate, endDate);
       const expensesResult = await GetExpensesByDate(startDate, endDate);
+      const productsResult = await GetProductsByDate(startDate, endDate);
 
       const newSales = CreateGraphData(salesResult);
       const newExpenses = CreateGraphData(expensesResult);
-      const newUtilities = CreateUtilitiesGraphData(newSales, newExpenses);
+      const newProducts = CreateGraphData(productsResult);
+      const newUtilities = CreateUtilitiesGraphData(
+        newSales,
+        newExpenses,
+        newProducts
+      );
 
       setSalesData(newSales);
       setExpensesData(newExpenses);
+      setProductsData(newProducts);
       setUtilitiesData(newUtilities);
     } catch (e) {
       const result = (e as Error).message;
@@ -47,17 +56,23 @@ export const Dashboard = () => {
 
   const CreateUtilitiesGraphData = (
     sales: GraphData[],
-    expenses: GraphData[]
+    expenses: GraphData[],
+    inventory: GraphData[]
   ): GraphData[] => {
     const salesMonths = sales.map((sale) => sale.name);
     const expensesMonths = expenses.map((expense) => expense.name);
+    const productsMonths = inventory.map((product) => product.name);
 
-    const months = Array.from(new Set(salesMonths.concat(expensesMonths)));
+    const months = Array.from(
+      new Set(salesMonths.concat(expensesMonths, productsMonths))
+    );
 
     const utilities: GraphData[] = months.map((month) => {
       const sale = sales.find((sale) => sale.name === month);
       const expense = expenses.find((expense) => expense.name === month);
-      const utility = (sale?.total || 0) - (expense?.total || 0);
+      const product = inventory.find((product) => product.name === month);
+      const utility =
+        (sale?.total || 0) - (expense?.total || 0) - (product?.total || 0);
 
       return { name: month, total: utility };
     });
@@ -127,6 +142,14 @@ export const Dashboard = () => {
             data={salesData}
             isLoading={isLoading}
             fillColor="#8FC93A"
+          />
+        </CardContent>
+        <CardContent>
+          <p className="p-4 font-semibold">Resumen de Inventarios</p>
+          <BarChart
+            data={productsData}
+            isLoading={isLoading}
+            fillColor="#F05F40"
           />
         </CardContent>
       </section>
