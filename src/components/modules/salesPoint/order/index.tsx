@@ -116,12 +116,13 @@ export const Order = () => {
           <div className="w-full">
             <SearchInput value={searchValue} setValue={setSearchValue} />
           </div>
-          <div className="flex flex-col gap-1 py-2 max-h-60 overflow-y-scroll">
+          <div className="flex flex-col gap-1 py-2 max-h-96 overflow-y-scroll">
             {filteredProducts.length > 0 &&
               filteredProducts.map((product, index) => (
                 <Product
                   key={`${categorySelected}_product_${index}`}
                   name={product.name}
+                  inventory={product.inventory || 0}
                   index={index}
                   isSelected={index === productSelected}
                   setProductSelected={setProductSelected}
