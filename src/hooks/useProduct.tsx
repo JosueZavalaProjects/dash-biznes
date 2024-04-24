@@ -2,7 +2,6 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
-  QuerySnapshot,
   addDoc,
   collection,
   deleteDoc,
@@ -35,6 +34,7 @@ export const useProduct = () => {
       subcategory: type,
       unit,
       inventory: amount,
+      purchaseAmount: amount,
       date: new Date().toString(),
       adminEmail: authCtx.email,
     });

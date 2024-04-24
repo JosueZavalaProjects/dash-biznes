@@ -14,6 +14,7 @@ export type Product = {
   name: string;
   price: number;
   purchasePrice: number;
+  purchaseAmount: number;
   amount: number;
   unit: Unit;
 };
