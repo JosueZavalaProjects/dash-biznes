@@ -57,7 +57,7 @@ const AuthForm = () => {
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">Correo Electronico</label>
           <input
             type="email"
             id="email"
