@@ -13,7 +13,7 @@ export const TabSelectionItem = ({
 }: TabSelectionItemProps) => {
   return (
     <li
-      className={`flex items-center text-center min-w-[105px] h-12 p-2 ${
+      className={`flex items-center text-center min-w-[105px] h-12 p-2 cursor-pointer ${
         optionName === tabName
           ? "border-b-2 border-gray-800 text-gray-800"
           : "text-gray-300"

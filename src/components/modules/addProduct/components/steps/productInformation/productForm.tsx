@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
+import { SelectType } from "@/components/ui/select/selectType/selectType";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { PRODUCT_KEYS } from "@/constants/addProduct";
-import { Product } from "@/types/addProduct";
+import { useAmount } from "@/hooks/useAmount";
+import { Product, Unit, UnitsObject } from "@/types/addProduct";
 
 type ProductFormProps = {
   product: Product;
@@ -23,9 +27,40 @@ export const ProductForm = ({
   cancelButton,
   cancelAction,
 }: ProductFormProps) => {
+  const [unit, setUnit] = useState<Unit>("pzs");
+  const { amount, handleSetAmount, removeDecimalPart } = useAmount(unit);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUnit(UnitsObject[e.target.value]);
+    removeDecimalPart(UnitsObject[e.target.value]);
+  };
   return (
     <ContainerCard>
-      <div className="flex flex-col gap-2 p-4">
+      <div className="flex flex-col gap-6 p-4">
+        <Input
+          label="nombre de producto"
+          placeholder="Nombra tu producto"
+          value={product[PRODUCT_KEYS.NAME]}
+          keyValue={PRODUCT_KEYS.NAME}
+          setValue={handleSetValueProduct}
+        />
+        <Input
+          label="Cantidad"
+          placeholder="Ingresa la cantidad del producto"
+          value={product[PRODUCT_KEYS.AMOUNT]}
+          keyValue={PRODUCT_KEYS.AMOUNT}
+          setValue={handleSetValueProduct}
+          type="number"
+        />
+        <SelectType handleChange={handleChange} />
+        <Input
+          label="precio de compra"
+          placeholder="$"
+          value={product[PRODUCT_KEYS.PURCHASE_PRICE]}
+          keyValue={PRODUCT_KEYS.PURCHASE_PRICE}
+          setValue={handleSetValueProduct}
+          type="number"
+        />
         <Input
           label="Categoria"
           placeholder="Categoria de producto"
@@ -41,25 +76,10 @@ export const ProductForm = ({
           setValue={handleSetValueProduct}
         />
         <Input
-          label="nombre de producto"
-          placeholder="Nombra tu producto"
-          value={product[PRODUCT_KEYS.NAME]}
-          keyValue={PRODUCT_KEYS.NAME}
-          setValue={handleSetValueProduct}
-        />
-        <Input
           label="precio de venta"
           placeholder="$"
           value={product[PRODUCT_KEYS.PRICE]}
           keyValue={PRODUCT_KEYS.PRICE}
-          setValue={handleSetValueProduct}
-          type="number"
-        />
-        <Input
-          label="precio de compra"
-          placeholder="$"
-          value={product[PRODUCT_KEYS.PURCHASE_PRICE]}
-          keyValue={PRODUCT_KEYS.PURCHASE_PRICE}
           setValue={handleSetValueProduct}
           type="number"
         />

@@ -22,7 +22,12 @@ export const AddProduct = (): React.ReactElement => {
   const { CreateProduct } = useProduct();
 
   const handleSetProduct = (value: string | number, key: KeyValueTypes) => {
-    if (key === PRODUCT_KEYS.PRICE) value = +value;
+    if (
+      key === PRODUCT_KEYS.PRICE ||
+      key === PRODUCT_KEYS.AMOUNT ||
+      key === PRODUCT_KEYS.PURCHASE_PRICE
+    )
+      value = +value;
 
     const newProduct = { ...product, [key]: value };
 
@@ -32,14 +37,15 @@ export const AddProduct = (): React.ReactElement => {
   const handleSetInventoryStep = (newStep: number) => setStep(newStep);
 
   const handleAddProduct = async () => {
-    try {
+    console.log({ product });
+    /*     try {
       const newProduct = { ...product, amount: +amount };
       await CreateProduct(newProduct);
       setModalStep(2);
       setProduct(MOCK_PRODUCT);
     } catch (error) {
       console.log(error);
-    }
+    } */
   };
 
   return (
@@ -52,7 +58,13 @@ export const AddProduct = (): React.ReactElement => {
         handleAddProduct={handleAddProduct}
         setModalStep={setModalStep}
       />
-      {step === 1 && (
+      <ProductInformation
+        setStep={setStep}
+        setShowModal={setShowModal}
+        handleSetProduct={handleSetProduct}
+        product={product}
+      />
+      {/*  {step === 1 && (
         <SetUnits
           amount={amount}
           unit={unit}
@@ -69,7 +81,7 @@ export const AddProduct = (): React.ReactElement => {
           handleSetProduct={handleSetProduct}
           product={product}
         />
-      )}
+      )} */}
     </>
   );
 };

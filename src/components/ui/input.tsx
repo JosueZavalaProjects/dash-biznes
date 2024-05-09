@@ -26,7 +26,7 @@ export const Input = ({
     <div>
       <div className="grid gap-2">
         {label && (
-          <Text color="gray" className="capitalize">
+          <Text color="dark" weight="semibold" className="capitalize">
             {label}
           </Text>
         )}
@@ -38,6 +38,7 @@ export const Input = ({
               placeholder={placeholder || ""}
               value={value || ""}
               onChange={(e) => setValue(e.target.value, keyValue)}
+              min={0}
             />
           </div>
         </div>
