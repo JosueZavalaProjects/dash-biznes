@@ -1,11 +1,8 @@
-import { useState } from "react";
-
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
 import { SelectType } from "@/components/ui/select/selectType/selectType";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import { PRODUCT_KEYS } from "@/constants/addProduct";
-import { useAmount } from "@/hooks/useAmount";
 import { Product, Unit, UnitsObject } from "@/types/addProduct";
 
 type ProductFormProps = {
@@ -27,13 +24,10 @@ export const ProductForm = ({
   cancelButton,
   cancelAction,
 }: ProductFormProps) => {
-  const [unit, setUnit] = useState<Unit>("pzs");
-  const { amount, handleSetAmount, removeDecimalPart } = useAmount(unit);
-
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUnit(UnitsObject[e.target.value]);
-    removeDecimalPart(UnitsObject[e.target.value]);
+    handleSetValueProduct(UnitsObject[e.target.value], PRODUCT_KEYS.UNIT);
   };
+
   return (
     <ContainerCard>
       <div className="flex flex-col gap-6 p-4">

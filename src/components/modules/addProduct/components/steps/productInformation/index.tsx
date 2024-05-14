@@ -11,14 +11,12 @@ import { BackArrow } from "../../../../../../../public/assets";
 import { ProductForm } from "./productForm";
 
 type ProductInformationProps = {
-  setStep: (nextStep: number) => void;
   handleSetProduct: (value: string, key: KeyValueTypes) => void;
   setShowModal: (show: boolean) => void;
   product: Product;
 };
 
 export const ProductInformation = ({
-  setStep,
   handleSetProduct,
   setShowModal,
   product,

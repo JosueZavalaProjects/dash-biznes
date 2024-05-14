@@ -23,8 +23,11 @@ export const SelectType = ({ handleChange }: SelectTypeProps) => {
             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               handleChange(e);
             }}
-            className="select-box p-3 w-full rounded-xl border focus:outline-none"
+            className="select-box p-3 w-full rounded-xl border text-gray-400 placeholder:text-slate-400 focus:outline-none"
           >
+            <option className="text-gray-400" hidden selected>
+              Pzs, Kg, Lt
+            </option>
             <option value={UnitsObject.pzs}>Piezas</option>
             <option value={UnitsObject.kg}>Kg</option>
             <option value={UnitsObject.lt}>Lt</option>
