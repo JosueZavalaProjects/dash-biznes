@@ -30,10 +30,17 @@ export type ProductKeys =
   | "amount"
   | "unit";
 
-export type MovementType = "add" | "reduce" | "purchase" | "new";
+export type MovementType =
+  | "add"
+  | "reduce"
+  | "purchase"
+  | "new"
+  | "editPurchase";
+
 export type ProductMovement = {
   id: string;
   amount: number;
   type: MovementType;
   date: Timestamp;
+  saleId?: string;
 };

@@ -12,14 +12,19 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
-import { Product as ProductType } from "@/types/salesPoint";
+import { ProductMovement } from "@/types/addProduct";
+import { ProductCheckout, Product as ProductType } from "@/types/salesPoint";
+
+import { useProduct } from "./useProduct";
 
 export const useSalesPoint = () => {
   const { paymentMethod, products, total } = useSalesPointState();
+  const { CreateProductMovementRecord } = useProduct();
   const authCtx = useContext(AuthContext);
 
   const salesRef = collection(db, "sales");
@@ -39,7 +44,29 @@ export const useSalesPoint = () => {
       adminEmail: authCtx.email,
     };
 
-    await addDoc(salesRef, newObj);
+    const saleResponse: DocumentReference<DocumentData, DocumentData> =
+      await addDoc(salesRef, newObj);
+
+    const { id } = saleResponse;
+    await _createProductsMovements(products, id);
+    return saleResponse;
+  };
+
+  const _createProductsMovements = async (
+    products: ProductCheckout[],
+    saleId: string
+  ) => {
+    products.forEach(async (product) => {
+      const { id, amount } = product;
+      const productMovement: ProductMovement = {
+        id,
+        amount,
+        type: "purchase",
+        date: Timestamp.fromDate(new Date()),
+        saleId: saleId,
+      };
+      await CreateProductMovementRecord(productMovement);
+    });
   };
 
   const _handleGetTicketLasSale = async () => {

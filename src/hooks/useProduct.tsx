@@ -55,7 +55,6 @@ export const useProduct = () => {
 
     await _createProductMovementRecord(movement);
     return productResponse;
-    // Create record in product_purchases
   };
 
   const _createProductMovementRecord = async (
@@ -126,5 +125,6 @@ export const useProduct = () => {
     DeleteProduct,
     GetProductByID,
     UpdateProduct,
+    CreateProductMovementRecord: _createProductMovementRecord,
   };
 };
