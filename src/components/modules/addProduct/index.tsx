@@ -13,6 +13,7 @@ export const AddProduct = (): React.ReactElement => {
   const [step, setStep] = useState<number>(1);
   const [product, setProduct] = useState<Product>(MOCK_PRODUCT);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [modalStep, setModalStep] = useState<number>(1);
 
   const { CreateProduct } = useProduct();
@@ -48,12 +49,16 @@ export const AddProduct = (): React.ReactElement => {
   const handleSetInventoryStep = (newStep: number) => setStep(newStep);
 
   const handleAddProduct = async () => {
+    setIsLoading(true);
     try {
       const newProduct = { ...product };
       await CreateProduct(newProduct);
+      setModalStep(2);
       setProduct(MOCK_PRODUCT);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,6 +72,7 @@ export const AddProduct = (): React.ReactElement => {
       <Modals
         show={showModal}
         modalStep={modalStep}
+        isLoading={isLoading}
         setShow={setShowModal}
         setInventoryStep={handleSetInventoryStep}
         handleAddProduct={handleAddProduct}

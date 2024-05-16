@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import { Loading } from "@/components/modals/components/Loading";
 import Modal from "@/components/ui/modal";
 
 import { AskConfirmation } from "./askConfirmation";
@@ -7,6 +8,7 @@ import { Confirmation } from "./confirmation";
 
 type ModalProps = {
   show: boolean;
+  isLoading: boolean;
   modalStep: number;
   setShow: (show: boolean) => void;
   setInventoryStep: (newStep: number) => void;
@@ -16,6 +18,7 @@ type ModalProps = {
 
 export const Modals = ({
   show,
+  isLoading,
   modalStep,
   setShow,
   setInventoryStep,
@@ -32,13 +35,18 @@ export const Modals = ({
   }, [show]);
   return (
     <Modal show={show} onClose={() => setShow(false)}>
-      {modalStep === 1 && (
+      {isLoading && (
+        <div className="grid justify-items-center items-center">
+          <Loading />
+        </div>
+      )}
+      {!isLoading && modalStep === 1 && (
         <AskConfirmation
           setInventoryStep={handleSetInventoryStep}
           handleAddProduct={handleAddProduct}
         />
       )}
-      {modalStep === 2 && (
+      {!isLoading && modalStep === 2 && (
         <Confirmation
           setModalStep={setModalStep}
           setInventoryStep={handleSetInventoryStep}

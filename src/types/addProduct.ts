@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type Unit = "pzs" | "kg" | "lt";
 
 export type DropdownOption = { value: Unit; label: string };
@@ -27,3 +29,11 @@ export type ProductKeys =
   | "purchasePrice"
   | "amount"
   | "unit";
+
+export type MovementType = "add" | "reduce" | "purchase" | "new";
+export type ProductMovement = {
+  id: string;
+  amount: number;
+  type: MovementType;
+  date: Timestamp;
+};

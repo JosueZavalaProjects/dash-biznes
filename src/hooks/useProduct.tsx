@@ -14,32 +14,53 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
-import { Product } from "@/types/addProduct";
+import { Product, ProductMovement } from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
 
 export const useProduct = () => {
   const productsRef = collection(db, "products");
+  const movementsRef = collection(db, "product_movements");
   const authCtx: any = useContext(AuthContext);
 
   const CreateProduct = async (product: Product) => {
     const { name, category, price, amount, type, unit, purchasePrice } =
       product;
-    return await addDoc(productsRef, {
-      name,
-      category,
-      price,
-      purchasePrice,
-      subcategory: type,
-      unit,
-      inventory: amount,
-      purchaseAmount: amount,
+
+    const productResponse: DocumentReference<DocumentData, DocumentData> =
+      await addDoc(productsRef, {
+        name,
+        category,
+        price,
+        purchasePrice,
+        subcategory: type,
+        unit,
+        inventory: amount,
+        purchaseAmount: amount,
+        date: Timestamp.fromDate(new Date()),
+        adminEmail: authCtx.email,
+      });
+
+    const { id } = productResponse;
+
+    const movement: ProductMovement = {
+      id,
+      amount,
+      type: "new",
       date: Timestamp.fromDate(new Date()),
-      adminEmail: authCtx.email,
-    });
+    };
+
+    await _createProductMovementRecord(movement);
+    return productResponse;
+    // Create record in product_purchases
   };
+
+  const _createProductMovementRecord = async (
+    purchaseMovment: ProductMovement
+  ) => await addDoc(movementsRef, purchaseMovment);
 
   const GetDataProducts = async () => {
     const q = query(
