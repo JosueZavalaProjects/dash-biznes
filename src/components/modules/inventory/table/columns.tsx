@@ -1,11 +1,10 @@
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
-
 import cn from "classnames";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
 import { Product } from "@/types/inventory";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
+
+import { EditOptions } from "./editOptions";
 
 type InventoryColumnsProps = {
   handleDeleteProduct: (id: string) => void;
@@ -74,20 +73,21 @@ export const InventoryColumns = ({
     },
     {
       accessorKey: "id",
-      header: "Editar / Eliminar",
+      header: "...",
       cell: ({ row }) => {
         const id: string = row.getValue("id");
         return (
-          <p>
-            <SimpleButton onClick={() => handleEditProduct(id)}>
-              <FaEdit />
-            </SimpleButton>
-            <SimpleButton onClick={() => handleDeleteProduct(id)}>
-              <FaRegTrashAlt />
-            </SimpleButton>
-          </p>
+          <EditOptions
+            handleDeleteProduct={handleDeleteProduct}
+            handleEditProduct={handleEditProduct}
+            id={id}
+          />
         );
       },
     },
   ];
 };
+
+{
+  /*  */
+}

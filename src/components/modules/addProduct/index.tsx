@@ -40,8 +40,6 @@ export const AddProduct = (): React.ReactElement => {
     if (unit === "pzs") newAmount = parseInt(`${amount}`);
     if (unit !== "pzs") newAmount = parseFloat(`${amount}`).toFixed(2);
 
-    console.log(unit);
-    console.log(newAmount);
     const newProduct = { ...product, [PRODUCT_KEYS.AMOUNT]: +newAmount };
 
     setProduct(newProduct);

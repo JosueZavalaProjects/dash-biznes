@@ -61,9 +61,12 @@ module.exports = {
         "cadet-grey": "#8FA0A9",
         "malachite-green": "#1CCC43",
         "seconday-blue": "#0085FF",
+        "light-blue": "#8EC2F2",
         "old-silver": "#858585",
         "green-primary": "#10A760",
         "red-primary": "#DA3E33",
+        "red-secondary": "#D92D20",
+        "orange-primary": "#F5462C",
         cta: {
           50: "#EDF0FF",
           100: "#D8E2FF",
