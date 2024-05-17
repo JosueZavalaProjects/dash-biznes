@@ -38,7 +38,7 @@ export const InventoryModal = ({
   return (
     <Modal
       show={showModal}
-      onClose={() => setShowModal(false)}
+      onClose={() => handleContinueAction()}
       size={INVENTORY_MODAL_SIZE[modalStep]}
     >
       {modalStep === InventoryModalStep.edit && (
@@ -61,7 +61,7 @@ export const InventoryModal = ({
         />
       )}
       {modalStep === InventoryModalStep.deleteConfirm && (
-        <DeleteConfirm continueAction={() => setShowModal(false)} />
+        <DeleteConfirm continueAction={() => handleContinueAction()} />
       )}
     </Modal>
   );

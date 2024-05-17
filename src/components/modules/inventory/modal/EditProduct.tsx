@@ -33,7 +33,7 @@ export const EditProduct = ({
         </div>
       )}
       {!isLoading && (
-        <div className="flex sm:w-[440px] justify-center bg-white rounded-lg mx-auto py-8">
+        <div className="flex max-h-[42rem] overflow-y-scroll justify-center bg-white rounded-lg mx-auto py-8 sm:w-[440px]">
           <ProductForm
             product={product}
             handleSetValueProduct={handleSetValueProduct}

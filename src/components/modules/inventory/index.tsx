@@ -57,6 +57,7 @@ export const InventoryTable = () => {
     setShowModal(true);
     setIsLoadingModal(true);
     setProductId(id);
+    
     try {
       const productResponse: DocumentData | undefined = await GetProductByID(
         id
