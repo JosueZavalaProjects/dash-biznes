@@ -18,7 +18,7 @@ import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
-import { Product, ProductMovement } from "@/types/addProduct";
+import { MovementType, Product, ProductMovement } from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
 
 export const useProduct = () => {
@@ -104,18 +104,48 @@ export const useProduct = () => {
     return querySnapshot.data();
   };
 
-  const UpdateProduct = async (id: string, product: Product) => {
+  const _handleMovementUpdateProduct = async (
+    id: string,
+    newAmount: number,
+    prevAmount: number
+  ) => {
+    let type: MovementType = "add";
+    const calculatedAmount = newAmount - prevAmount;
+
+    if (prevAmount === newAmount) return;
+
+    if (prevAmount > newAmount) type = "reduce";
+    if (prevAmount < newAmount) type = "add";
+
+    const productMovement: ProductMovement = {
+      id,
+      amount: calculatedAmount,
+      type,
+      date: Timestamp.fromDate(new Date()),
+    };
+
+    return await _createProductMovementRecord(productMovement);
+  };
+
+  const UpdateProduct = async (
+    id: string,
+    product: Product,
+    initialInventory: number
+  ) => {
     const docRef = doc(db, "products", id);
-    const { name, category, price, type, purchasePrice } = product;
+    const { name, category, price, type, purchasePrice, amount } = product;
+    
     const newProduct = {
       name,
       category,
       price,
       purchasePrice,
+      inventory: amount,
       subcategory: type,
       updatedDate: Timestamp.fromDate(new Date()),
     };
 
+    await _handleMovementUpdateProduct(id, amount, initialInventory);
     return await updateDoc(docRef, newProduct);
   };
 
