@@ -19,6 +19,11 @@ import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { ProductMovement } from "@/types/addProduct";
 import { ProductCheckout, Product as ProductType } from "@/types/salesPoint";
+import {
+  _obtainProductsAdded,
+  _obtainProductsDeleted,
+  _obtainProductsModified,
+} from "@/utils/salesPoint";
 
 import { useProduct } from "./useProduct";
 
@@ -81,26 +86,6 @@ export const useSalesPoint = () => {
     return ticketNumber;
   };
 
-  const GetDataProducts = async () => {
-    const q = query(productssRef, where("adminEmail", "==", authCtx.email));
-    const qwerySnapshot = await getDocs(q);
-
-    const response: ProductType[] = [];
-    qwerySnapshot.forEach((doc) => {
-      const { category, subcategory, inventory, name, price } = doc.data();
-      response.push({
-        id: doc.id,
-        name,
-        price,
-        category,
-        inventory,
-        subcategory,
-      });
-    });
-
-    return response;
-  };
-
   const _updateProduct = async () => {
     products.forEach(async (product) => {
       const { id, amount, inventory } = product;
@@ -110,93 +95,6 @@ export const useSalesPoint = () => {
       const docRef = doc(db, "products", id);
       return await updateDoc(docRef, newObj);
     });
-  };
-
-  const CreateSale = async (PaymentAmount?: number) => {
-    const ticketNumber = await _handleGetTicketLasSale();
-    await _handleAddSaleToDB(ticketNumber, PaymentAmount);
-    return await _updateProduct();
-  };
-
-  const _obtainProductsDeleted = (
-    idSale: string,
-    updatedProducs: ProductCheckout[],
-    initialProducts: ProductCheckout[]
-  ): ProductMovement[] => {
-    const deletedProducts: ProductMovement[] = [];
-
-    initialProducts.forEach((product) => {
-      const { id, amount } = product;
-      const existingProduct = updatedProducs.find((p) => p.id === product.id);
-
-      if (!existingProduct) {
-        const productMovement: ProductMovement = {
-          id,
-          amount: -amount,
-          type: "editPurchase",
-          date: Timestamp.fromDate(new Date()),
-          saleId: idSale,
-        };
-        deletedProducts.push(productMovement);
-      }
-    });
-    return deletedProducts;
-  };
-  const _obtainProductsAdded = (
-    idSale: string,
-    updatedProducs: ProductCheckout[],
-    initialProducts: ProductCheckout[]
-  ): ProductMovement[] => {
-    const addedProducts: ProductMovement[] = [];
-
-    updatedProducs.forEach((product) => {
-      const { id, amount } = product;
-      const existingProduct = initialProducts.find((p) => p.id === product.id);
-
-      if (!existingProduct) {
-        const productMovement: ProductMovement = {
-          id,
-          amount: amount,
-          type: "editPurchase",
-          date: Timestamp.fromDate(new Date()),
-          saleId: idSale,
-        };
-        addedProducts.push(productMovement);
-      }
-    });
-
-    return addedProducts;
-  };
-  const _obtainProductsModified = (
-    idSale: string,
-    updatedProducs: ProductCheckout[],
-    initialProducts: ProductCheckout[]
-  ): ProductMovement[] => {
-    const modifiedProducts: ProductMovement[] = [];
-
-    updatedProducs.forEach(async (product) => {
-      const { id, amount } = product;
-      let amountCalculated = 0;
-
-      const productMatch = initialProducts?.find(
-        (product) => product.id === id
-      );
-
-      if (productMatch) amountCalculated = amount - productMatch.amount;
-
-      if (amountCalculated !== 0) {
-        const productMovement: ProductMovement = {
-          id,
-          amount: amountCalculated,
-          type: "editPurchase",
-          date: Timestamp.fromDate(new Date()),
-          saleId: idSale,
-        };
-        modifiedProducts.push(productMovement);
-      }
-    });
-
-    return modifiedProducts;
   };
 
   const _handleUpdateProductMovement = async (
@@ -231,7 +129,7 @@ export const useSalesPoint = () => {
         product.id,
         inventoryInDB + amountCalculated
       );
-      await _handleCreateMovementRecord(product);
+      await CreateProductMovementRecord(product);
     });
 
     productsDeleted.forEach(async (product) => {
@@ -239,7 +137,7 @@ export const useSalesPoint = () => {
       const inventoryInDB = await _handleGetProductInventory(product.id);
       const amountCalculated = inventoryInDB - product.amount;
       await _updateInventoryProduct(product.id, amountCalculated);
-      await _handleCreateMovementRecord(product);
+      await CreateProductMovementRecord(product);
     });
 
     productsAdded.forEach(async (product) => {
@@ -247,35 +145,8 @@ export const useSalesPoint = () => {
       const inventoryInDB = await _handleGetProductInventory(product.id);
       const amountCalculated = inventoryInDB - product.amount;
       await _updateInventoryProduct(product.id, amountCalculated);
-      await _handleCreateMovementRecord(product);
+      await CreateProductMovementRecord(product);
     });
-
-    /* console.log({ productsModified });
-    console.log({ productsDeleted });
-    console.log({ productsAdded }); */
-
-    /* updatedProducs.forEach(async (product) => {
-      const { id, amount } = product;
-      console.log({ product });
-      let amountCalculated = 0;
-
-      const productMatch = initialProducts?.find(
-        (product) => product.id === id
-      );
-      if (!productMatch) amountCalculated = amount; // TODO quitar cantidad del inventario del producto
-      if (productMatch) amountCalculated = amount - productMatch.amount; // TODO Agregar cantidad al inventario del producto
-
-      if (amountCalculated === 0) return;
-
-      const productMovement: ProductMovement = {
-        id,
-        amount: amountCalculated,
-        type: "editPurchase",
-        date: Timestamp.fromDate(new Date()),
-        saleId: idSale,
-      };
-      await CreateProductMovementRecord(productMovement);
-    }); */
   };
 
   const _handleGetProductInventory = async (idProduct: string) => {
@@ -283,10 +154,6 @@ export const useSalesPoint = () => {
     const { inventory } = product || {};
     return inventory;
   };
-
-  const _handleCreateMovementRecord = async (
-    productMovement: ProductMovement
-  ) => await CreateProductMovementRecord(productMovement);
 
   const _updateInventoryProduct = async (id: string, amount: number) => {
     const docRef = doc(db, "products", id);
@@ -297,6 +164,32 @@ export const useSalesPoint = () => {
     };
 
     return await updateDoc(docRef, newProduct);
+  };
+
+  const CreateSale = async (PaymentAmount?: number) => {
+    const ticketNumber = await _handleGetTicketLasSale();
+    await _handleAddSaleToDB(ticketNumber, PaymentAmount);
+    return await _updateProduct();
+  };
+
+  const GetDataProducts = async () => {
+    const q = query(productssRef, where("adminEmail", "==", authCtx.email));
+    const qwerySnapshot = await getDocs(q);
+
+    const response: ProductType[] = [];
+    qwerySnapshot.forEach((doc) => {
+      const { category, subcategory, inventory, name, price } = doc.data();
+      response.push({
+        id: doc.id,
+        name,
+        price,
+        category,
+        inventory,
+        subcategory,
+      });
+    });
+
+    return response;
   };
 
   const UpdateSale = async (
