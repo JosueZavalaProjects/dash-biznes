@@ -18,10 +18,23 @@ import useSalesPointState from "../states/sales-point-state";
 import { Modals } from "./components/modals";
 import { TotalTable } from "./components/table";
 
+const MOCK_INITIAL_PRODUCTS: ProductCheckout = {
+  id: "",
+  name: "",
+  price: 0,
+  category: "",
+  subcategory: "",
+  inventory: 0,
+  amount: 0,
+};
+
 export const Total = () => {
   const [show, setShow] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [initialEditProducts, setInitialEditProducts] = useState<
+    ProductCheckout[]
+  >([MOCK_INITIAL_PRODUCTS]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { products, total, clearSale, updateProduct, setTabName } =
@@ -52,7 +65,7 @@ export const Total = () => {
     }
     try {
       setIsLoading(true);
-      const response = await UpdateSale(saleId);
+      const response = await UpdateSale(saleId, initialEditProducts);
     } catch (e) {
       throw new Error("Something went wrong");
     } finally {
@@ -66,6 +79,7 @@ export const Total = () => {
     if (products) {
       clearSale();
       const cookiesProducts = JSON.parse(products);
+      setInitialEditProducts(cookiesProducts);
       handleUpdateProducts(cookiesProducts);
       setTabName(TAB_KEYS.TOTAL);
       setIsEdit(true);

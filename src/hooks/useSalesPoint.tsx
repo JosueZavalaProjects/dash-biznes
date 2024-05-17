@@ -24,7 +24,7 @@ import { useProduct } from "./useProduct";
 
 export const useSalesPoint = () => {
   const { paymentMethod, products, total } = useSalesPointState();
-  const { CreateProductMovementRecord } = useProduct();
+  const { CreateProductMovementRecord, GetProductByID } = useProduct();
   const authCtx = useContext(AuthContext);
 
   const salesRef = collection(db, "sales");
@@ -118,7 +118,191 @@ export const useSalesPoint = () => {
     return await _updateProduct();
   };
 
-  const UpdateSale = async (id: string) => {
+  const _obtainProductsDeleted = (
+    idSale: string,
+    updatedProducs: ProductCheckout[],
+    initialProducts: ProductCheckout[]
+  ): ProductMovement[] => {
+    const deletedProducts: ProductMovement[] = [];
+
+    initialProducts.forEach((product) => {
+      const { id, amount } = product;
+      const existingProduct = updatedProducs.find((p) => p.id === product.id);
+
+      if (!existingProduct) {
+        const productMovement: ProductMovement = {
+          id,
+          amount: -amount,
+          type: "editPurchase",
+          date: Timestamp.fromDate(new Date()),
+          saleId: idSale,
+        };
+        deletedProducts.push(productMovement);
+      }
+    });
+    return deletedProducts;
+  };
+  const _obtainProductsAdded = (
+    idSale: string,
+    updatedProducs: ProductCheckout[],
+    initialProducts: ProductCheckout[]
+  ): ProductMovement[] => {
+    const addedProducts: ProductMovement[] = [];
+
+    updatedProducs.forEach((product) => {
+      const { id, amount } = product;
+      const existingProduct = initialProducts.find((p) => p.id === product.id);
+
+      if (!existingProduct) {
+        const productMovement: ProductMovement = {
+          id,
+          amount: amount,
+          type: "editPurchase",
+          date: Timestamp.fromDate(new Date()),
+          saleId: idSale,
+        };
+        addedProducts.push(productMovement);
+      }
+    });
+
+    return addedProducts;
+  };
+  const _obtainProductsModified = (
+    idSale: string,
+    updatedProducs: ProductCheckout[],
+    initialProducts: ProductCheckout[]
+  ): ProductMovement[] => {
+    const modifiedProducts: ProductMovement[] = [];
+
+    updatedProducs.forEach(async (product) => {
+      const { id, amount } = product;
+      let amountCalculated = 0;
+
+      const productMatch = initialProducts?.find(
+        (product) => product.id === id
+      );
+
+      if (productMatch) amountCalculated = amount - productMatch.amount;
+
+      if (amountCalculated !== 0) {
+        const productMovement: ProductMovement = {
+          id,
+          amount: amountCalculated,
+          type: "editPurchase",
+          date: Timestamp.fromDate(new Date()),
+          saleId: idSale,
+        };
+        modifiedProducts.push(productMovement);
+      }
+    });
+
+    return modifiedProducts;
+  };
+
+  const _handleUpdateProductMovement = async (
+    idSale: string,
+    updatedProducs: ProductCheckout[],
+    initialProducts: ProductCheckout[]
+  ) => {
+    const productsModified = _obtainProductsModified(
+      idSale,
+      updatedProducs,
+      initialProducts
+    );
+    const productsDeleted = _obtainProductsDeleted(
+      idSale,
+      updatedProducs,
+      initialProducts
+    );
+    const productsAdded = _obtainProductsAdded(
+      idSale,
+      updatedProducs,
+      initialProducts
+    );
+
+    productsModified.forEach(async (product) => {
+      // Update Inventory
+      const inventoryInDB = await _handleGetProductInventory(product.id);
+      // if amount is -2 inventory of product must increase 2
+      // if amount is 2 inventory of product must decrease 2
+
+      const amountCalculated = product.amount * -1;
+      await _updateInventoryProduct(
+        product.id,
+        inventoryInDB + amountCalculated
+      );
+      await _handleCreateMovementRecord(product);
+    });
+
+    productsDeleted.forEach(async (product) => {
+      // Update Inventory
+      const inventoryInDB = await _handleGetProductInventory(product.id);
+      const amountCalculated = inventoryInDB - product.amount;
+      await _updateInventoryProduct(product.id, amountCalculated);
+      await _handleCreateMovementRecord(product);
+    });
+
+    productsAdded.forEach(async (product) => {
+      // Update Inventory
+      const inventoryInDB = await _handleGetProductInventory(product.id);
+      const amountCalculated = inventoryInDB - product.amount;
+      await _updateInventoryProduct(product.id, amountCalculated);
+      await _handleCreateMovementRecord(product);
+    });
+
+    /* console.log({ productsModified });
+    console.log({ productsDeleted });
+    console.log({ productsAdded }); */
+
+    /* updatedProducs.forEach(async (product) => {
+      const { id, amount } = product;
+      console.log({ product });
+      let amountCalculated = 0;
+
+      const productMatch = initialProducts?.find(
+        (product) => product.id === id
+      );
+      if (!productMatch) amountCalculated = amount; // TODO quitar cantidad del inventario del producto
+      if (productMatch) amountCalculated = amount - productMatch.amount; // TODO Agregar cantidad al inventario del producto
+
+      if (amountCalculated === 0) return;
+
+      const productMovement: ProductMovement = {
+        id,
+        amount: amountCalculated,
+        type: "editPurchase",
+        date: Timestamp.fromDate(new Date()),
+        saleId: idSale,
+      };
+      await CreateProductMovementRecord(productMovement);
+    }); */
+  };
+
+  const _handleGetProductInventory = async (idProduct: string) => {
+    const product: DocumentData | undefined = await GetProductByID(idProduct);
+    const { inventory } = product || {};
+    return inventory;
+  };
+
+  const _handleCreateMovementRecord = async (
+    productMovement: ProductMovement
+  ) => await CreateProductMovementRecord(productMovement);
+
+  const _updateInventoryProduct = async (id: string, amount: number) => {
+    const docRef = doc(db, "products", id);
+
+    const newProduct = {
+      inventory: amount,
+      updatedDate: Timestamp.fromDate(new Date()),
+    };
+
+    return await updateDoc(docRef, newProduct);
+  };
+
+  const UpdateSale = async (
+    id: string,
+    initialEditProducts: ProductCheckout[]
+  ) => {
     let newObj = {
       products,
       payment: total,
@@ -130,6 +314,7 @@ export const useSalesPoint = () => {
 
     const docRef = doc(db, "sales", id);
 
+    await _handleUpdateProductMovement(id, products, initialEditProducts);
     return await updateDoc(docRef, newObj);
   };
 
