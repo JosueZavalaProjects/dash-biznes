@@ -44,3 +44,7 @@ export type ProductMovement = {
   date: Timestamp;
   saleId?: string;
 };
+
+export type ProductMovementAdminID = ProductMovement & {
+  adminEmail: string;
+};

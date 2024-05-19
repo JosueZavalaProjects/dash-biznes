@@ -18,7 +18,12 @@ import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
-import { MovementType, Product, ProductMovement } from "@/types/addProduct";
+import {
+  MovementType,
+  Product,
+  ProductMovement,
+  ProductMovementAdminID,
+} from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
 
 export const useProduct = () => {
@@ -59,7 +64,13 @@ export const useProduct = () => {
 
   const _createProductMovementRecord = async (
     purchaseMovment: ProductMovement
-  ) => await addDoc(movementsRef, purchaseMovment);
+  ) => {
+    const purchaseMovementId: ProductMovementAdminID = {
+      ...purchaseMovment,
+      adminEmail: authCtx.email,
+    };
+    await addDoc(movementsRef, purchaseMovementId);
+  };
 
   const GetDataProducts = async () => {
     const q = query(
@@ -134,7 +145,7 @@ export const useProduct = () => {
   ) => {
     const docRef = doc(db, "products", id);
     const { name, category, price, type, purchasePrice, amount } = product;
-    
+
     const newProduct = {
       name,
       category,

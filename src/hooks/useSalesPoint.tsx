@@ -211,5 +211,11 @@ export const useSalesPoint = () => {
     return await updateDoc(docRef, newObj);
   };
 
-  return { CreateSale, GetDataProducts, UpdateSale };
+  return {
+    CreateSale,
+    GetDataProducts,
+    UpdateSale,
+    UpdateInventoryProduct: _updateInventoryProduct,
+    GetProductInventory: _handleGetProductInventory,
+  };
 };

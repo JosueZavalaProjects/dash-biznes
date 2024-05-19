@@ -49,7 +49,6 @@ export const SalesTable = () => {
   };
 
   const handleShowModal = (id: string) => {
-    console.log(id);
     setSaleId(id);
     setShowModal(true);
   };
