@@ -35,7 +35,8 @@ export type MovementType =
   | "reduce"
   | "purchase"
   | "new"
-  | "editPurchase";
+  | "editPurchase"
+  | "delete";
 
 export type ProductMovement = {
   id: string;

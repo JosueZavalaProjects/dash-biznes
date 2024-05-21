@@ -103,6 +103,17 @@ export const useProduct = () => {
   };
 
   const DeleteProduct = async (productId: string) => {
+    const product: DocumentData | undefined = await GetProductByID(productId);
+    const { inventory } = product || {};
+
+    const movement: ProductMovement = {
+      id: productId,
+      amount: -inventory,
+      type: "delete",
+      date: Timestamp.fromDate(new Date()),
+    };
+
+    await _createProductMovementRecord(movement);
     const response = await deleteDoc(doc(db, "products", productId));
 
     return response;
