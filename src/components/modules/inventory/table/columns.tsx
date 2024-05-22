@@ -52,7 +52,7 @@ export const InventoryColumns = ({
       header: "Fecha de Agregado",
     },
     {
-      accessorKey: "inventory",
+      accessorKey: "availability",
       header: "Disponibilidad",
       cell: ({ row }) => {
         const amount: number = row.getValue("inventory");
