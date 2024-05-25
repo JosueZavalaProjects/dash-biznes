@@ -7,11 +7,8 @@ import { useRouter } from "next/navigation";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 import { auth, initFirebase } from "@/services/firebase";
-import {
-  getCheckoutUrl,
-  getPortalUrl,
-  getPremiumStatus,
-} from "@/services/stripePayments";
+import { getCheckoutUrl, getPremiumStatus } from "@/services/stripePayments";
+import { CancelPeriod, STATUS_LABELS } from "@/types/stripePayments";
 
 import { SubcriptionModal } from "./modals";
 
@@ -22,6 +19,9 @@ export const Subscription = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string>("");
   const [isPremium, setIsPremium] = useState(false);
+  const [subscription, setSubscription] = useState<CancelPeriod>({
+    cancelAtPeriodEnd: false,
+  });
 
   const router = useRouter();
 
@@ -31,17 +31,18 @@ export const Subscription = () => {
     console.log("Upgrade to Premium");
   };
 
+  const checkPremium = async () => {
+    const newPremiumStatus = await getPremiumStatus(app);
+
+    setSubscription(newPremiumStatus);
+    /* setIsPremium(newPremiumStatus); */
+  };
+
   const statusPanel = isPremium ? (
     <PremiumPanel setShowModal={setShowModal} />
   ) : (
     <StandardPanel manageSubscription={upgradeToPremium} />
   );
-
-  const checkPremium = async () => {
-    const newPremiumStatus = await getPremiumStatus(app);
-
-    setIsPremium(newPremiumStatus);
-  };
 
   useEffect(() => {
     /**
@@ -85,7 +86,7 @@ export const Subscription = () => {
                 Tipo de Subscripción
               </Text>
               <Text size="xl" color="dark" weight="semibold" className="w-2/3">
-                Premium
+                {STATUS_LABELS[`${subscription.status || "noActive"}`]}
               </Text>
             </div>
             <div className="flex w-full gap-8">

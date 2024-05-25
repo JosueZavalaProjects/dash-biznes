@@ -102,7 +102,8 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
     where("status", "in", ["trialing", "active"])
   );
 
-  return new Promise<boolean>((resolve, reject) => {
+  return new Promise<CancelPeriod>((resolve, reject) => {
+    const cancelPeriod: CancelPeriod = { cancelAtPeriodEnd: false };
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -110,10 +111,25 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
         console.log("Subscription snapshot", snapshot.docs.length);
         if (snapshot.docs.length === 0) {
           console.log("No active or trialing subscriptions found");
-          resolve(false);
+          cancelPeriod.status = "noActive";
+          resolve(cancelPeriod);
         } else {
           console.log("Active or trialing subscription found");
-          resolve(true);
+          snapshot.docs.forEach((doc) => {
+            const {
+              cancel_at,
+              cancel_at_period_end,
+              status,
+              current_period_end,
+            } = doc.data();
+            cancelPeriod.cancelAt = cancel_at;
+            cancelPeriod.cancelAtPeriodEnd = cancel_at_period_end;
+            cancelPeriod.status = status;
+            cancelPeriod.currentPeriodEnd = current_period_end;
+
+            console.log(doc.data());
+          });
+          resolve(cancelPeriod);
         }
         unsubscribe();
       },
