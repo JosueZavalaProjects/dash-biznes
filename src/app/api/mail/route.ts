@@ -7,6 +7,9 @@ import {
 import { EmailBodyType } from "@/services/emailService";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+const DESTINY_EMAIL =
+  process.env.NEXT_PUBLIC_RESEND_DESTINY_EMAIL ||
+  "josue.zavala.projects@gmail.com";
 
 export async function POST(request: Request, response: Response) {
   const { clientEmail, emailType } = (await request.json()) as EmailBodyType;
@@ -24,7 +27,7 @@ export async function POST(request: Request, response: Response) {
   try {
     const { data, error } = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
-      to: ["josue.zavala123@gmail.com"],
+      to: [DESTINY_EMAIL],
       subject: EmailSubject,
       react: EmailTemplate,
     });
