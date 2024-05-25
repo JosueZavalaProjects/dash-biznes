@@ -19,6 +19,8 @@ export const Subscription = () => {
   const app = initFirebase();
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userEmail, setUserEmail] = useState<string>("");
   const [isPremium, setIsPremium] = useState(false);
 
   const router = useRouter();
@@ -29,14 +31,8 @@ export const Subscription = () => {
     console.log("Upgrade to Premium");
   };
 
-  const manageSubscription = async () => {
-    const portalUrl = await getPortalUrl(app);
-    router.push(portalUrl);
-    console.log("Manage Subscription");
-  };
-
   const statusPanel = isPremium ? (
-    <PremiumPanel manageSubscription={manageSubscription} />
+    <PremiumPanel setShowModal={setShowModal} />
   ) : (
     <StandardPanel manageSubscription={upgradeToPremium} />
   );
@@ -53,13 +49,23 @@ export const Subscription = () => {
      * https://firebase.google.com/docs/auth/web/start?hl=es-419#set_an_authentication_state_observer_and_get_user_data
      *  */
     onAuthStateChanged(auth, (user) => {
-      if (user) checkPremium();
+      if (user) {
+        const { email } = user;
+        setUserEmail(email || "");
+        checkPremium();
+      }
     });
   }, [app, auth.currentUser]);
 
   return (
     <div className="grid gap-16 px-8">
-      <SubcriptionModal show={showModal} setShow={setShowModal} />
+      <SubcriptionModal
+        show={showModal}
+        setShow={setShowModal}
+        userEmail={userEmail}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
       <Text size="3xl" color="dark">
         Subscripción
       </Text>
@@ -107,9 +113,9 @@ export const Subscription = () => {
 };
 
 const PremiumPanel = ({
-  manageSubscription,
+  setShowModal,
 }: {
-  manageSubscription: () => void;
+  setShowModal: (showModal: boolean) => void;
 }) => {
   return (
     <div className="grid gap-4">
@@ -122,7 +128,7 @@ const PremiumPanel = ({
         reiniciar tu subscripción en cualquier momento.
       </Text>
       <div className="">
-        <SimpleButton onClick={() => manageSubscription()}>
+        <SimpleButton onClick={() => setShowModal(true)}>
           Cancelar tu subscripción
         </SimpleButton>
       </div>
