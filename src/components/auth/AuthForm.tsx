@@ -89,13 +89,11 @@ const AuthForm = () => {
         })
         .then((data: any) => CreateExpirationTime(data))
         .then(async () => {
-          // TODO send email new client
           const testBody: EmailBodyType = {
             clientEmail: enteredEmail,
             emailType: "signUp",
           };
-          const response = await sendEmail(testBody);
-          console.log(response);
+          await sendEmail(testBody);
         })
         .then(() => router.refresh())
         .catch((err: any) => {

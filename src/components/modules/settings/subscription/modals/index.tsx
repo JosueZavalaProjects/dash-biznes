@@ -83,8 +83,7 @@ const Confirmation = ({
       clientEmail: userEmail,
       emailType: "cancelSubscription",
     };
-    const response = await sendEmail(testBody);
-    console.log(response);
+    await sendEmail(testBody);
   };
 
   const handleDelete = () => {
