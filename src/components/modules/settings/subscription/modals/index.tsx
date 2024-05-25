@@ -77,6 +77,7 @@ const Confirmation = ({
     router.push(portalUrl);
     console.log("Manage Subscription");
   };
+
   const sendCancelSubcriptionEmail = async () => {
     const testBody: EmailBodyType = {
       clientEmail: userEmail,
@@ -85,6 +86,7 @@ const Confirmation = ({
     const response = await sendEmail(testBody);
     console.log(response);
   };
+
   const handleDelete = () => {
     setIsLoading(true);
     sendCancelSubcriptionEmail();
