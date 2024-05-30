@@ -4,8 +4,8 @@ import { CancelPeriod } from "@/types/stripePayments";
 
 export const useSubscription = () => {
   const IsValidSubscription = (cancelPeriod: CancelPeriod): boolean => {
-    const { cancelAtPeriodEnd, cancelAt } = cancelPeriod;
-    if (!cancelAtPeriodEnd) return true;
+    const { cancelAtPeriodEnd, cancelAt, status } = cancelPeriod;
+    if (!cancelAtPeriodEnd && status === "active") return true;
     if (cancelAt && !isSubcriptionExpired(cancelAt)) return true;
 
     /* if (cancelAt && isSubcriptionExpired(cancelAt))  */
