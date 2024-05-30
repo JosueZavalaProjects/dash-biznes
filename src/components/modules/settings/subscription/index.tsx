@@ -1,18 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import dayjs from "dayjs";
+require("dayjs/locale/es");
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
+import { Loading } from "@/components/modals/components/Loading";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
 import { auth, initFirebase } from "@/services/firebase";
 import { getCheckoutUrl, getPremiumStatus } from "@/services/stripePayments";
 import { CancelPeriod, STATUS_LABELS } from "@/types/stripePayments";
+import { getDatefromTimestamp } from "@/utils/common";
 
 import { SubcriptionModal } from "./modals";
 
 export const Subscription = () => {
+  dayjs.locale("es");
   const app = initFirebase();
 
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -32,8 +37,10 @@ export const Subscription = () => {
   };
 
   const checkPremium = async () => {
+    setIsLoading(true);
     const newPremiumStatus = await getPremiumStatus(app);
 
+    setIsLoading(false);
     setSubscription(newPremiumStatus);
     /* setIsPremium(newPremiumStatus); */
   };
@@ -86,7 +93,9 @@ export const Subscription = () => {
                 Tipo de Subscripción
               </Text>
               <Text size="xl" color="dark" weight="semibold" className="w-2/3">
-                {STATUS_LABELS[`${subscription.status || "noActive"}`]}
+                {isLoading && <Loading />}
+                {!isLoading &&
+                  STATUS_LABELS[`${subscription.status || "noActive"}`]}
               </Text>
             </div>
             <div className="flex w-full gap-8">
@@ -102,7 +111,13 @@ export const Subscription = () => {
                 Válido hasta
               </Text>
               <Text size="xl" color="dark" weight="semibold" className="w-2/3">
-                15 Junio 2024
+                {isLoading && <Loading />}
+                {subscription.currentPeriodEnd &&
+                  `${dayjs(
+                    getDatefromTimestamp(
+                      subscription.currentPeriodEnd
+                    ).toString()
+                  ).format("DD [de] MMMM YYYY")}`}
               </Text>
             </div>
           </div>

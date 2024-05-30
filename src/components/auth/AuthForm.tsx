@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 
-import { Timestamp } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
@@ -8,7 +7,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { signInFirebase, signUpFirebase } from "@/services/authService";
 import { EmailBodyType, sendEmail } from "@/services/emailService";
 import { initFirebase } from "@/services/firebase";
-import { getCancelPeriodEnd } from "@/services/stripePayments";
+import { getCancelPeriodEnd, getPortalUrl } from "@/services/stripePayments";
 import { CancelPeriod } from "@/types/stripePayments";
 
 import classes from "./AuthForm.module.css";
@@ -18,7 +17,7 @@ const AuthForm = () => {
 
   const authCtx = useContext(AuthContext);
   const app = initFirebase();
-  const { ValidateSubscription } = useSubscription();
+  const { IsValidSubscription } = useSubscription();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,9 +53,17 @@ const AuthForm = () => {
         })
         .then((data: any) => CreateExpirationTime(data))
         .then(async () => await getCancelPeriodEnd(app))
-        .then((cancelPeriod: CancelPeriod) =>
-          ValidateSubscription(cancelPeriod)
-        )
+        .then(async (cancelPeriod: CancelPeriod) => {
+          const isValidSuscription = IsValidSubscription(cancelPeriod);
+          
+          if (!isValidSuscription) {
+            const portalUrl = await getPortalUrl(app);
+            router.push(portalUrl);
+            authCtx.logout();
+            return
+          }
+          router.refresh();
+        })
         .catch((err: any) => {
           console.log(err);
           alert(err.message);

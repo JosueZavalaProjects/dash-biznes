@@ -1,28 +1,15 @@
-import { useContext } from "react";
-
 import { Timestamp } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 
-import AuthContext from "@/context/AuthContext";
-import { initFirebase } from "@/services/firebase";
-import { getPortalUrl } from "@/services/stripePayments";
 import { CancelPeriod } from "@/types/stripePayments";
 
 export const useSubscription = () => {
-  const router = useRouter();
-  const authCtx = useContext(AuthContext);
-  const app = initFirebase();
-
-  const ValidateSubscription = async (cancelPeriod: CancelPeriod) => {
+  const IsValidSubscription = (cancelPeriod: CancelPeriod): boolean => {
     const { cancelAtPeriodEnd, cancelAt } = cancelPeriod;
-    if (!cancelAtPeriodEnd) router.refresh();
-    if (cancelAt && !isSubcriptionExpired(cancelAt)) router.refresh();
+    if (!cancelAtPeriodEnd) return true;
+    if (cancelAt && !isSubcriptionExpired(cancelAt)) return true;
 
-    if (cancelAt && isSubcriptionExpired(cancelAt)) {
-      const portalUrl = await getPortalUrl(app);
-      router.push(portalUrl);
-      authCtx.logout();
-    }
+    /* if (cancelAt && isSubcriptionExpired(cancelAt))  */
+    return false;
   };
 
   const isSubcriptionExpired = (cancelAt: Timestamp): boolean => {
@@ -35,6 +22,6 @@ export const useSubscription = () => {
   };
 
   return {
-    ValidateSubscription,
+    IsValidSubscription,
   };
 };
