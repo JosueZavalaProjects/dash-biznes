@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Loading } from "@/components/modals/components/Loading";
 import { SimpleButton } from "@/components/ui/simpleButton";
 import Text from "@/components/ui/text";
+import { useSubscription } from "@/hooks/useSubscription";
 import { auth, initFirebase } from "@/services/firebase";
 import { getCheckoutUrl, getPremiumStatus } from "@/services/stripePayments";
 import { CancelPeriod, STATUS_LABELS } from "@/types/stripePayments";
@@ -27,6 +28,7 @@ export const Subscription = () => {
   const [subscription, setSubscription] = useState<CancelPeriod>({
     cancelAtPeriodEnd: false,
   });
+  const { IsValidSubscription } = useSubscription();
 
   const router = useRouter();
 
@@ -42,7 +44,8 @@ export const Subscription = () => {
 
     setIsLoading(false);
     setSubscription(newPremiumStatus);
-    /* setIsPremium(newPremiumStatus); */
+
+    setIsPremium(IsValidSubscription(newPremiumStatus));
   };
 
   const statusPanel = isPremium ? (
