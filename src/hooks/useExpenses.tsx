@@ -2,10 +2,12 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
+  Query,
   Timestamp,
   addDoc,
   collection,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -66,7 +68,8 @@ export const useExpenses = () => {
       expensesRef,
       where("adminEmail", "==", authCtx.email),
       where("date", ">=", startOfDay),
-      where("date", "<=", endOfDay)
+      where("date", "<=", endOfDay),
+      orderBy("date", "desc")
     );
     const qwerySnapshot = await getDocs(q);
 

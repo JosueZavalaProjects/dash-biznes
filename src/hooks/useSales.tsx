@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -129,7 +130,8 @@ export const useSales = () => {
       salesRef,
       where("adminEmail", "==", authCtx.email),
       where("date", ">=", startOfDay),
-      where("date", "<=", endOfDay)
+      where("date", "<=", endOfDay),
+      orderBy("date", "desc")
     );
     const qwerySnapshot = await getDocs(q);
 
