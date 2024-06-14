@@ -143,7 +143,7 @@ export const useSales = () => {
       response.push({
         id: doc.id,
         ticketNumber: ticket || "N/A",
-        date: dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        date: dayjs(newDate).format("DD/MM/YY HH:mm") || "No Date",
         total,
         method: paymentMethod || "cash",
       });

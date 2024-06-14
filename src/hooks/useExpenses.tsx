@@ -76,7 +76,7 @@ export const useExpenses = () => {
       const { name, type, amount, date } = doc.data();
       const { seconds } = date;
       const newDate = new Date(seconds * 1000);
-      const _date = dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss");
+      const _date = dayjs(newDate).format("DD/MM/YY HH:mm");
 
       response.push({
         name: name || "",
