@@ -86,7 +86,13 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-center pt-6">
+        <strong>
+          Página {table.getState().pagination.pageIndex + 1} de{" "}
+          {table.getPageCount().toLocaleString()}
+        </strong>
+      </div>
+      <div className="flex items-center justify-end space-x-2">
         <Button
           variant="outline"
           size="sm"
