@@ -6,7 +6,7 @@ import { Product as ProductType } from "@/types/inventory";
 
 import { ProductDetails } from "./components/ProductDetails";
 
-type ProductProps = {
+export type ProductProps = {
   product: ProductType;
 };
 
@@ -26,8 +26,8 @@ export const Product = ({ product }: ProductProps) => {
           <SquareButton text="Descargar" handleClick={() => {}} />
         </div>
       </section>
-      <div>Tabs </div>
-      <ProductDetails />
+      <div className="py-6">Tabs </div>
+      <ProductDetails product={product} />
       <div>Locaciones en existencia </div>
     </main>
   );

@@ -1,10 +1,11 @@
+import { ProductProps } from "../..";
 import { ProductData } from "./ProductData";
 import { ProductImage } from "./ProductImage";
 
-export const ProductDetails = () => {
+export const ProductDetails = ({ product }: ProductProps) => {
   return (
     <section className="flex w-full">
-      <ProductData />
+      <ProductData product={product} />
       <ProductImage />
     </section>
   );
