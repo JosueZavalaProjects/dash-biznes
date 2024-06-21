@@ -1,7 +1,7 @@
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
 import { SelectType } from "@/components/ui/select/selectType/selectType";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { PRODUCT_KEYS } from "@/constants/addProduct";
 import { Product, Unit, UnitsObject } from "@/types/addProduct";
 

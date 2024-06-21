@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 
 import { MinusIcon, PlusIcon } from "../../../../../../../public/assets";
 import { BlackButton } from "./blackButton";

@@ -1,13 +1,17 @@
+import { Product as ProductType } from "@/types/inventory";
+
 import { ProductDetails } from "./components/ProductDetails";
 
 type ProductProps = {
-  productId: string;
+  product: ProductType;
 };
-export const Product = ({ productId }: ProductProps) => {
+
+export const Product = ({ product }: ProductProps) => {
+  const { id, name, category, subcategory, price, inventory } = product;
   return (
     <main className="grid p-6">
       <section className="flex justify-between">
-        <div>Titulo</div>
+        <div className="text-3xl">{name}</div>
         <div className="flex gap-2">
           <div>Boton 1</div>
           <div>Boton 2</div>
@@ -16,7 +20,6 @@ export const Product = ({ productId }: ProductProps) => {
       <div>Tabs </div>
       <ProductDetails />
       <div>Locaciones en existencia </div>
-      Aqui esta el id: {productId}
     </main>
   );
 };

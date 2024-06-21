@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
 import { SuccessIcon } from "../../../../../../public/assets";

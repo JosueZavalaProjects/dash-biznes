@@ -1,5 +1,5 @@
 import { Loading } from "@/components/modals/components/Loading";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
 type DeleteProductModalProps = {

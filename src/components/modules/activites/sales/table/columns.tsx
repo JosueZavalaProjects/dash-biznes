@@ -1,6 +1,6 @@
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { Sale } from "@/types/sales";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";

@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 
 import { KeyValueTypes } from "@/components/ui/input";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import AuthContext from "@/context/AuthContext";
 

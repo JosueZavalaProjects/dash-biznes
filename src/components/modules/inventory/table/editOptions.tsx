@@ -3,7 +3,7 @@ import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import cn from "classnames";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
 type EditOptionsProps = {

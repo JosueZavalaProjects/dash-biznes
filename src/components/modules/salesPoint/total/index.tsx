@@ -7,7 +7,7 @@ require("dayjs/locale/es");
 import { useRouter } from "next/navigation";
 
 import { ContainerCard } from "@/components/ui/containerCard";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import { TAB_KEYS } from "@/constants/salesPoint";
 import { useSalesPoint } from "@/hooks/useSalesPoint";

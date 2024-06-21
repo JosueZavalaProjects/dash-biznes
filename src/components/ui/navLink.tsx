@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-import { buttonVariants } from "./button";
+import { buttonVariants } from "./buttons/button";
 
 type NavLinkProps = {
   link: {

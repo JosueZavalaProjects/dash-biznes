@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import Modal from "../ui/modal";
-import { SimpleButton } from "../ui/simpleButton";
+import { SimpleButton } from "../ui/buttons/simpleButton";
 import Text from "../ui/text";
 
 type ModalProps = {
