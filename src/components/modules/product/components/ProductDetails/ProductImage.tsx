@@ -2,13 +2,13 @@ import { FaTrash } from "react-icons/fa";
 
 import Image from "next/image";
 
-import { useProduct } from "@/hooks/useProduct";
-
 import { MaggiImage } from "../../../../../../public/assets";
 
-export const ProductImage = ({ idProduct }: { idProduct?: string }) => {
-  const { DeleteProduct } = useProduct();
+type ProductImageProps = {
+  handleShowDeleteModal: () => void;
+};
 
+export const ProductImage = ({ handleShowDeleteModal }: ProductImageProps) => {
   return (
     <section className="flex flex-col gap-16 items-end w-1/2 pr-8">
       <section className="grid justify-items-center items-center w-1/2">
@@ -28,14 +28,12 @@ export const ProductImage = ({ idProduct }: { idProduct?: string }) => {
         <InformationCard title="Precio de Venta" data="12" />
       </section>
       <section className="flex flex-col items-center gap-4 w-1/2">
-        {idProduct && (
-          <span
-            onClick={() => DeleteProduct(idProduct)}
-            className="flex content-center items-center gap-2 text-main-red cursor-pointer"
-          >
-            <FaTrash /> Borrar Producto
-          </span>
-        )}
+        <span
+          onClick={() => handleShowDeleteModal()}
+          className="flex content-center items-center gap-2 text-main-red cursor-pointer"
+        >
+          <FaTrash /> Borrar Producto
+        </span>
       </section>
     </section>
   );

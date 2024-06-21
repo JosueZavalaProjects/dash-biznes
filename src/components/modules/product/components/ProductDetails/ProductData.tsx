@@ -1,9 +1,9 @@
-import { ProductProps } from "../..";
+import { InventoryProduct } from "@/types/addProduct";
+
 import { InformationCardProps } from "./ProductImage";
 
-export const ProductData = ({ product }: ProductProps) => {
-  const { id, name, category, subcategory, price, inventory, dateAdded } =
-    product;
+export const ProductData = ({ product }: { product: InventoryProduct }) => {
+  const { id, name, category, price } = product;
   return (
     <section className="flex flex-col w-1/2 gap-12">
       <div className="flex flex-col gap-6">

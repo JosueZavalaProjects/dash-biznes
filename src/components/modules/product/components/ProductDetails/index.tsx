@@ -1,12 +1,21 @@
-import { ProductProps } from "../..";
+import { InventoryProduct } from "@/types/addProduct";
+
 import { ProductData } from "./ProductData";
 import { ProductImage } from "./ProductImage";
 
-export const ProductDetails = ({ product }: ProductProps) => {
+type ProductDetailsProps = {
+  product: InventoryProduct;
+  handleShowDeleteModal: () => void;
+};
+
+export const ProductDetails = ({
+  product,
+  handleShowDeleteModal,
+}: ProductDetailsProps) => {
   return (
     <section className="flex w-full pt-4">
       <ProductData product={product} />
-      <ProductImage idProduct={product?.id} />
+      <ProductImage handleShowDeleteModal={handleShowDeleteModal} />
     </section>
   );
 };

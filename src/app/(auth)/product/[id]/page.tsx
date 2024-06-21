@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { Loading } from "@/components/modals/components/Loading";
 import { Product } from "@/components/modules/product";
 import { useProduct } from "@/hooks/useProduct";
-import { Product as ProductType } from "@/types/inventory";
+import { InventoryProduct } from "@/types/addProduct";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
-  const [productData, setProductData] = useState<ProductType>();
+  const [productData, setProductData] = useState<InventoryProduct>();
   const [isLoading, setIsLoading] = useState(true);
+  const [initialInventory, setInitialInventory] = useState<number>(0);
   const { GetProductByID } = useProduct();
 
   const handleGetProductData = () => {
@@ -18,14 +19,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         if (!data) return;
 
         const { name, category, subcategory, price, inventory, date } = data;
-        const newProduct: ProductType = {
+        setInitialInventory(inventory);
+        const newProduct: InventoryProduct = {
           id: params.id,
           name,
+          type: "",
           category,
-          subcategory,
+          purchaseAmount: 0,
           price,
-          inventory,
-          dateAdded: date,
+          purchasePrice: price,
+          amount: inventory,
+          unit: "pzs",
         };
         setProductData(newProduct);
       })
@@ -41,7 +45,13 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {!isLoading && productData && <Product product={productData} />}
+      {!isLoading && productData && (
+        <Product
+          product={productData}
+          setProductData={setProductData}
+          initialInventory={initialInventory}
+        />
+      )}
       {!isLoading && !productData && (
         <div className="grid justify-items-center items-center w-full h-screen text-4xl">
           No Fetch Data

@@ -49,3 +49,5 @@ export type ProductMovement = {
 export type ProductMovementAdminID = ProductMovement & {
   adminEmail: string;
 };
+
+export type InventoryProduct = Product & { id: string };
