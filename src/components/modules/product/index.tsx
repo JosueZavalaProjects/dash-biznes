@@ -11,7 +11,7 @@ export type ProductProps = {
 };
 
 export const Product = ({ product }: ProductProps) => {
-  const { id, name, category, subcategory, price, inventory } = product;
+  const { name } = product;
 
   return (
     <main className="grid p-6">
@@ -26,6 +26,11 @@ export const Product = ({ product }: ProductProps) => {
           <SquareButton text="Descargar" handleClick={() => {}} />
         </div>
       </section>
+      <div className="flex w-full border-b my-6 text-2xl">
+        <span className="flex text-center border-b-2 border-blue-300 pb-4 pr-2">
+          Descripción general
+        </span>
+      </div>
       <ProductDetails product={product} />
     </main>
   );

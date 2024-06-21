@@ -1,8 +1,14 @@
+import { FaTrash } from "react-icons/fa";
+
 import Image from "next/image";
+
+import { useProduct } from "@/hooks/useProduct";
 
 import { MaggiImage } from "../../../../../../public/assets";
 
-export const ProductImage = () => {
+export const ProductImage = ({ idProduct }: { idProduct?: string }) => {
+  const { DeleteProduct } = useProduct();
+
   return (
     <section className="flex flex-col gap-16 items-end w-1/2 pr-8">
       <section className="grid justify-items-center items-center w-1/2">
@@ -20,6 +26,16 @@ export const ProductImage = () => {
         <InformationCard title="Inventario Restante" data="34" />
         <InformationCard title="En Camino" data="15" />
         <InformationCard title="Precio de Venta" data="12" />
+      </section>
+      <section className="flex flex-col items-center gap-4 w-1/2">
+        {idProduct && (
+          <span
+            onClick={() => DeleteProduct(idProduct)}
+            className="flex content-center items-center gap-2 text-main-red cursor-pointer"
+          >
+            <FaTrash /> Borrar Producto
+          </span>
+        )}
       </section>
     </section>
   );

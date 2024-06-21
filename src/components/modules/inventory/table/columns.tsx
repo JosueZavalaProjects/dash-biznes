@@ -1,4 +1,5 @@
 import cn from "classnames";
+import Link from "next/link";
 
 import { Product } from "@/types/inventory";
 import { formatCurrency } from "@/utils/common";
@@ -20,11 +21,14 @@ export const InventoryColumns = ({
       accessorKey: "name",
       header: "Nombre",
       cell: ({ row }) => {
+        const id: string = row.getValue("id");
         return (
-          <div className="flex gap-2 items-center">
-            <span className="w-14 h-14 bg-gray-400 rounded-full"></span>
-            <p>{row.getValue("name")} </p>
-          </div>
+          <Link href={`product/${id}`}>
+            <div className="flex gap-2 items-center">
+              <span className="w-14 h-14 bg-gray-400 rounded-full"></span>
+              <p>{row.getValue("name")} </p>
+            </div>
+          </Link>
         );
       },
     },
