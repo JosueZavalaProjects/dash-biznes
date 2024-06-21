@@ -26,7 +26,6 @@ export const Product = ({ product }: ProductProps) => {
           <SquareButton text="Descargar" handleClick={() => {}} />
         </div>
       </section>
-      <div className="py-6">Tabs </div>
       <ProductDetails product={product} />
       <div>Locaciones en existencia </div>
     </main>

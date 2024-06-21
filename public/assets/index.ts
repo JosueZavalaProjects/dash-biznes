@@ -11,3 +11,6 @@ export const WalletPlus = require("./icons/wallet-plus.svg");
 
 //webp
 export const ErrorIcon = require("./icons/error.webp");
+
+// PNG
+export const MaggiImage = require("./images/test-image.png");

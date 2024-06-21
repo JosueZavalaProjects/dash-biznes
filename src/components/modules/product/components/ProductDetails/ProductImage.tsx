@@ -1,27 +1,39 @@
+import Image from "next/image";
+
+import { MaggiImage } from "../../../../../../public/assets";
+
 export const ProductImage = () => {
   return (
-    <section className="flex flex-col gap-12 items-end w-1/2 pr-8">
-      <div className="grid justify-items-center items-center w-1/2">
-        <span className="grid justify-items-center items-center p-40 border-dashed border-2 border-sky-500">
-          sup
+    <section className="flex flex-col gap-16 items-end w-1/2 pr-8">
+      <section className="grid justify-items-center items-center w-1/2">
+        <span className="grid justify-items-center items-center p-4 border-dashed border-2 border-secondary-gray">
+          <Image
+            src={MaggiImage}
+            alt="product image"
+            width={150}
+            height={150}
+          />
         </span>
-      </div>
-      <div className="flex gap-x-28">
-        <span>Existencias Iniciales</span>
-        <span>30</span>
-      </div>
-      <div className="flex gap-x-28">
-        <span>Existencias Iniciales</span>
-        <span>30</span>
-      </div>
-      <div className="flex gap-x-28">
-        <span>Existencias Iniciales</span>
-        <span>30</span>
-      </div>
-      <div className="flex gap-x-28">
-        <span>Existencias Iniciales</span>
-        <span>30</span>
-      </div>
+      </section>
+      <section className="flex flex-col gap-4 w-1/2">
+        <InformationCard title="Existencias Iniciales" data="30" />
+        <InformationCard title="Inventario Restante" data="34" />
+        <InformationCard title="En Camino" data="15" />
+        <InformationCard title="Precio de Venta" data="12" />
+      </section>
     </section>
+  );
+};
+
+export type InformationCardProps = {
+  title: string;
+  data: string;
+};
+const InformationCard = ({ title, data }: InformationCardProps) => {
+  return (
+    <div className="flex w-full justify-between">
+      <span className="text-lg text-cadet-grey">{title}</span>
+      <span>{data}</span>
+    </div>
   );
 };
