@@ -27,7 +27,6 @@ export const Product = ({ product }: ProductProps) => {
         </div>
       </section>
       <ProductDetails product={product} />
-      <div>Locaciones en existencia </div>
     </main>
   );
 };

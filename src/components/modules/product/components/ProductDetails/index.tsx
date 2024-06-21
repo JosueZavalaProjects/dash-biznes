@@ -4,7 +4,7 @@ import { ProductImage } from "./ProductImage";
 
 export const ProductDetails = ({ product }: ProductProps) => {
   return (
-    <section className="flex w-full">
+    <section className="flex w-full pt-8">
       <ProductData product={product} />
       <ProductImage />
     </section>
