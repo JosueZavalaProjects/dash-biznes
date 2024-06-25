@@ -14,3 +14,4 @@ export const ErrorIcon = require("./icons/error.webp");
 
 // PNG
 export const MaggiImage = require("./images/test-image.png");
+export const ProductTestImage = require("./images/test-image-2.png");
