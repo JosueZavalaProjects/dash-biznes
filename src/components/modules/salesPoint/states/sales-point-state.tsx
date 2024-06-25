@@ -41,7 +41,7 @@ const handleUpdateProduct = (
   const currentItem = products.find((element) => element?.name === item?.name);
 
   if (currentItem) {
-    currentItem.amount += item.amount;
+    currentItem.amount = item.amount;
     return [...products];
   }
 
