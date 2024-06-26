@@ -5,30 +5,31 @@ import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { Product as ProductType } from "@/types/salesPoint";
 
+import useSalesPointState from "../states/sales-point-state";
 import { ProductCard } from "./components/ProductCard";
 
 export const Order = () => {
-  const [categories, setCategorires] = useState<string[]>([""]);
   const [products, setProducts] = useState<ProductType[]>(PRODUCTS_MOCK);
   const [filteredProducts, setFilteredProducts] =
     useState<ProductType[]>(PRODUCTS_MOCK);
 
   const { GetDataProducts } = useSalesPoint();
+  const { setCategories } = useSalesPointState();
 
   const handleGetProducts = async () => {
     const productsReponse = await GetDataProducts();
     if (!productsReponse) return;
 
-    console.log(productsReponse);
     const uniqueCategories = productsReponse
       .map((product) => product.category)
       .filter((value, index, array) => {
         return array.indexOf(value) === index;
       });
 
+    /* console.log(uniqueCategories); */
     setProducts(productsReponse);
     setFilteredProducts(productsReponse);
-    setCategorires(uniqueCategories);
+    setCategories(uniqueCategories);
   };
 
   useEffect(() => {

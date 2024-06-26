@@ -20,6 +20,8 @@ type InitialState = {
   paymentStep: PaymentStep;
   paymentMethod: PaymentMethod;
   total: number;
+  categories: string[];
+  categorySelectedIndex: number;
 };
 
 type SalesPointStateProps = InitialState & {
@@ -27,6 +29,8 @@ type SalesPointStateProps = InitialState & {
   setPaymentStep: (paymentStep: PaymentStep) => void;
   setPaymentMethod: (paymentMethod: PaymentMethod) => void;
   setPayment: (paymentMethod: number) => void;
+  setCategories: (categories: string[]) => void;
+  setCategorySelectedIndex: (categorySelectedIndex: number) => void;
   updateProduct: (product: ProductCheckout) => void;
   removeProduct: (product: ProductCheckout) => void;
   clearSale: () => void;
@@ -76,6 +80,8 @@ const INITIAL_STATE: InitialState = {
   paymentMethod: "",
   paymentStep: 1,
   total: 0,
+  categories: [],
+  categorySelectedIndex: -1,
 };
 
 const SalesPointStore = create<SalesPointStateProps>((set) => ({
@@ -86,11 +92,16 @@ const SalesPointStore = create<SalesPointStateProps>((set) => ({
   payment: 0,
   paymentMethod: "",
   products: [],
+  categories: [],
   total: 0,
+  categorySelectedIndex: -1,
   setTabName: (tabName: string) => set({ tabName }),
   setPaymentStep: (paymentStep: PaymentStep) => set({ paymentStep }),
   setPaymentMethod: (paymentMethod: PaymentMethod) => set({ paymentMethod }),
   setPayment: (payment: number) => set({ payment }),
+  setCategories: (categories: string[]) => set({ categories }),
+  setCategorySelectedIndex: (categorySelectedIndex: number) =>
+    set({ categorySelectedIndex }),
   updateProduct: (item: ProductCheckout) => {
     set((state: SalesPointStateProps) => {
       const products = handleUpdateProduct(item, state);

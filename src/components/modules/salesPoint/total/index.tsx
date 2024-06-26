@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
@@ -9,8 +10,7 @@ import { TotalTable } from "../total-legacy/components/table";
 export const Total = () => {
   const [isEdit, setIsEdit] = useState(false);
 
-  const { products, total, clearSale, updateProduct, setTabName } =
-    useSalesPointState();
+  const { products, total, clearSale } = useSalesPointState();
 
   return (
     <section className="w-2/5 rounded-lg p-4 border-2 overflow-y-scroll">
@@ -32,7 +32,7 @@ export const Total = () => {
               <Text size="lg">MXN</Text>
             </div>
           </div>
-          <div className="grid justify-items-center items-center pb-4">
+          <div className="grid gap-4 justify-items-center items-center pb-4">
             {isEdit && (
               <div className="flex gap-4">
                 <SimpleButton bgColor="gray" onClick={() => {}}>
@@ -42,13 +42,14 @@ export const Total = () => {
               </div>
             )}
             {!isEdit && (
-              <button
-                onClick={() => {}}
-                className="border rounded-xl py-2 px-6 bg-gray-400 text-white"
-              >
-                Cobrar
-              </button>
+              <SimpleButton bgColor="gradient-blue">Cobrar</SimpleButton>
             )}
+            <span
+              onClick={() => clearSale()}
+              className="flex content-center items-center gap-2 text-main-red cursor-pointer font-light"
+            >
+              <FaTrash /> Borrar la Orden
+            </span>
           </div>
         </div>
       </div>

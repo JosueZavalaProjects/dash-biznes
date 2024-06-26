@@ -12,7 +12,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const [showAmount, setShowAmount] = useState(false);
   const [items, setItems] = useState(0);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [inventory, setInventory] = useState(product?.inventory);
+  const [inventory] = useState(product?.inventory);
 
   const { updateProduct, removeProduct } = useSalesPointState();
 
@@ -40,7 +40,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="flex flex-col justify-end max-w-52 h-40 bg-blue-100 rounded-md ">
       <div
-        className="bg-cover bg-center w-full h-28 rounded-t-md cursor-pointer"
+        className={`bg-cover bg-center w-full h-28 rounded-t-md cursor-pointer ${
+          showAmount && "opacity-25"
+        }`}
         style={{
           backgroundImage:
             "url(https://e0.pxfuel.com/wallpapers/79/789/desktop-wallpaper-stunning-mountain-view.jpg)",
