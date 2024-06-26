@@ -14,7 +14,8 @@ export const Order = () => {
     useState<ProductType[]>(PRODUCTS_MOCK);
 
   const { GetDataProducts } = useSalesPoint();
-  const { setCategories } = useSalesPointState();
+  const { setCategories, categories, categorySelectedIndex } =
+    useSalesPointState();
 
   const handleGetProducts = async () => {
     const productsReponse = await GetDataProducts();
@@ -26,7 +27,6 @@ export const Order = () => {
         return array.indexOf(value) === index;
       });
 
-    /* console.log(uniqueCategories); */
     setProducts(productsReponse);
     setFilteredProducts(productsReponse);
     setCategories(uniqueCategories);
@@ -36,9 +36,21 @@ export const Order = () => {
     handleGetProducts();
   }, []);
 
+  useEffect(() => {
+    if (categorySelectedIndex === -1) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const newProducts = [...products].filter(
+      (product) => product.category === categories[categorySelectedIndex]
+    );
+    setFilteredProducts(newProducts);
+  }, [categorySelectedIndex]);
+
   return (
-    <section className="grid grid-cols-3 w-3/5 max-h-[34rem] gap-y-8 gap-x-2 p-4 overflow-scroll">
-      {products.map((product) => (
+    <section className="grid grid-cols-2 w-3/5 max-h-[34rem] gap-y-8 gap-x-2 p-4 overflow-scroll lg:grid-cols-3">
+      {filteredProducts.map((product) => (
         <ProductCard key={`product_card_${product.id}`} product={product} />
       ))}
     </section>

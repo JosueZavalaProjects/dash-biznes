@@ -4,8 +4,13 @@ export const TabCategories = () => {
   const { categories, categorySelectedIndex } = useSalesPointState();
 
   return (
-    <section className="flex w-3/5 overflow-x-scroll">
+    <section className="flex overflow-x-scroll lg:w-3/5">
       <div className="flex gap-4 border-b-2 w-full">
+        <TabCategory
+          name="Todo"
+          index={-1}
+          isSelected={categorySelectedIndex === -1}
+        />
         {categories &&
           categories.map((category, index) => (
             <TabCategory
