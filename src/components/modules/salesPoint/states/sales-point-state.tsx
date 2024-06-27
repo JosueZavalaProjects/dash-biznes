@@ -20,7 +20,7 @@ type InitialState = {
   paymentStep: PaymentStep;
   paymentMethod: PaymentMethod;
   total: number;
-  categories: string[];
+  categories?: string[];
   categorySelectedIndex: number;
 };
 
@@ -80,7 +80,6 @@ const INITIAL_STATE: InitialState = {
   paymentMethod: "",
   paymentStep: 1,
   total: 0,
-  categories: [],
   categorySelectedIndex: -1,
 };
 

@@ -6,13 +6,18 @@ import Text from "@/components/ui/text";
 import { SuccessIcon } from "../../../../../../../public/assets";
 import useSalesPointState from "../../../states/sales-point-state";
 
-export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
+type ChangeProps = {
+  setShow: (show: boolean) => void;
+  handleClearOrder: () => void;
+};
+export const Change = ({ setShow, handleClearOrder }: ChangeProps) => {
   const { payment, total, clearSale, setPaymentStep } = useSalesPointState();
 
   const handleNextStep = () => {
     clearSale();
     setPaymentStep(4);
     setShow(false);
+    handleClearOrder();
   };
 
   return (

@@ -5,15 +5,25 @@ import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
 import useSalesPointState from "../states/sales-point-state";
+import { Modals } from "../total-legacy/components/modals";
 import { TotalTable } from "../total-legacy/components/table";
 
-export const Total = () => {
+type TotalProps = {
+  handleClearOrder: () => void;
+};
+export const Total = ({ handleClearOrder }: TotalProps) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
 
   const { products, total, clearSale } = useSalesPointState();
 
   return (
     <section className="w-2/5 rounded-lg p-4 border-2 overflow-y-scroll">
+      <Modals
+        show={show}
+        setShow={setShow}
+        handleClearOrder={handleClearOrder}
+      />
       <div className="mb-8">
         <Text color="cta" weight="semibold" size="xl">
           Venta Acutal
@@ -42,7 +52,12 @@ export const Total = () => {
               </div>
             )}
             {!isEdit && (
-              <SimpleButton bgColor="gradient-blue">Cobrar</SimpleButton>
+              <SimpleButton
+                bgColor="gradient-blue"
+                onClick={() => setShow(true)}
+              >
+                Cobrar
+              </SimpleButton>
             )}
             <span
               onClick={() => clearSale()}

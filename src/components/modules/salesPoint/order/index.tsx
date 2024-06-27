@@ -2,39 +2,36 @@
 import { useEffect, useState } from "react";
 
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
-import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { Product as ProductType } from "@/types/salesPoint";
 
 import useSalesPointState from "../states/sales-point-state";
 import { ProductCard } from "./components/ProductCard";
 
-export const Order = () => {
-  const [products, setProducts] = useState<ProductType[]>(PRODUCTS_MOCK);
+type OrderProps = {
+  products: ProductType[];
+};
+
+export const Order = ({ products }: OrderProps) => {
   const [filteredProducts, setFilteredProducts] =
     useState<ProductType[]>(PRODUCTS_MOCK);
 
-  const { GetDataProducts } = useSalesPoint();
   const { setCategories, categories, categorySelectedIndex } =
     useSalesPointState();
 
-  const handleGetProducts = async () => {
-    const productsReponse = await GetDataProducts();
-    if (!productsReponse) return;
-
-    const uniqueCategories = productsReponse
+  const hanldeUpdateProducts = () => {
+    const uniqueCategories = products
       .map((product) => product.category)
       .filter((value, index, array) => {
         return array.indexOf(value) === index;
       });
 
-    setProducts(productsReponse);
-    setFilteredProducts(productsReponse);
+    setFilteredProducts(products);
     setCategories(uniqueCategories);
   };
 
   useEffect(() => {
-    handleGetProducts();
-  }, []);
+    hanldeUpdateProducts();
+  }, [products]);
 
   useEffect(() => {
     if (categorySelectedIndex === -1) {
@@ -43,7 +40,7 @@ export const Order = () => {
     }
 
     const newProducts = [...products].filter(
-      (product) => product.category === categories[categorySelectedIndex]
+      (product) => product.category === categories![categorySelectedIndex]
     );
     setFilteredProducts(newProducts);
   }, [categorySelectedIndex]);

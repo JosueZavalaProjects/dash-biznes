@@ -12,7 +12,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const [showAmount, setShowAmount] = useState(false);
   const [items, setItems] = useState(0);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [inventory] = useState(product?.inventory);
+  const [inventory, setInventory] = useState(product?.inventory);
 
   const { updateProduct, removeProduct } = useSalesPointState();
 
@@ -36,6 +36,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
     handleAddProduct();
   }, [items]);
+
+  useEffect(() => {
+    setInventory(product.inventory);
+    setShowAmount(false);
+    setItems(0);
+  }, [product.inventory]);
 
   return (
     <div className="flex flex-col justify-end max-w-52 h-40 bg-blue-100 rounded-md ">
