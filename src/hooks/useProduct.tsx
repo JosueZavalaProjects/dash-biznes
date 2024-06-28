@@ -135,50 +135,6 @@ export const useProduct = () => {
     const querySnapshot = await getDoc(docRef);
 
     return querySnapshot.data();
-
-    /* const docRef = doc(db, "products", id);
-    const q = query(db, where("isDeleted", "!=", true));
-    const querySnapshot = await getDoc(q);
-
-    return querySnapshot.data(); */
-
-    /*   const q = query(
-      productsRef,
-      where("adminEmail", "==", authCtx.email),
-      where("id", "==", id),
-      where("isDeleted", "!=", true)
-    );
-
-    let response: InventoryProduct = {
-      ...MOCK_PRODUCT,
-      subcategory: "",
-      inventory: 0,
-      dateAdded: "",
-    };
-
-    const qwerySnapshot = await getDocs(q);
-
-    qwerySnapshot.forEach((doc) => {
-      const { name, category, subcategory, price, inventory, date } =
-        doc.data();
-      const { seconds } = date;
-      const newDate = new Date(seconds * 1000);
-      const _date = dayjs(newDate).format("DD/MM/YYYY");
-
-      response = {
-        id: doc.id,
-        name,
-        category,
-        subcategory,
-        price,
-        inventory,
-        dateAdded: _date || "No Date",
-      };
-    });
-
-    return response || null; */
-
-    /* return qwerySnapshot.data(); */
   };
 
   const _handleMovementUpdateProduct = async (
