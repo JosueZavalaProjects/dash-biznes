@@ -12,6 +12,7 @@ import { Cards as LegacyCards } from "./LegacyCards";
 import { Sales } from "./Sales";
 import { Cards } from "./Cards";
 import { CardContent } from "@/components/LegacyCard";
+import { BestSales } from "./Tables/BestSales";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
@@ -141,6 +142,7 @@ export const Dashboard = () => {
       <section className="grid w-full gap-4 transition-all lg:flex">
         <CardContent className="lg:w-2/3">
           <TitleBlue>Productos más vendidos</TitleBlue>
+          <BestSales />
         </CardContent>
 
         <CardContent className="lg:w-1/3">
