@@ -1,8 +1,9 @@
-import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
-
-import { CardProps } from "@/components/Card";
-import { SalesProps } from "@/components/SalesCard";
 import { MdOutlineInventory } from "react-icons/md";
+
+import { DollarSign, CreditCard, Activity } from "lucide-react";
+
+import { CardProps } from "@/components/LegacyCard";
+import { SalesProps } from "@/components/SalesCard";
 
 export const DUMMY_SPENTS = 4000;
 

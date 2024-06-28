@@ -86,7 +86,7 @@ export const Cards = () => {
     <>
       {cardData.map((d, i) => (
         <Card
-          key={i}
+          key={`legacyCard_${i}`}
           amount={d.amount}
           description={d.description}
           icon={d.icon}

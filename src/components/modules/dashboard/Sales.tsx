@@ -52,7 +52,7 @@ export const Sales = () => {
       </section>
       {userSales.map((d, i) => (
         <SalesCard
-          key={i}
+          key={`salesCard_${i}`}
           ticketNumber={d.ticketNumber}
           date={d.date}
           saleAmount={d.saleAmount}

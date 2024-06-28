@@ -2,17 +2,16 @@
 import { useEffect, useState } from "react";
 
 import BarChart, { graphColor } from "@/components/BarChart";
+import { CardContent } from "@/components/LegacyCard";
 import PageTitle from "@/components/PageTitle";
 import { MONTH_LABELS } from "@/constants/activities";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
 import { GraphData, GraphResult, GroupTotals } from "@/types/dashboard";
 
-import { Cards as LegacyCards } from "./LegacyCards";
-import { Sales } from "./Sales";
 import { Cards } from "./Cards";
-import { CardContent } from "@/components/LegacyCard";
 import { BestSales } from "./Tables/BestSales";
+import { ProductAlert } from "./Tables/ProductAlert";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
@@ -147,6 +146,7 @@ export const Dashboard = () => {
 
         <CardContent className="lg:w-1/3">
           <TitleBlue>Alertas de Existencia</TitleBlue>
+          <ProductAlert />
         </CardContent>
       </section>
       <section className="grid w-full gap-4 transition-all lg:flex">
