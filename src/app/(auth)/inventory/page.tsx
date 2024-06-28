@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 
+import Link from "next/link";
+
 import { InventoryTable } from "@/components/modules/inventory";
 import PageTitle from "@/components/PageTitle";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
@@ -13,12 +15,14 @@ export default function UsersPage({}: Props) {
       <div className="flex justify-between pr-8">
         <PageTitle title="Inventario" />
         <SimpleButton bgColor="gradient-blue">
-          <div className="flex gap-2 items-center">
-            <span className="grid justify-items-center items-center w-8 h-8 bg-slate-600 rounded-full border-dashed border-2 border-sky-500">
-              +
-            </span>
-            Agregar
-          </div>
+          <Link href={"/addProduct"}>
+            <div className="flex gap-2 items-center ">
+              <span className="grid justify-items-center items-center w-8 h-8 bg-[#E0F4FF] rounded-full border-dashed border-2 border-sky-500 text-sky-500">
+                +
+              </span>
+              Agregar
+            </div>
+          </Link>
         </SimpleButton>
       </div>
       <InventoryTable />

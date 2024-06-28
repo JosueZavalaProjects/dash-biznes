@@ -136,7 +136,6 @@ export const Dashboard = () => {
             fillColor={graphColor.green}
           />
         </CardContent>
-        {/* <Sales /> */}
       </section>
       <section className="grid w-full gap-4 transition-all lg:flex">
         <CardContent className="lg:w-2/3">
