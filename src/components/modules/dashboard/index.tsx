@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import BarChart, { graphColor } from "@/components/BarChart";
 import { CardContent } from "@/components/LegacyCard";
 import PageTitle from "@/components/PageTitle";
-import { MONTH_LABELS } from "@/constants/activities";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
-import { GraphData, GraphResult, GroupTotals } from "@/types/dashboard";
+import { GraphData, GraphResult } from "@/types/dashboard";
+import { generateGraphData, groupByMoth } from "@/utils/dashboard";
 
 import { Cards } from "./Cards";
 import { BestSales } from "./Tables/BestSales";
@@ -88,29 +88,6 @@ export const Dashboard = () => {
     return finalData;
   };
 
-  const groupByMoth = (myArray: GraphResult[]) => {
-    const groups = myArray.reduce(function (r: GroupTotals, o) {
-      const { date, total } = o;
-      const m = date.split("-")[1];
-      r[`${m}`] ? r[m].push(total) : (r[m] = [total]);
-      return r;
-    }, {});
-
-    return groups;
-  };
-
-  const generateGraphData = (groupData: GroupTotals) => {
-    const data: GraphData[] = [];
-    for (const property in groupData) {
-      const total = groupData[property].reduce(
-        (current, next) => current + next
-      );
-      const month = MONTH_LABELS[+property - 1].slice(0, 3);
-      data.push({ name: month, total });
-    }
-    return data;
-  };
-
   useEffect(() => {
     GetGraphsData();
   }, []);
@@ -119,7 +96,7 @@ export const Dashboard = () => {
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Dashboard" />
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-3">
-        <Cards utilities={120000} expenses={10000} sales={700} />
+        <Cards />
       </section>
       <section className="grid w-full gap-4 transition-all lg:flex">
         <CardContent className="lg:w-2/3">
