@@ -25,6 +25,7 @@ import {
   ProductMovementAdminID,
 } from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
+import { MOCK_PRODUCT } from "@/constants/addProduct";
 
 export const useProduct = () => {
   const productsRef = collection(db, "products");
@@ -45,6 +46,7 @@ export const useProduct = () => {
         unit,
         inventory: amount,
         purchaseAmount: amount,
+        isDeleted: false,
         date: Timestamp.fromDate(new Date()),
         adminEmail: authCtx.email,
       });
@@ -76,6 +78,7 @@ export const useProduct = () => {
     const q = query(
       productsRef,
       where("adminEmail", "==", authCtx.email),
+      where("isDeleted", "!=", true),
       orderBy("date", "desc")
     );
     const querySnapshot = await getDocs(q);
@@ -114,7 +117,15 @@ export const useProduct = () => {
     };
 
     await _createProductMovementRecord(movement);
-    const response = await deleteDoc(doc(db, "products", productId));
+    // Upadate Product field isDeleted: true
+    const docRef = doc(db, "products", productId);
+    const newProduct = {
+      isDeleted: true,
+      updatedDate: Timestamp.fromDate(new Date()),
+    };
+
+    // const response = await deleteDoc(doc(db, "products", productId));
+    const response = await updateDoc(docRef, newProduct);
 
     return response;
   };
@@ -124,6 +135,50 @@ export const useProduct = () => {
     const querySnapshot = await getDoc(docRef);
 
     return querySnapshot.data();
+
+    /* const docRef = doc(db, "products", id);
+    const q = query(db, where("isDeleted", "!=", true));
+    const querySnapshot = await getDoc(q);
+
+    return querySnapshot.data(); */
+
+    /*   const q = query(
+      productsRef,
+      where("adminEmail", "==", authCtx.email),
+      where("id", "==", id),
+      where("isDeleted", "!=", true)
+    );
+
+    let response: InventoryProduct = {
+      ...MOCK_PRODUCT,
+      subcategory: "",
+      inventory: 0,
+      dateAdded: "",
+    };
+
+    const qwerySnapshot = await getDocs(q);
+
+    qwerySnapshot.forEach((doc) => {
+      const { name, category, subcategory, price, inventory, date } =
+        doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("DD/MM/YYYY");
+
+      response = {
+        id: doc.id,
+        name,
+        category,
+        subcategory,
+        price,
+        inventory,
+        dateAdded: _date || "No Date",
+      };
+    });
+
+    return response || null; */
+
+    /* return qwerySnapshot.data(); */
   };
 
   const _handleMovementUpdateProduct = async (
@@ -164,6 +219,7 @@ export const useProduct = () => {
       purchasePrice,
       inventory: amount,
       subcategory: type,
+      isDeleted: false,
       updatedDate: Timestamp.fromDate(new Date()),
     };
 

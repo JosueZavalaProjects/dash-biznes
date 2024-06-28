@@ -4,6 +4,7 @@ import { Card } from "@/components/Card";
 import { useDashboard } from "@/hooks/useDashboard";
 
 import { GreenChart, RedChart } from "../../../../public/assets";
+import { useProductMovements } from "@/hooks/useProductMovements";
 
 export const Cards = () => {
   const [inventorySpent, setInventorySpent] = useState<number>(0);
@@ -12,6 +13,7 @@ export const Cards = () => {
   const [utilities, setUtilities] = useState<number>(0);
 
   const { GetTotalSales, GetDataProducts, GetTotalExpenses } = useDashboard();
+  const { GetAllAditionMovements } = useProductMovements();
 
   const handleGetProducts = async () => {
     const newProducts = await GetDataProducts();
@@ -49,6 +51,7 @@ export const Cards = () => {
   useEffect(() => {
     handleGetProducts();
     handleGetSales();
+    GetAllAditionMovements();
   }, []);
 
   useEffect(() => {
