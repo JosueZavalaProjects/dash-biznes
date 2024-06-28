@@ -1,16 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import BarChart from "@/components/BarChart";
-import { CardContent } from "@/components/Card";
+import BarChart, { graphColor } from "@/components/BarChart";
 import PageTitle from "@/components/PageTitle";
 import { MONTH_LABELS } from "@/constants/activities";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
 import { GraphData, GraphResult, GroupTotals } from "@/types/dashboard";
 
-import { Cards } from "./Cards";
+import { Cards as LegacyCards } from "./LegacyCards";
 import { Sales } from "./Sales";
+import { Cards } from "./Cards";
+import { CardContent } from "@/components/LegacyCard";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
@@ -117,42 +118,53 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Dashboard" />
-      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-        <Cards />
+      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-3">
+        <Cards utilities={120000} expenses={10000} sales={700} />
       </section>
-      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
-        <CardContent>
-          <p className="p-4 font-semibold">Utilidad general</p>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <CardContent className="lg:w-2/3">
+          <TitleBlue>Utilidad general</TitleBlue>
+
           <BarChart data={utilitiesData} isLoading={isLoading} />
         </CardContent>
-        <Sales />
-      </section>
-      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
-        <CardContent>
-          <p className="p-4 font-semibold">Resumen de Gastos</p>
-          <BarChart
-            data={expensesData}
-            isLoading={isLoading}
-            fillColor="#F05F40"
-          />
-        </CardContent>
-        <CardContent>
-          <p className="p-4 font-semibold">Resumen de Ventas</p>
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Resumen de Ventas</TitleBlue>
+
           <BarChart
             data={salesData}
             isLoading={isLoading}
-            fillColor="#8FC93A"
+            fillColor={graphColor.green}
           />
         </CardContent>
-        <CardContent>
-          <p className="p-4 font-semibold">Resumen de Inventarios</p>
+        {/* <Sales /> */}
+      </section>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <CardContent className="lg:w-2/3">
+          <TitleBlue>Productos más vendidos</TitleBlue>
+        </CardContent>
+
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Alertas de Existencia</TitleBlue>
+        </CardContent>
+      </section>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <div className="lg:w-2/3"></div>
+
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Resumen de Gastos</TitleBlue>
           <BarChart
-            data={productsData}
+            data={expensesData}
             isLoading={isLoading}
-            fillColor="#F05F40"
+            fillColor={graphColor.red}
           />
         </CardContent>
       </section>
     </div>
   );
 };
+
+const TitleBlue = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <p className="text-2xl font-semibold text-main-blue capitalize pb-4">
+    {props.children}
+  </p>
+);

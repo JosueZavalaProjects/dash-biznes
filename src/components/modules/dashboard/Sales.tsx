@@ -8,7 +8,7 @@ import { uesrSalesData } from "@/constants/dashboard";
 import { useDates } from "@/hooks/useDates";
 import { useSales } from "@/hooks/useSales";
 
-import { CardContent } from "../../Card";
+import { CardContent } from "../../LegacyCard";
 import SalesCard, { SalesProps } from "../../SalesCard";
 import useActivitiesState from "../activites/states/activities-state";
 
