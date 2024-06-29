@@ -3,18 +3,24 @@ import { useContext } from "react";
 import dayjs from "dayjs";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
+import { BestSales as BestSalesType } from "@/components/modules/dashboard/Tables/BestSales/columns";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { MovementType } from "@/types/addProduct";
 import { GraphResult } from "@/types/dashboard";
+
+import { useProduct } from "./useProduct";
 
 export const useProductMovements = () => {
   // add: Manual Adition (Edit Product)
   // new: Adition new product by "add product module"
   const filterAdd: MovementType = "add";
   const filterNew: MovementType = "new";
+  const filterPurchase: MovementType = "purchase";
+  const filterEditPurchase: MovementType = "editPurchase";
 
   const movementsRef = collection(db, "product_movements");
+  const { GetProductByID } = useProduct();
   const authCtx = useContext(AuthContext);
 
   const GetAllAdditionMovements = async () => {
@@ -70,8 +76,52 @@ export const useProductMovements = () => {
     return response;
   };
 
+  const GetPurchaseSales = async () => {
+    const q = query(
+      movementsRef,
+      where("adminEmail", "==", authCtx.email),
+      where("type", "in", [filterPurchase, filterEditPurchase])
+    );
+
+    const qwerySnapshot = await getDocs(q);
+
+    const response: BestSalesType[] = [];
+    const purchaseObject = {};
+
+    qwerySnapshot.forEach(async (doc) => {
+      const { id, amount } = doc.data();
+
+      const productDetails = await GetProductByID(id);
+      _generatePurchasesObject(purchaseObject, id, amount, productDetails);
+
+      /* console.log(doc.data());
+      console.log(productDetails); */
+      /* response.push(amount * purchasePrice); */
+    });
+    console.log({ purchaseObject });
+
+    return response;
+  };
+
+  const _generatePurchasesObject = (
+    responseObject: any,
+    id: string,
+    purchaseMovementAmount: number,
+    productDetails: any
+  ) => {
+    if (responseObject[id]) {
+      responseObject[id].purchases.push(purchaseMovementAmount);
+      return;
+    }
+    responseObject[id] = {
+      purchases: [purchaseMovementAmount],
+      details: productDetails,
+    };
+  };
+
   return {
     GetAllAdditionMovements,
     GetProductsAdditionsByDate,
+    GetPurchaseSales,
   };
 };

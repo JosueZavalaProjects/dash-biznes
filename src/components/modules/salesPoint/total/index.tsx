@@ -55,6 +55,7 @@ export const Total = ({ handleClearOrder }: TotalProps) => {
               <SimpleButton
                 bgColor="gradient-blue"
                 onClick={() => setShow(true)}
+                disabled={!Boolean(total)}
               >
                 Cobrar
               </SimpleButton>

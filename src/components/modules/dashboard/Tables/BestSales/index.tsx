@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+
 import { DataTable } from "@/components/DataTable";
+import { useProductMovements } from "@/hooks/useProductMovements";
 
 import { BestSalesColumns, BestSales as BestSalesType } from "./columns";
 
@@ -28,6 +31,11 @@ const MOCK_BEST_SALES: BestSalesType[] = [
   },
 ];
 export const BestSales = () => {
+  const { GetPurchaseSales } = useProductMovements();
+
+  useEffect(() => {
+    GetPurchaseSales();
+  }, []);
   return (
     <DataTable
       columns={BestSalesColumns()}
