@@ -13,9 +13,9 @@ export const TabSelectionItem = ({
 }: TabSelectionItemProps) => {
   return (
     <li
-      className={`flex items-center text-center min-w-[105px] h-12 p-2 cursor-pointer ${
+      className={`flex items-center text-center font-semibold min-w-[105px] h-12 p-2 cursor-pointer ${
         optionName === tabName
-          ? "border-b-2 border-gray-800 text-gray-800"
+          ? "border-b-2 border-seconday-blue text-seconday-blue"
           : "text-gray-300"
       }`}
       onClick={() => setTabName(optionName)}

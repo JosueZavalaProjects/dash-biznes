@@ -15,20 +15,18 @@ export const TabSelection = ({
   setTabName,
 }: TabSelectionProps) => {
   return (
-    <ContainerCard>
-      <nav className="">
-        <ul className="flex items-center gap-4">
-          {navItems.map((item, index) => (
-            <TabSelectionItem
-              text={item.label}
-              optionName={item.name}
-              tabName={tabName}
-              setTabName={setTabName}
-              key={`TopNavBarItem_${index}`}
-            />
-          ))}
-        </ul>
-      </nav>
-    </ContainerCard>
+    <nav className="">
+      <ul className="flex items-center gap-4">
+        {navItems.map((item, index) => (
+          <TabSelectionItem
+            text={item.label}
+            optionName={item.name}
+            tabName={tabName}
+            setTabName={setTabName}
+            key={`TopNavBarItem_${index}`}
+          />
+        ))}
+      </ul>
+    </nav>
   );
 };

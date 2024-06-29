@@ -61,6 +61,8 @@ module.exports = {
         "secondary-gray": "#9D9D9D",
         "eerie-black": "#1A1A1A",
         "cadet-grey": "#8FA0A9",
+        "primary-green": "#51C15C",
+        "secondary-green": "#92FE9D",
         "malachite-green": "#1CCC43",
         "seconday-blue": "#0085FF",
         "light-blue": "#8EC2F2",
