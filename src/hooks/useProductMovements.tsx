@@ -84,7 +84,6 @@ export const useProductMovements = () => {
 
     const qwerySnapshot = await getDocs(q);
 
-    /* const response: BestSales[] = []; */
     const purchaseObject: PurchasesMovements = {};
 
     qwerySnapshot.forEach(async (doc) => {
@@ -92,12 +91,7 @@ export const useProductMovements = () => {
 
       const productDetails = await GetProductByID(id);
       _generatePurchasesObject(purchaseObject, id, amount, productDetails);
-
-      /* console.log(doc.data());
-      console.log(productDetails); */
-      /* response.push(amount * purchasePrice); */
     });
-    console.log({ purchaseObject });
 
     return purchaseObject;
   };

@@ -4,6 +4,7 @@ import { DollarSign, CreditCard, Activity } from "lucide-react";
 
 import { CardProps } from "@/components/LegacyCard";
 import { SalesProps } from "@/components/SalesCard";
+import { BestSales } from "@/types/dashboard";
 
 export const DUMMY_SPENTS = 4000;
 
@@ -122,3 +123,31 @@ const Mockdata = [
     total: Math.floor(Math.random() * 5000) + 1000,
   },
 ];
+
+const { v4: uuidv4 } = require("uuid");
+
+const MOCK_BEST_SALES: BestSales[] = [
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 2,
+  },
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 0,
+  },
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 2,
+  },
+];
+
+export const TOP_SALES = 5;
