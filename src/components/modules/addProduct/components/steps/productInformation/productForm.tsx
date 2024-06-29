@@ -64,7 +64,7 @@ export const ProductForm = ({
         />
         <Input
           label="tipo de producto"
-          placeholder="Tipo de talla"
+          placeholder="Tipo de producto"
           value={product[PRODUCT_KEYS.TYPE]}
           keyValue={PRODUCT_KEYS.TYPE}
           setValue={handleSetValueProduct}

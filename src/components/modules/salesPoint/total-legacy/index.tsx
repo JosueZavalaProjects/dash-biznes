@@ -95,7 +95,7 @@ export const Total = () => {
         setShowModal={setShowUpdateModal}
         isLoading={isLoading}
       />
-      <Modals show={show} setShow={setShow} />
+      <Modals show={show} setShow={setShow} handleClearOrder={() => {}} />
       <div className="grid gap-2">
         <div className="grid p-2">
           <Text color="silver" size="sm" className="capitalize">
