@@ -173,7 +173,11 @@ export const useSalesPoint = () => {
   };
 
   const GetDataProducts = async () => {
-    const q = query(productssRef, where("adminEmail", "==", authCtx.email));
+    const q = query(
+      productssRef,
+      where("adminEmail", "==", authCtx.email),
+      where("isDeleted", "!=", true)
+    );
     const qwerySnapshot = await getDocs(q);
 
     const response: ProductType[] = [];

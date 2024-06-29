@@ -44,6 +44,8 @@ export type ProductMovement = {
   type: MovementType;
   date: Timestamp;
   saleId?: string;
+  price?: number;
+  purchasePrice?: number;
 };
 
 export type ProductMovementAdminID = ProductMovement & {

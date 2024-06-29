@@ -140,7 +140,9 @@ export const useProduct = () => {
   const _handleMovementUpdateProduct = async (
     id: string,
     newAmount: number,
-    prevAmount: number
+    prevAmount: number,
+    price: number,
+    purchasePrice: number
   ) => {
     let type: MovementType = "add";
     const calculatedAmount = newAmount - prevAmount;
@@ -155,6 +157,8 @@ export const useProduct = () => {
       amount: calculatedAmount,
       type,
       date: Timestamp.fromDate(new Date()),
+      price,
+      purchasePrice,
     };
 
     return await _createProductMovementRecord(productMovement);
@@ -179,7 +183,13 @@ export const useProduct = () => {
       updatedDate: Timestamp.fromDate(new Date()),
     };
 
-    await _handleMovementUpdateProduct(id, amount, initialInventory);
+    await _handleMovementUpdateProduct(
+      id,
+      amount,
+      initialInventory,
+      price,
+      purchasePrice
+    );
     return await updateDoc(docRef, newProduct);
   };
 

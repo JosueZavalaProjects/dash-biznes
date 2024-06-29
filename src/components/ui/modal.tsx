@@ -67,12 +67,12 @@ const Modal: FC<ModalProps> = ({
   return (
     <Portal>
       <div
-        className={`absolute items-center justify-center w-screen h-screen bg-opacity-50 bg-eerie-black -backdrop-filter-blur z-20 ${
+        className={`absolute items-center justify-center w-screen h-full bg-opacity-50 bg-eerie-black -backdrop-filter-blur z-20 ${
           !show ? "hidden" : "flex"
         }`}
       >
         <div
-          className={`fixed top-0 left-0 z-40 items-center justify-center w-screen h-screen ${
+          className={`fixed top-0 left-0 z-40 items-center justify-center w-screen h-full ${
             !show ? "hidden" : "flex"
           }`} //bg-opacity-50 bg-eerie-black -backdrop-filter-blur
           onClick={onClose}
