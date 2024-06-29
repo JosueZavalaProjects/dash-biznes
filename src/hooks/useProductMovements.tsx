@@ -3,11 +3,10 @@ import { useContext } from "react";
 import dayjs from "dayjs";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-import { BestSales as BestSalesType } from "@/components/modules/dashboard/Tables/BestSales/columns";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
 import { MovementType } from "@/types/addProduct";
-import { GraphResult } from "@/types/dashboard";
+import { BestSales, GraphResult, PurchasesMovements } from "@/types/dashboard";
 
 import { useProduct } from "./useProduct";
 
@@ -85,8 +84,8 @@ export const useProductMovements = () => {
 
     const qwerySnapshot = await getDocs(q);
 
-    const response: BestSalesType[] = [];
-    const purchaseObject = {};
+    /* const response: BestSales[] = []; */
+    const purchaseObject: PurchasesMovements = {};
 
     qwerySnapshot.forEach(async (doc) => {
       const { id, amount } = doc.data();
@@ -100,22 +99,24 @@ export const useProductMovements = () => {
     });
     console.log({ purchaseObject });
 
-    return response;
+    return purchaseObject;
   };
 
   const _generatePurchasesObject = (
-    responseObject: any,
+    responseObject: PurchasesMovements,
     id: string,
     purchaseMovementAmount: number,
     productDetails: any
   ) => {
     if (responseObject[id]) {
-      responseObject[id].purchases.push(purchaseMovementAmount);
+      responseObject[id].purchases =
+        responseObject[id].purchases + purchaseMovementAmount;
       return;
     }
     responseObject[id] = {
-      purchases: [purchaseMovementAmount],
+      purchases: purchaseMovementAmount,
       details: productDetails,
+      id,
     };
   };
 

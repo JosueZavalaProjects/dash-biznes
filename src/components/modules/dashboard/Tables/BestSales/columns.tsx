@@ -1,15 +1,8 @@
 import cn from "classnames";
 
+import { BestSales } from "@/types/dashboard";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
-
-export type BestSales = {
-  id: string;
-  name: string;
-  price: number;
-  totalSales: number;
-  inventory: number;
-};
 
 export const BestSalesColumns = (): ColumnDef<BestSales>[] => {
   return [

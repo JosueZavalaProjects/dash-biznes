@@ -52,4 +52,4 @@ export type ProductMovementAdminID = ProductMovement & {
   adminEmail: string;
 };
 
-export type InventoryProduct = Product & { id: string };
+export type InventoryProduct = Product & { id: string; inventory?: number };
