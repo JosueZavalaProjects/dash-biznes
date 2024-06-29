@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import { Card } from "@/components/Card";
 import { useDashboard } from "@/hooks/useDashboard";
+import { useProductMovements } from "@/hooks/useProductMovements";
 
 import { GreenChart, RedChart } from "../../../../public/assets";
-import { useProductMovements } from "@/hooks/useProductMovements";
 
 export const Cards = () => {
   const [inventorySpent, setInventorySpent] = useState<number>(0);
@@ -12,16 +12,15 @@ export const Cards = () => {
   const [totalExpenses, setTotalExpenses] = useState<number>(0);
   const [utilities, setUtilities] = useState<number>(0);
 
-  const { GetTotalSales, GetDataProducts, GetTotalExpenses } = useDashboard();
-  const { GetAllAditionMovements } = useProductMovements();
+  const { GetTotalSales, GetTotalExpenses } = useDashboard();
+  const { GetAllAdditionMovements } = useProductMovements();
 
   const handleGetProducts = async () => {
-    const newProducts = await GetDataProducts();
+    const newProducts = await GetAllAdditionMovements();
+
     const inventoryAmount = newProducts?.length
       ? newProducts.reduce((a, b) => a + b)
       : 0;
-
-    const inventoryLength = newProducts.length;
 
     setInventorySpent(inventoryAmount);
   };
@@ -51,7 +50,7 @@ export const Cards = () => {
   useEffect(() => {
     handleGetProducts();
     handleGetSales();
-    GetAllAditionMovements();
+    GetAllAdditionMovements();
   }, []);
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export const Cards = () => {
         link={"/activities"}
       />
       <Card
-        amount={totalExpenses}
+        amount={totalExpenses + inventorySpent}
         label={"Total de Gastos"}
         icon={RedChart}
         link={"/activities"}

@@ -6,6 +6,7 @@ import { CardContent } from "@/components/LegacyCard";
 import PageTitle from "@/components/PageTitle";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
+import { useProductMovements } from "@/hooks/useProductMovements";
 import { GraphData, GraphResult } from "@/types/dashboard";
 import { generateGraphData, groupByMoth } from "@/utils/dashboard";
 
@@ -20,8 +21,9 @@ export const Dashboard = () => {
   const [productsData, setProductsData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { GetSalesByDate, GetExpensesByDate, GetProductsByDate } =
-    useDashboard();
+  const { GetSalesByDate, GetExpensesByDate } = useDashboard();
+  const { GetProductsAdditionsByDate } = useProductMovements();
+
   const { GetCurrentYearDates } = useDates();
 
   const GetGraphsData = async () => {
@@ -31,7 +33,10 @@ export const Dashboard = () => {
     try {
       const salesResult = await GetSalesByDate(startDate, endDate);
       const expensesResult = await GetExpensesByDate(startDate, endDate);
-      const productsResult = await GetProductsByDate(startDate, endDate);
+      const productsResult = await GetProductsAdditionsByDate(
+        startDate,
+        endDate
+      );
 
       const newSales = CreateGraphData(salesResult);
       const newExpenses = CreateGraphData(expensesResult);

@@ -58,6 +58,8 @@ export const useProduct = () => {
       amount,
       type: "new",
       date: Timestamp.fromDate(new Date()),
+      price,
+      purchasePrice,
     };
 
     await _createProductMovementRecord(movement);
