@@ -25,7 +25,6 @@ export const BestSales = () => {
     const orderedArray = Object.values(allPurchases).sort((a, b) => {
       return b.purchases - a.purchases;
     });
-    console.log(orderedArray);
 
     const newBestSales: BestSalesType[] = orderedArray
       .slice(0, TOP_SALES)

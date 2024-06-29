@@ -5,7 +5,6 @@ import {
   Timestamp,
   addDoc,
   collection,
-  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -25,7 +24,6 @@ import {
   ProductMovementAdminID,
 } from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
-import { MOCK_PRODUCT } from "@/constants/addProduct";
 
 export const useProduct = () => {
   const productsRef = collection(db, "products");
@@ -126,7 +124,6 @@ export const useProduct = () => {
       updatedDate: Timestamp.fromDate(new Date()),
     };
 
-    // const response = await deleteDoc(doc(db, "products", productId));
     const response = await updateDoc(docRef, newProduct);
 
     return response;

@@ -1,10 +1,5 @@
+import { ProductAlert } from "@/types/dashboard";
 import { ColumnDef } from "@tanstack/react-table";
-
-export type ProductAlert = {
-  id: string;
-  name: string;
-  inventory: number;
-};
 
 export const ProductAlertColumns = (): ColumnDef<ProductAlert>[] => {
   return [

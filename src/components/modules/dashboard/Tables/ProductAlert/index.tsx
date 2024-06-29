@@ -1,22 +1,43 @@
+import { useEffect, useState } from "react";
+
 import { DataTable } from "@/components/DataTable";
+import { ALERT_AMOUNT, TOP_ALERT } from "@/constants/dashboard";
+import { useProduct } from "@/hooks/useProduct";
+import { ProductAlert as ProductAlertType } from "@/types/dashboard";
 
-import {
-  ProductAlertColumns,
-  ProductAlert as ProductAlertType,
-} from "./columns";
-
-const MOCK_PRODUCT_ALERT: ProductAlertType[] = [
-  { id: "1", name: "Pantalon de mezclilla", inventory: 3 },
-  { id: "2", name: "Pantalon de mezclilla", inventory: 3 },
-  { id: "3", name: "Pantalon de mezclilla", inventory: 3 },
-];
+import { ProductAlertColumns } from "./columns";
 
 export const ProductAlert = () => {
+  const [productAlerts, setProductAlerts] = useState<ProductAlertType[]>([]);
+  const { GetDataProducts } = useProduct();
+
+  const handleSetProductAlerts = async () => {
+    const allProducts = await GetDataProducts();
+    const newAlertProducts: ProductAlertType[] = allProducts
+      .filter((element) => element.inventory < ALERT_AMOUNT)
+      .sort((a, b) => a.inventory - b.inventory)
+      .slice(0, TOP_ALERT)
+      .map((element) => {
+        const { id, name, inventory } = element;
+        return {
+          id: id || "",
+          name,
+          inventory,
+        };
+      });
+
+    setProductAlerts(newAlertProducts);
+  };
+
+  useEffect(() => {
+    handleSetProductAlerts();
+  }, []);
+
   return (
     <div>
       <DataTable
         columns={ProductAlertColumns()}
-        data={MOCK_PRODUCT_ALERT}
+        data={productAlerts}
         pagination={false}
       />
     </div>

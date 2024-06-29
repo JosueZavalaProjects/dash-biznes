@@ -4,7 +4,7 @@ import { DollarSign, CreditCard, Activity } from "lucide-react";
 
 import { CardProps } from "@/components/LegacyCard";
 import { SalesProps } from "@/components/SalesCard";
-import { BestSales } from "@/types/dashboard";
+import { BestSales, ProductAlert } from "@/types/dashboard";
 
 export const DUMMY_SPENTS = 4000;
 
@@ -150,4 +150,12 @@ const MOCK_BEST_SALES: BestSales[] = [
   },
 ];
 
+const MOCK_PRODUCT_ALERT: ProductAlert[] = [
+  { id: "1", name: "Pantalon de mezclilla", inventory: 3 },
+  { id: "2", name: "Pantalon de mezclilla", inventory: 3 },
+  { id: "3", name: "Pantalon de mezclilla", inventory: 3 },
+];
+
 export const TOP_SALES = 5;
+export const ALERT_AMOUNT = 10;
+export const TOP_ALERT = 3;

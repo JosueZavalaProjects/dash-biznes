@@ -23,3 +23,9 @@ export type ProductMovements = {
 export type PurchasesMovements = {
   [id: string]: ProductMovements;
 };
+
+export type ProductAlert = {
+  id: string;
+  name: string;
+  inventory: number;
+};
