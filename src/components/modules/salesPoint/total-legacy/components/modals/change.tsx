@@ -1,20 +1,23 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import { query, orderBy, limit } from "firebase/firestore";
 import Image from "next/image";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
-import { db } from "@/services/firebase";
 
 import { SuccessIcon } from "../../../../../../../public/assets";
 import useSalesPointState from "../../../states/sales-point-state";
 
-export const Change = ({ setShow }: { setShow: (show: boolean) => void }) => {
-  const { payment, total, clearSale } = useSalesPointState();
+type ChangeProps = {
+  setShow: (show: boolean) => void;
+  handleClearOrder: () => void;
+};
+export const Change = ({ setShow, handleClearOrder }: ChangeProps) => {
+  const { payment, total, clearSale, setPaymentStep } = useSalesPointState();
 
   const handleNextStep = () => {
     clearSale();
+    setPaymentStep(4);
     setShow(false);
+    handleClearOrder();
   };
 
   return (

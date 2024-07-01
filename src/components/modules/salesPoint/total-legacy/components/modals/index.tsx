@@ -8,9 +8,10 @@ import { PaymentMethod } from "./payment-method";
 type ModalProps = {
   show: boolean;
   setShow: (show: boolean) => void;
+  handleClearOrder: () => void;
 };
 
-export const Modals = ({ show, setShow }: ModalProps) => {
+export const Modals = ({ show, setShow, handleClearOrder }: ModalProps) => {
   const { paymentStep, setPayment, setPaymentStep, setPaymentMethod } =
     useSalesPointState();
   const handleCloseModal = () => {
@@ -23,7 +24,9 @@ export const Modals = ({ show, setShow }: ModalProps) => {
     <Modal show={show} onClose={() => handleCloseModal()}>
       {paymentStep === 1 && <PaymentMethod />}
       {paymentStep === 2 && <PaymentAmount />}
-      {paymentStep === 3 && <Change setShow={setShow} />}
+      {paymentStep === 3 && (
+        <Change setShow={setShow} handleClearOrder={handleClearOrder} />
+      )}
     </Modal>
   );
 };

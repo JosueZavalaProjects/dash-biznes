@@ -48,7 +48,7 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
       }
     }
     return options;
-    /** Ejemplo 
+    /** Ejemplo
      * Current = 4 (abril)
      * Marzo
      * Febrero
@@ -61,13 +61,16 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
 
   return (
     <div className="flex pt-4 w-full justify-end">
-      <div className="w-40">
+      <label
+        htmlFor="selectedMonth"
+        className="cursor-pointer pr-3 bg-gray-100 rounded-3xl"
+      >
         <select
-          name="selectedFruit"
+          id="selectedMonth"
           onChange={(e) => {
             handleChange(e);
           }}
-          className="text-gray-500 p-2 w-full rounded-3xl border border-white bg-gray-100 focus:outline-none"
+          className="p-4 text-gray-500 rounded-3xl border border-white bg-gray-100 cursor-pointer focus:outline-none"
         >
           {createMonthOptions().map((element) => {
             return (
@@ -77,7 +80,7 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
             );
           })}
         </select>
-      </div>
+      </label>
     </div>
   );
 };

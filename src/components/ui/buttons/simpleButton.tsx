@@ -26,6 +26,8 @@ export const backgroundColors = {
   "eerie-black": "bg-eerie-black",
   "main-blue": "bg-main-blue",
   "malachite-green": "bg-malachite-green",
+  "gradient-blue": "bg-gradient-to-b from-seconday-blue to-light-blue",
+  "gradient-red": "bg-gradient-to-b from-red-secondary to-orange-primary",
 };
 
 export const SimpleButton = ({

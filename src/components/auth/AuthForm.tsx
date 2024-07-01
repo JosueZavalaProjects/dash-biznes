@@ -3,7 +3,12 @@ import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
+import { useSubscription } from "@/hooks/useSubscription";
 import { signInFirebase, signUpFirebase } from "@/services/authService";
+import { EmailBodyType, sendEmail } from "@/services/emailService";
+import { initFirebase } from "@/services/firebase";
+import { getCancelPeriodEnd, getPortalUrl } from "@/services/stripePayments";
+import { CancelPeriod } from "@/types/stripePayments";
 
 import classes from "./AuthForm.module.css";
 
@@ -11,6 +16,8 @@ const AuthForm = () => {
   const router = useRouter();
 
   const authCtx = useContext(AuthContext);
+  const app = initFirebase();
+  const { IsValidSubscription } = useSubscription();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +28,15 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
+  const CreateExpirationTime = (data: any) => {
+    const HOURS = 48;
+    const expires = +data.expiresIn * 1000 * HOURS;
+    const expirationTime = new Date(new Date().getTime() + expires);
+
+    const { localId, email } = data;
+    authCtx.login(email, localId, expirationTime.toISOString());
+  };
+
   const submitHandler = (event: React.ChangeEvent<HTMLFormElement>) => {
     let response;
     event.preventDefault();
@@ -28,28 +44,54 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (isLogin) {
+      // SIGN IN
       response = signInFirebase(enteredEmail, enteredPassword);
+
+      response
+        .then((res: any) => {
+          return res._tokenResponse;
+        })
+        .then((data: any) => CreateExpirationTime(data))
+        .then(async () => await getCancelPeriodEnd(app))
+        .then(async (cancelPeriod: CancelPeriod) => {
+          const isValidSuscription = IsValidSubscription(cancelPeriod);
+          
+          if (!isValidSuscription) {
+            const portalUrl = await getPortalUrl(app);
+            router.push(portalUrl);
+            authCtx.logout();
+            return
+          }
+          router.refresh();
+        })
+        .catch((err: any) => {
+          console.log(err);
+          alert(err.message);
+        })
+        .finally(() => setIsLoading(false));
     } else {
+      // SIGN UP
       response = signUpFirebase(enteredEmail, enteredPassword);
+
+      response
+        .then((res: any) => {
+          return res._tokenResponse;
+        })
+        .then((data: any) => CreateExpirationTime(data))
+        .then(async () => {
+          const testBody: EmailBodyType = {
+            clientEmail: enteredEmail,
+            emailType: "signUp",
+          };
+          await sendEmail(testBody);
+        })
+        .then(() => router.refresh())
+        .catch((err: any) => {
+          console.log(err);
+          alert(err.message);
+        })
+        .finally(() => setIsLoading(false));
     }
-
-    response
-      .then((res: any) => {
-        return res._tokenResponse;
-      })
-      .then((data: any) => {
-        const HOURS = 48;
-        const expires = +data.expiresIn * 1000 * HOURS;
-        const expirationTime = new Date(new Date().getTime() + expires);
-
-        const { localId, email } = data;
-        authCtx.login(email, localId, expirationTime.toISOString());
-        router.refresh();
-      })
-      .catch((err: any) => {
-        alert(err.message);
-      })
-      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -57,7 +99,7 @@ const AuthForm = () => {
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">Correo Electronico</label>
           <input
             type="email"
             id="email"

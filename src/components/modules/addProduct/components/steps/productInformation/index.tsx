@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { KeyValueTypes } from "@/components/ui/input";
 import Text from "@/components/ui/text";
@@ -10,19 +11,18 @@ import { BackArrow } from "../../../../../../../public/assets";
 import { ProductForm } from "./productForm";
 
 type ProductInformationProps = {
-  setStep: (nextStep: number) => void;
   handleSetProduct: (value: string, key: KeyValueTypes) => void;
   setShowModal: (show: boolean) => void;
   product: Product;
 };
 
 export const ProductInformation = ({
-  setStep,
   handleSetProduct,
   setShowModal,
   product,
 }: ProductInformationProps) => {
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleSetValueProduct = (value: string, key?: KeyValueTypes) => {
     const keyValue = key || "name";
@@ -58,7 +58,7 @@ export const ProductInformation = ({
             height={26}
             alt="back arrow"
             className="cursor-pointer"
-            onClick={() => setStep(1)}
+            onClick={() => router.back()}
           />
         </div>
       </div>

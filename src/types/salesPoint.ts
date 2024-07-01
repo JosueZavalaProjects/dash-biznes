@@ -14,7 +14,7 @@ export type Product = {
   price: number;
   category: string;
   subcategory: string;
-  inventory?: number;
+  inventory: number;
 };
 
 export type ProductCheckout = Product & {
@@ -23,4 +23,13 @@ export type ProductCheckout = Product & {
 
 export type ProductsMock = {
   [key: string]: Product[];
+};
+
+export type ProductProps = {
+  name: string;
+  isSelected?: boolean;
+  index: number;
+  setProductSelected: (index: number) => void;
+  inventory: number;
+  image?: string;
 };

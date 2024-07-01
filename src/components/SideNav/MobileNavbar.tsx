@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 import { AddModal } from "../modals/AddModal";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/buttons/button";
 
 type FooterIcons = {
   icon: LucideIcon | IconType;

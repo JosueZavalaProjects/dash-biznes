@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { RequestModal } from "@/components/modals/RequestModal";
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import {
   EXPENSES_KEYS,

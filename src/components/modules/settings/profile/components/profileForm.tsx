@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Input, KeyValueTypes } from "@/components/ui/input";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import { passwordReset } from "@/services/authService";
 import { PasswordResetModalStep } from "@/types/settings";

@@ -2,10 +2,9 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
-  QuerySnapshot,
+  Timestamp,
   addDoc,
   collection,
-  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -14,36 +13,72 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
-import { Product } from "@/types/addProduct";
+import {
+  MovementType,
+  Product,
+  ProductMovement,
+  ProductMovementAdminID,
+} from "@/types/addProduct";
 import { Product as InventoryProduct } from "@/types/inventory";
 
 export const useProduct = () => {
   const productsRef = collection(db, "products");
+  const movementsRef = collection(db, "product_movements");
   const authCtx: any = useContext(AuthContext);
 
   const CreateProduct = async (product: Product) => {
     const { name, category, price, amount, type, unit, purchasePrice } =
       product;
-    return await addDoc(productsRef, {
-      name,
-      category,
+
+    const productResponse: DocumentReference<DocumentData, DocumentData> =
+      await addDoc(productsRef, {
+        name,
+        category,
+        price,
+        purchasePrice,
+        subcategory: type,
+        unit,
+        inventory: amount,
+        purchaseAmount: amount,
+        isDeleted: false,
+        date: Timestamp.fromDate(new Date()),
+        adminEmail: authCtx.email,
+      });
+
+    const { id } = productResponse;
+
+    const movement: ProductMovement = {
+      id,
+      amount,
+      type: "new",
+      date: Timestamp.fromDate(new Date()),
       price,
       purchasePrice,
-      subcategory: type,
-      unit,
-      inventory: amount,
-      date: new Date().toString(),
+    };
+
+    await _createProductMovementRecord(movement);
+    return productResponse;
+  };
+
+  const _createProductMovementRecord = async (
+    purchaseMovment: ProductMovement
+  ) => {
+    const purchaseMovementId: ProductMovementAdminID = {
+      ...purchaseMovment,
       adminEmail: authCtx.email,
-    });
+    };
+    await addDoc(movementsRef, purchaseMovementId);
   };
 
   const GetDataProducts = async () => {
     const q = query(
       productsRef,
       where("adminEmail", "==", authCtx.email),
+      where("isDeleted", "!=", true),
       orderBy("date", "desc")
     );
     const querySnapshot = await getDocs(q);
@@ -53,6 +88,9 @@ export const useProduct = () => {
     querySnapshot.forEach((doc) => {
       const { name, category, subcategory, price, inventory, date } =
         doc.data();
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("DD/MM/YYYY");
 
       response.push({
         id: doc.id,
@@ -61,15 +99,32 @@ export const useProduct = () => {
         subcategory,
         price,
         inventory,
-        dateAdded:
-          dayjs(date).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        dateAdded: _date || "No Date",
       });
     });
     return response;
   };
 
   const DeleteProduct = async (productId: string) => {
-    const response = await deleteDoc(doc(db, "products", productId));
+    const product: DocumentData | undefined = await GetProductByID(productId);
+    const { inventory } = product || {};
+
+    const movement: ProductMovement = {
+      id: productId,
+      amount: -inventory,
+      type: "delete",
+      date: Timestamp.fromDate(new Date()),
+    };
+
+    await _createProductMovementRecord(movement);
+    // Upadate Product field isDeleted: true
+    const docRef = doc(db, "products", productId);
+    const newProduct = {
+      isDeleted: true,
+      updatedDate: Timestamp.fromDate(new Date()),
+    };
+
+    const response = await updateDoc(docRef, newProduct);
 
     return response;
   };
@@ -81,18 +136,59 @@ export const useProduct = () => {
     return querySnapshot.data();
   };
 
-  const UpdateProduct = async (id: string, product: Product) => {
+  const _handleMovementUpdateProduct = async (
+    id: string,
+    newAmount: number,
+    prevAmount: number,
+    price: number,
+    purchasePrice: number
+  ) => {
+    let type: MovementType = "add";
+    const calculatedAmount = newAmount - prevAmount;
+
+    if (prevAmount === newAmount) return;
+
+    if (prevAmount > newAmount) type = "reduce";
+    if (prevAmount < newAmount) type = "add";
+
+    const productMovement: ProductMovement = {
+      id,
+      amount: calculatedAmount,
+      type,
+      date: Timestamp.fromDate(new Date()),
+      price,
+      purchasePrice,
+    };
+
+    return await _createProductMovementRecord(productMovement);
+  };
+
+  const UpdateProduct = async (
+    id: string,
+    product: Product,
+    initialInventory: number
+  ) => {
     const docRef = doc(db, "products", id);
-    const { name, category, price, type, purchasePrice } = product;
+    const { name, category, price, type, purchasePrice, amount } = product;
+
     const newProduct = {
       name,
       category,
       price,
       purchasePrice,
+      inventory: amount,
       subcategory: type,
-      updatedDate: new Date().toString(),
+      isDeleted: false,
+      updatedDate: Timestamp.fromDate(new Date()),
     };
 
+    await _handleMovementUpdateProduct(
+      id,
+      amount,
+      initialInventory,
+      price,
+      purchasePrice
+    );
     return await updateDoc(docRef, newProduct);
   };
 
@@ -102,5 +198,6 @@ export const useProduct = () => {
     DeleteProduct,
     GetProductByID,
     UpdateProduct,
+    CreateProductMovementRecord: _createProductMovementRecord,
   };
 };

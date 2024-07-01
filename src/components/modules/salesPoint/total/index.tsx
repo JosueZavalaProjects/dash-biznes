@@ -1,104 +1,38 @@
-"use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
-import { getCookie } from "cookies-next";
-import dayjs from "dayjs";
-require("dayjs/locale/es");
-import { useRouter } from "next/navigation";
-
-import { ContainerCard } from "@/components/ui/containerCard";
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
-import { TAB_KEYS } from "@/constants/salesPoint";
-import { useSalesPoint } from "@/hooks/useSalesPoint";
-import { ProductCheckout } from "@/types/salesPoint";
 
-import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
 import useSalesPointState from "../states/sales-point-state";
-import { Modals } from "./components/modals";
-import { TotalTable } from "./components/table";
+import { Modals } from "../total-legacy/components/modals";
+import { TotalTable } from "../total-legacy/components/table";
 
-export const Total = () => {
+type TotalProps = {
+  handleClearOrder: () => void;
+};
+export const Total = ({ handleClearOrder }: TotalProps) => {
+  const [isEdit, setIsEdit] = useState(false);
   const [show, setShow] = useState<boolean>(false);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { products, total, clearSale, updateProduct, setTabName } =
-    useSalesPointState();
-  const { UpdateSale } = useSalesPoint();
-  const router = useRouter();
-
-  dayjs.locale("es");
-
-  const handleUpdateProducts = (products: ProductCheckout[]) => {
-    products.map((product) => {
-      updateProduct(product);
-    });
-  };
-
-  const handleCancelEdit = () => {
-    clearSale();
-    router.push("activities");
-  };
-
-  const handleUpdateSale = async () => {
-    const saleId = getCookie("saleID");
-    setShowUpdateModal(true);
-
-    if (!saleId) {
-      console.log("No hay id de la venta para actualizar");
-      return;
-    }
-    try {
-      setIsLoading(true);
-      const response = await UpdateSale(saleId);
-    } catch (e) {
-      throw new Error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    // En caso de existir la cookie se esta editando la venta
-    const products = getCookie("products");
-    if (products) {
-      clearSale();
-      const cookiesProducts = JSON.parse(products);
-      handleUpdateProducts(cookiesProducts);
-      setTabName(TAB_KEYS.TOTAL);
-      setIsEdit(true);
-      return;
-    }
-    clearSale();
-  }, []);
+  const { products, total, clearSale } = useSalesPointState();
 
   return (
-    <ContainerCard>
-      <UpdateSaleModal
-        showModal={showUpdateModal}
-        setShowModal={setShowUpdateModal}
-        isLoading={isLoading}
+    <section className="w-2/5 rounded-lg p-4 border-2 overflow-y-scroll">
+      <Modals
+        show={show}
+        setShow={setShow}
+        handleClearOrder={handleClearOrder}
       />
-      <Modals show={show} setShow={setShow} />
-      <div className="grid gap-2">
-        <div className="grid p-2">
-          {/* <Text color="eerie-black" size="sm" weight="medium">
-            Mesa 21 - No. de Cliente: 2
-          </Text> */}
-          <Text color="silver" size="sm" className="capitalize">
-            {dayjs(Date().toString()).format("DD [de] MMMM YYYY")}
-          </Text>
-          {/* <Text color="silver" size="xs" className="capitalize">
-            Ticket: 241
-          </Text> */}
-          <Text color="silver" size="sm" className="capitalize">
-            Caja 1
-          </Text>
-        </div>
-        <div className="grid gap-2 w-full">
-          <TotalTable products={products} />
+      <div className="mb-8">
+        <Text color="cta" weight="semibold" size="xl">
+          Venta Acutal
+        </Text>
+      </div>
+      <div className="flex flex-col justify-between gap-2 w-full">
+        <TotalTable products={products} />
+
+        <div className="items-end">
           <div className="flex justify-between items-center p-4 text-gray-800">
             <Text size="4xl" weight="semibold">
               Total
@@ -108,28 +42,33 @@ export const Total = () => {
               <Text size="lg">MXN</Text>
             </div>
           </div>
-          <div className="grid justify-items-center items-center pb-4">
+          <div className="grid gap-4 justify-items-center items-center pb-4">
             {isEdit && (
               <div className="flex gap-4">
-                <SimpleButton bgColor="gray" onClick={() => handleCancelEdit()}>
+                <SimpleButton bgColor="gray" onClick={() => {}}>
                   Cancelar
                 </SimpleButton>
-                <SimpleButton onClick={() => handleUpdateSale()}>
-                  Guardar
-                </SimpleButton>
+                <SimpleButton onClick={() => {}}>Guardar</SimpleButton>
               </div>
             )}
             {!isEdit && (
-              <button
+              <SimpleButton
+                bgColor="gradient-blue"
                 onClick={() => setShow(true)}
-                className="border rounded-xl py-2 px-6 bg-gray-400 text-white"
+                disabled={!Boolean(total)}
               >
                 Cobrar
-              </button>
+              </SimpleButton>
             )}
+            <span
+              onClick={() => clearSale()}
+              className="flex content-center items-center gap-2 text-main-red cursor-pointer font-light"
+            >
+              <FaTrash /> Borrar la Orden
+            </span>
           </div>
         </div>
       </div>
-    </ContainerCard>
+    </section>
   );
 };

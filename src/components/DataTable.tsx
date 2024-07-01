@@ -16,16 +16,18 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "./ui/button";
+import { Button } from "./ui/buttons/button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination = true,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -86,24 +88,34 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Anterior
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Siguiente
-        </Button>
-      </div>
+      {pagination && (
+        <>
+          <div className="flex items-center justify-center pt-6">
+            <strong>
+              Página {table.getState().pagination.pageIndex + 1} de{" "}
+              {table.getPageCount().toLocaleString()}
+            </strong>
+          </div>
+          <div className="flex items-center justify-end space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Anterior
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Siguiente
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

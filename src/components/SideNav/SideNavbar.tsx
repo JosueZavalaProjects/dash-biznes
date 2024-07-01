@@ -16,7 +16,7 @@ import AuthContext from "@/context/AuthContext";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { AddModal } from "../modals/AddModal";
-import { Button } from "../ui/button";
+import { Button } from "../ui/buttons/button";
 import { Nav } from "../ui/nav";
 
 type Props = {};

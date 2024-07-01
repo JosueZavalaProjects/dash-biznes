@@ -18,6 +18,7 @@ export const InventoryTable = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isLoadingModal, setIsLoadingModal] = useState<boolean>(false);
   const [productId, setProductId] = useState<string>("");
+  const [initialInventory, setInitialInventory] = useState<number>(0);
   const [modalStep, setModalStep] = useState<InventoryModalStep>(
     InventoryModalStep.edit
   );
@@ -56,18 +57,21 @@ export const InventoryTable = () => {
     setShowModal(true);
     setIsLoadingModal(true);
     setProductId(id);
+    
     try {
       const productResponse: DocumentData | undefined = await GetProductByID(
         id
       );
 
-      const { category, subcategory, name, price, purchasePrice } =
+      const { category, subcategory, name, price, purchasePrice, inventory } =
         productResponse || {};
 
+      setInitialInventory(inventory);
       const newProduct = {
         ...product,
         category,
         type: subcategory,
+        amount: inventory,
         name,
         price,
         purchasePrice,
@@ -93,7 +97,7 @@ export const InventoryTable = () => {
   };
 
   const handleUpdateProduct = () => {
-    const response = UpdateProduct(productId, product);
+    const response = UpdateProduct(productId, product, initialInventory);
     setIsLoadingModal(true);
 
     response

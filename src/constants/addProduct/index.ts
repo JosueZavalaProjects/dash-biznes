@@ -6,6 +6,7 @@ export const MOCK_PRODUCT: Product = {
   name: "",
   price: 0,
   purchasePrice: 0,
+  purchaseAmount: 0,
   amount: 0,
   unit: "pzs",
 };

@@ -1,8 +1,10 @@
-import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
-
-import { CardProps } from "@/components/Card";
-import { SalesProps } from "@/components/SalesCard";
 import { MdOutlineInventory } from "react-icons/md";
+
+import { DollarSign, CreditCard, Activity } from "lucide-react";
+
+import { CardProps } from "@/components/LegacyCard";
+import { SalesProps } from "@/components/SalesCard";
+import { BestSales, ProductAlert } from "@/types/dashboard";
 
 export const DUMMY_SPENTS = 4000;
 
@@ -121,3 +123,39 @@ const Mockdata = [
     total: Math.floor(Math.random() * 5000) + 1000,
   },
 ];
+
+const { v4: uuidv4 } = require("uuid");
+
+const MOCK_BEST_SALES: BestSales[] = [
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 2,
+  },
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 0,
+  },
+  {
+    id: uuidv4(),
+    name: "Pantalon de mezclilla",
+    price: 20,
+    totalSales: 30,
+    inventory: 2,
+  },
+];
+
+const MOCK_PRODUCT_ALERT: ProductAlert[] = [
+  { id: "1", name: "Pantalon de mezclilla", inventory: 3 },
+  { id: "2", name: "Pantalon de mezclilla", inventory: 3 },
+  { id: "3", name: "Pantalon de mezclilla", inventory: 3 },
+];
+
+export const TOP_SALES = 5;
+export const ALERT_AMOUNT = 10;
+export const TOP_ALERT = 3;

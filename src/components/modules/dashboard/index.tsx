@@ -1,24 +1,29 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import BarChart from "@/components/BarChart";
-import { CardContent } from "@/components/Card";
+import BarChart, { graphColor } from "@/components/BarChart";
+import { CardContent } from "@/components/LegacyCard";
 import PageTitle from "@/components/PageTitle";
-import { MONTH_LABELS } from "@/constants/activities";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
-import { GraphData, GraphResult, GroupTotals } from "@/types/dashboard";
+import { useProductMovements } from "@/hooks/useProductMovements";
+import { GraphData, GraphResult } from "@/types/dashboard";
+import { generateGraphData, groupByMoth } from "@/utils/dashboard";
 
 import { Cards } from "./Cards";
-import { Sales } from "./Sales";
+import { BestSales } from "./Tables/BestSales";
+import { ProductAlert } from "./Tables/ProductAlert";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
   const [salesData, setSalesData] = useState<GraphData[]>([]);
   const [expensesData, setExpensesData] = useState<GraphData[]>([]);
+  const [productsData, setProductsData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { GetSalesByDate, GetExpensesByDate } = useDashboard();
+  const { GetProductsAdditionsByDate } = useProductMovements();
+
   const { GetCurrentYearDates } = useDates();
 
   const GetGraphsData = async () => {
@@ -28,13 +33,23 @@ export const Dashboard = () => {
     try {
       const salesResult = await GetSalesByDate(startDate, endDate);
       const expensesResult = await GetExpensesByDate(startDate, endDate);
+      const productsResult = await GetProductsAdditionsByDate(
+        startDate,
+        endDate
+      );
 
       const newSales = CreateGraphData(salesResult);
       const newExpenses = CreateGraphData(expensesResult);
-      const newUtilities = CreateUtilitiesGraphData(newSales, newExpenses);
+      const newProducts = CreateGraphData(productsResult);
+      const newUtilities = CreateUtilitiesGraphData(
+        newSales,
+        newExpenses,
+        newProducts
+      );
 
       setSalesData(newSales);
       setExpensesData(newExpenses);
+      setProductsData(newProducts);
       setUtilitiesData(newUtilities);
     } catch (e) {
       const result = (e as Error).message;
@@ -47,17 +62,23 @@ export const Dashboard = () => {
 
   const CreateUtilitiesGraphData = (
     sales: GraphData[],
-    expenses: GraphData[]
+    expenses: GraphData[],
+    inventory: GraphData[]
   ): GraphData[] => {
     const salesMonths = sales.map((sale) => sale.name);
     const expensesMonths = expenses.map((expense) => expense.name);
+    const productsMonths = inventory.map((product) => product.name);
 
-    const months = Array.from(new Set(salesMonths.concat(expensesMonths)));
+    const months = Array.from(
+      new Set(salesMonths.concat(expensesMonths, productsMonths))
+    );
 
     const utilities: GraphData[] = months.map((month) => {
       const sale = sales.find((sale) => sale.name === month);
       const expense = expenses.find((expense) => expense.name === month);
-      const utility = (sale?.total || 0) - (expense?.total || 0);
+      const product = inventory.find((product) => product.name === month);
+      const utility =
+        (sale?.total || 0) - (expense?.total || 0) - (product?.total || 0);
 
       return { name: month, total: utility };
     });
@@ -72,29 +93,6 @@ export const Dashboard = () => {
     return finalData;
   };
 
-  const groupByMoth = (myArray: GraphResult[]) => {
-    const groups = myArray.reduce(function (r: GroupTotals, o) {
-      const { date, total } = o;
-      const m = date.split("-")[1];
-      r[`${m}`] ? r[m].push(total) : (r[m] = [total]);
-      return r;
-    }, {});
-
-    return groups;
-  };
-
-  const generateGraphData = (groupData: GroupTotals) => {
-    const data: GraphData[] = [];
-    for (const property in groupData) {
-      const total = groupData[property].reduce(
-        (current, next) => current + next
-      );
-      const month = MONTH_LABELS[+property - 1].slice(0, 3);
-      data.push({ name: month, total });
-    }
-    return data;
-  };
-
   useEffect(() => {
     GetGraphsData();
   }, []);
@@ -102,34 +100,54 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Dashboard" />
-      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-3">
         <Cards />
       </section>
-      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
-        <CardContent>
-          <p className="p-4 font-semibold">Utilidad general</p>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <CardContent className="lg:w-2/3">
+          <TitleBlue>Utilidad general</TitleBlue>
+
           <BarChart data={utilitiesData} isLoading={isLoading} />
         </CardContent>
-        <Sales />
-      </section>
-      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
-        <CardContent>
-          <p className="p-4 font-semibold">Resumen de Gastos</p>
-          <BarChart
-            data={expensesData}
-            isLoading={isLoading}
-            fillColor="#F05F40"
-          />
-        </CardContent>
-        <CardContent>
-          <p className="p-4 font-semibold">Resumen de Ventas</p>
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Resumen de Ventas</TitleBlue>
+
           <BarChart
             data={salesData}
             isLoading={isLoading}
-            fillColor="#8FC93A"
+            fillColor={graphColor.green}
+          />
+        </CardContent>
+      </section>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <CardContent className="lg:w-2/3">
+          <TitleBlue>Productos más vendidos</TitleBlue>
+          <BestSales />
+        </CardContent>
+
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Alertas de Existencia</TitleBlue>
+          <ProductAlert />
+        </CardContent>
+      </section>
+      <section className="grid w-full gap-4 transition-all lg:flex">
+        <div className="lg:w-2/3"></div>
+
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Resumen de Gastos</TitleBlue>
+          <BarChart
+            data={expensesData}
+            isLoading={isLoading}
+            fillColor={graphColor.red}
           />
         </CardContent>
       </section>
     </div>
   );
 };
+
+const TitleBlue = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <p className="text-2xl font-semibold text-main-blue capitalize pb-4">
+    {props.children}
+  </p>
+);

@@ -47,9 +47,9 @@ export const useDashboard = () => {
     const response: number[] = [];
 
     qwerySnapshot.forEach((doc) => {
-      const { purchasePrice, inventory } = doc.data();
+      const { purchasePrice, purchaseAmount } = doc.data();
 
-      response.push(purchasePrice * inventory);
+      response.push(purchasePrice * purchaseAmount);
     });
     return response;
   };
@@ -112,11 +112,42 @@ export const useDashboard = () => {
     return response;
   };
 
+  const GetProductsByDate = async (startDate: string, endDate: string) => {
+    const startOfDay = new Date(startDate);
+    const endOfDay = new Date(endDate);
+
+    const q = query(
+      productsRef,
+      where("adminEmail", "==", authCtx.email),
+      where("date", ">=", startOfDay),
+      where("date", "<=", endOfDay)
+    );
+    const qwerySnapshot = await getDocs(q);
+
+    const response: GraphResult[] = [];
+
+    qwerySnapshot.forEach((doc) => {
+      const { purchaseAmount, purchasePrice, date } = doc.data();
+
+      const { seconds } = date;
+      const newDate = new Date(seconds * 1000);
+      const _date = dayjs(newDate).format("YYYY-MM-DD");
+
+      response.push({
+        date: _date || "No Date",
+        total: purchaseAmount * purchasePrice,
+      });
+    });
+
+    return response;
+  };
+
   return {
     GetTotalSales,
     GetDataProducts,
     GetTotalExpenses,
     GetSalesByDate,
     GetExpensesByDate,
+    GetProductsByDate,
   };
 };

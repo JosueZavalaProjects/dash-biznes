@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { SimpleButton } from "@/components/ui/simpleButton";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 
 import useSalesPointState from "../../../states/sales-point-state";

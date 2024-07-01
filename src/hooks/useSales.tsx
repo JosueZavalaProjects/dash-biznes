@@ -2,24 +2,36 @@ import { useContext } from "react";
 
 import dayjs from "dayjs";
 import {
+  Timestamp,
   collection,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
+import type { DocumentData } from "firebase/firestore";
 
 import { SalesProps } from "@/components/SalesCard";
 import AuthContext from "@/context/AuthContext";
 import { db } from "@/services/firebase";
+import { ProductMovement } from "@/types/addProduct";
 import { Sale } from "@/types/sales";
+import { ProductCheckout } from "@/types/salesPoint";
+
+import { useProduct } from "./useProduct";
+import { useSalesPoint } from "./useSalesPoint";
+
 require("dayjs/locale/es");
 
 export const useSales = () => {
   const salesRef = collection(db, "sales");
   const authCtx = useContext(AuthContext);
+  const { UpdateInventoryProduct, GetProductInventory } = useSalesPoint();
+  const { CreateProductMovementRecord } = useProduct();
+
   dayjs.locale("es");
 
   const GetDataSales = async () => {
@@ -80,7 +92,31 @@ export const useSales = () => {
     return querySnapshot.data();
   };
 
+  const _returnInventoryProduct = async (saleId: string) => {
+    console.log(saleId);
+    const response: DocumentData | undefined = await GetSaleByID(saleId);
+
+    const { products } = response || {};
+
+    (products as Array<ProductCheckout>).forEach(async (product) => {
+      const { id, amount } = product;
+
+      const inventoryInDB = await GetProductInventory(id);
+      await UpdateInventoryProduct(id, inventoryInDB + amount);
+
+      const productMovement: ProductMovement = {
+        id,
+        amount: -amount,
+        type: "editPurchase",
+        date: Timestamp.fromDate(new Date()),
+        saleId: saleId,
+      };
+      await CreateProductMovementRecord(productMovement);
+    });
+  };
+
   const DeleteSale = async (saleId: string) => {
+    await _returnInventoryProduct(saleId);
     const response = await deleteDoc(doc(db, "sales", saleId));
 
     return response;
@@ -94,7 +130,8 @@ export const useSales = () => {
       salesRef,
       where("adminEmail", "==", authCtx.email),
       where("date", ">=", startOfDay),
-      where("date", "<=", endOfDay)
+      where("date", "<=", endOfDay),
+      orderBy("date", "desc")
     );
     const qwerySnapshot = await getDocs(q);
 
@@ -108,7 +145,7 @@ export const useSales = () => {
       response.push({
         id: doc.id,
         ticketNumber: ticket || "N/A",
-        date: dayjs(newDate).format("DD [de] MMMM YYYY HH:mm:ss") || "No Date",
+        date: dayjs(newDate).format("DD/MM/YY HH:mm") || "No Date",
         total,
         method: paymentMethod || "cash",
       });

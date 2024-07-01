@@ -6,6 +6,7 @@ export type Product = {
   price: number;
   inventory: number;
   dateAdded: string;
+  image?: string;
 };
 
 export enum InventoryModalStep {

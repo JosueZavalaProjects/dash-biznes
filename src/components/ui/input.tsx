@@ -1,4 +1,3 @@
-import { ExpensesKeys } from "@/types/addExpense";
 import { ProductKeys } from "@/types/addProduct";
 
 import Text from "../ui/text";
@@ -22,11 +21,14 @@ export const Input = ({
   setValue,
   type,
 }: InputProps) => {
+  const blockInvalidChar = (e: React.KeyboardEvent<HTMLInputElement>) =>
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+
   return (
     <div>
       <div className="grid gap-2">
         {label && (
-          <Text color="gray" className="capitalize">
+          <Text color="dark" weight="semibold" className="capitalize">
             {label}
           </Text>
         )}
@@ -36,8 +38,12 @@ export const Input = ({
               type={type || "text"}
               className="w-full bg-transparent py-2 pl-3 pr-1 border-none text-center focus:border-none focus:outline-0 focus:ring-0"
               placeholder={placeholder || ""}
+              onKeyDown={
+                type === "number" ? (e) => blockInvalidChar(e) : () => {}
+              }
               value={value || ""}
               onChange={(e) => setValue(e.target.value, keyValue)}
+              min={0}
             />
           </div>
         </div>

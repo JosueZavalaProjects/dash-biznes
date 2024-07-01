@@ -1,62 +1,41 @@
-"use client";
 import { useEffect, useState } from "react";
 
-import { CARD_DATA_KEYS, cardData } from "@/constants/dashboard";
+import { Card } from "@/components/Card";
 import { useDashboard } from "@/hooks/useDashboard";
-import { formatCurrency } from "@/utils/common";
+import { useProductMovements } from "@/hooks/useProductMovements";
 
-import Card, { CardProps } from "../../Card";
+import { GreenChart, RedChart } from "../../../../public/assets";
 
 export const Cards = () => {
   const [inventorySpent, setInventorySpent] = useState<number>(0);
   const [totalSales, setTotalSales] = useState<number>(0);
   const [totalExpenses, setTotalExpenses] = useState<number>(0);
+  const [utilities, setUtilities] = useState<number>(0);
 
-  const [cards, setCards] = useState<CardProps[]>(cardData);
-  const { GetTotalSales, GetDataProducts, GetTotalExpenses } = useDashboard();
-
-  const handleSetCards = (
-    key: string,
-    amount: number,
-    description?: string
-  ) => {
-    const newCards = [...cards];
-    const newCardElement = newCards.find((element) => element.label === key);
-    if (newCardElement) {
-      newCardElement.amount = formatCurrency(amount);
-      newCardElement.description = description || newCardElement.description;
-    }
-    setCards(newCards);
-  };
+  const { GetTotalSales, GetTotalExpenses } = useDashboard();
+  const { GetAllAdditionMovements } = useProductMovements();
 
   const handleGetProducts = async () => {
-    const newProducts = await GetDataProducts();
+    const newProducts = await GetAllAdditionMovements();
+
     const inventoryAmount = newProducts?.length
       ? newProducts.reduce((a, b) => a + b)
       : 0;
 
-    const inventoryLength = newProducts.length;
-
     setInventorySpent(inventoryAmount);
-    handleSetCards(
-      CARD_DATA_KEYS.INVENTORY,
-      inventoryAmount,
-      `+${inventoryLength} productos totales`
-    );
   };
 
   const handleGetSales = async () => {
     const newSales = await GetTotalSales();
     const salesAmount = newSales?.length ? newSales.reduce((a, b) => a + b) : 0;
     setTotalSales(salesAmount);
-
-    handleSetCards(CARD_DATA_KEYS.SALES, salesAmount);
   };
 
   const handleCalculateUtilities = () => {
     const spents = inventorySpent + totalExpenses;
-    const utilities = totalSales - spents;
-    handleSetCards(CARD_DATA_KEYS.UTILITIES, utilities);
+    const newUtilities = totalSales - spents;
+
+    setUtilities(newUtilities);
   };
 
   const handleCalculateSpents = async () => {
@@ -66,12 +45,12 @@ export const Cards = () => {
       : 0;
 
     setTotalExpenses(newExpenses);
-    handleSetCards(CARD_DATA_KEYS.SPENTS, newExpenses);
   };
 
   useEffect(() => {
     handleGetProducts();
     handleGetSales();
+    GetAllAdditionMovements();
   }, []);
 
   useEffect(() => {
@@ -84,16 +63,24 @@ export const Cards = () => {
 
   return (
     <>
-      {cardData.map((d, i) => (
-        <Card
-          key={i}
-          amount={d.amount}
-          description={d.description}
-          icon={d.icon}
-          label={d.label}
-          link={d.link}
-        />
-      ))}
+      <Card
+        amount={utilities}
+        label={"Utilidades"}
+        icon={GreenChart}
+        link={"/activities"}
+      />
+      <Card
+        amount={totalExpenses + inventorySpent}
+        label={"Total de Gastos"}
+        icon={RedChart}
+        link={"/activities"}
+      />
+      <Card
+        amount={totalSales}
+        label={"Ventas"}
+        icon={GreenChart}
+        link={"/activities"}
+      />
     </>
   );
 };
