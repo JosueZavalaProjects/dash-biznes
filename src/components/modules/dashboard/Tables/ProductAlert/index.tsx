@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { DataTable } from "@/components/DataTable";
-import { ALERT_AMOUNT, TOP_ALERT } from "@/constants/dashboard";
+import { ALERT_AMOUNT } from "@/constants/dashboard";
 import { useProduct } from "@/hooks/useProduct";
 import { ProductAlert as ProductAlertType } from "@/types/dashboard";
 
@@ -16,7 +16,6 @@ export const ProductAlert = () => {
     const newAlertProducts: ProductAlertType[] = allProducts
       .filter((element) => element.inventory < ALERT_AMOUNT)
       .sort((a, b) => a.inventory - b.inventory)
-      .slice(0, TOP_ALERT)
       .map((element) => {
         const { id, name, inventory } = element;
         return {
@@ -34,7 +33,7 @@ export const ProductAlert = () => {
   }, []);
 
   return (
-    <div>
+    <div className="h-80 overflow-y-scroll">
       <DataTable
         columns={ProductAlertColumns()}
         data={productAlerts}

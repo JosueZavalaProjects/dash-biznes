@@ -146,11 +146,14 @@ export const getCancelPeriodEnd = async (
   const q = query(subscriptionsRef);
 
   const querySnapshot = await getDocs(q);
+
   querySnapshot.forEach((doc) => {
-    const { cancel_at, cancel_at_period_end } = doc.data();
+    const { cancel_at, cancel_at_period_end, status } = doc.data();
     cancelPeriod.cancelAtPeriodEnd = cancel_at_period_end;
     cancelPeriod.cancelAt = cancel_at;
+    cancelPeriod.status = status;
   });
+
   return cancelPeriod;
 };
 

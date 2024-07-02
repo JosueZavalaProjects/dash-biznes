@@ -7,7 +7,11 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { signInFirebase, signUpFirebase } from "@/services/authService";
 import { EmailBodyType, sendEmail } from "@/services/emailService";
 import { initFirebase } from "@/services/firebase";
-import { getCancelPeriodEnd, getPortalUrl } from "@/services/stripePayments";
+import {
+  getCancelPeriodEnd,
+  getCheckoutUrl,
+  getPortalUrl,
+} from "@/services/stripePayments";
 import { CancelPeriod } from "@/types/stripePayments";
 
 import classes from "./AuthForm.module.css";
@@ -37,6 +41,19 @@ const AuthForm = () => {
     authCtx.login(email, localId, expirationTime.toISOString());
   };
 
+  const handleGoPortal = async () => {
+    const portalUrl = await getPortalUrl(app);
+    router.push(portalUrl);
+    authCtx.logout();
+  };
+
+  const upgradeToPremium = async () => {
+    const checkoutUrl = await getCheckoutUrl(app);
+    authCtx.logout();
+    router.push(checkoutUrl);
+    console.log("Upgrade to Premium");
+  };
+
   const submitHandler = (event: React.ChangeEvent<HTMLFormElement>) => {
     let response;
     event.preventDefault();
@@ -55,12 +72,11 @@ const AuthForm = () => {
         .then(async () => await getCancelPeriodEnd(app))
         .then(async (cancelPeriod: CancelPeriod) => {
           const isValidSuscription = IsValidSubscription(cancelPeriod);
-          
+
           if (!isValidSuscription) {
-            const portalUrl = await getPortalUrl(app);
-            router.push(portalUrl);
-            authCtx.logout();
-            return
+            upgradeToPremium();
+
+            return;
           }
           router.refresh();
         })
