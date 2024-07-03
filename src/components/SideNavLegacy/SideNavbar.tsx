@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineInventory } from "react-icons/md";
 
 import {
@@ -28,15 +28,23 @@ export default function SideNavbar({}: Props) {
   const router = useRouter();
 
   const onlyWidth = useWindowWidth();
-  const mobileWidth = onlyWidth < 768;
+  const mobileWidth = onlyWidth < 1345;
 
   function toggleSidebar() {
     setIsCollapsed(!isCollapsed);
   }
 
+  useEffect(() => {
+    if (onlyWidth < 1345) setIsCollapsed(true);
+  }, [onlyWidth]);
+
   return (
     <>
-      <div className="relative h-screen border-r border-b px-8 py-16 hidden sm:flex rounded-b-3xl">
+      <div
+        className={`relative h-screen border-r border-b hidden sm:flex rounded-b-3xl ${
+          isCollapsed ? "px-4 py-12" : "px-8 py-16"
+        }`}
+      >
         {!mobileWidth && (
           <div className="absolute right-[-20px] top-7">
             <Button
@@ -81,7 +89,7 @@ export default function SideNavbar({}: Props) {
           ]}
         /> */}
 
-        <Navbar />
+        <Navbar isCollapsed={isCollapsed} />
       </div>
     </>
   );

@@ -21,6 +21,7 @@ export const ActivitiesIcon = require("./icons/activites-icon.svg");
 export const ActivitiesWhiteIcon = require("./icons/activites-white-icon.svg");
 export const SalesPointIcon = require("./icons/sales-point-icon.svg");
 export const SalesPointWhiteIcon = require("./icons/sales-point-white-icon.svg");
+export const BiznesSmallLogo = require("./icons/biznes-small.logo.svg");
 //webp
 export const ErrorIcon = require("./icons/error.webp");
 // PNG

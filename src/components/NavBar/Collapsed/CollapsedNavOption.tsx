@@ -9,7 +9,6 @@ type IconType = {
 };
 
 type NavOptionProps = {
-  text: string;
   icon: IconType;
   link?: string;
   selectedIcon?: IconType;
@@ -18,7 +17,6 @@ type NavOptionProps = {
 
 export const NavOption = ({
   isSelected,
-  text,
   icon,
   link = "/",
   selectedIcon = icon,
@@ -26,19 +24,18 @@ export const NavOption = ({
   return (
     <Link href={link}>
       <div
-        className={`flex w-56 gap-2 p-4 rounded-3xl font-semibold cursor-pointer ${
+        className={`flex items-center justify-center w-16 h-16 gap-2 p-4 rounded-full font-semibold cursor-pointer ${
           isSelected ? "bg-main-blue text-white" : ""
         }`}
       >
         <span>
           <Image
             src={isSelected ? selectedIcon.image : icon.image}
-            width={selectedIcon.width || 21}
-            height={selectedIcon.width || 21}
-            alt={`${text} icon`}
+            width={selectedIcon.width || 27}
+            height={selectedIcon.width || 27}
+            alt={`${link} icon`}
           />
         </span>
-        {text}
       </div>
     </Link>
   );
