@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 require("dayjs/locale/es");
 import { useRouter } from "next/navigation";
 
+import { UpdateSaleModal } from "@/components/modules/activites/sales/modals/updateModal";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { ContainerCard } from "@/components/ui/containerCard";
 import Text from "@/components/ui/text";
@@ -14,8 +15,7 @@ import { MOCK_INITIAL_PRODUCTS } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
-import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
-import useSalesPointState from "../states/sales-point-state";
+import useSalesPointState from "../../states/sales-point-state";
 import { Modals } from "./components/modals";
 import { TotalTable } from "./components/table";
 

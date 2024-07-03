@@ -1,9 +1,8 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import Text from "@/components/ui/text";
 import { ProductCheckout } from "@/types/salesPoint";
-
-import useSalesPointState from "../../../states/sales-point-state";
 
 export const TotalTable = ({ products }: { products: ProductCheckout[] }) => {
   return (

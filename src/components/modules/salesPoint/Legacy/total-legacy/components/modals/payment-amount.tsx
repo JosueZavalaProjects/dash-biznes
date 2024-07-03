@@ -1,10 +1,9 @@
 import { useState } from "react";
 
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
-
-import useSalesPointState from "../../../states/sales-point-state";
 
 export const PaymentAmount = () => {
   const [inputNumber, setInputNumber] = useState();

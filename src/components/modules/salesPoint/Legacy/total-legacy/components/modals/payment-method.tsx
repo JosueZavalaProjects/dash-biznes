@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
-
-import useSalesPointState from "../../../states/sales-point-state";
 
 export const PaymentMethod = () => {
   const { setPaymentMethod, setPaymentStep, setPayment, total, paymentMethod } =

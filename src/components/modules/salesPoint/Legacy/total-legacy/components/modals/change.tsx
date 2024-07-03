@@ -1,10 +1,10 @@
 import Image from "next/image";
 
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
-import { SuccessIcon } from "../../../../../../../public/assets";
-import useSalesPointState from "../../../states/sales-point-state";
+import { SuccessIcon } from "../../../../../../../../public/assets";
 
 type ChangeProps = {
   setShow: (show: boolean) => void;

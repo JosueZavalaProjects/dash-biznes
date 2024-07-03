@@ -12,9 +12,9 @@ import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
 import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
+import { Modals } from "../Legacy/total-legacy/components/modals";
+import { TotalTable } from "../Legacy/total-legacy/components/table";
 import useSalesPointState from "../states/sales-point-state";
-import { Modals } from "../total-legacy/components/modals";
-import { TotalTable } from "../total-legacy/components/table";
 
 type TotalProps = {
   handleClearOrder: () => void;

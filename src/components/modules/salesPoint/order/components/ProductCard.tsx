@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Product as ProductType } from "@/types/salesPoint";
 
 import { MinusIcon, PlusIcon } from "../../../../../../public/assets";
-import { BlackButton } from "../../order-legacy/components/items/blackButton";
+import { BlackButton } from "../../Legacy/order-legacy/components/items/blackButton";
 import useSalesPointState from "../../states/sales-point-state";
 
 type ProductCardProps = { product: ProductType };

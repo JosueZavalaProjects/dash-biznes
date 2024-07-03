@@ -1,6 +1,6 @@
+import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import Modal from "@/components/ui/modal";
 
-import useSalesPointState from "../../../states/sales-point-state";
 import { Change } from "./change";
 import { PaymentAmount } from "./payment-amount";
 import { PaymentMethod } from "./payment-method";
