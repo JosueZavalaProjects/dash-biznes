@@ -16,8 +16,8 @@ import AuthContext from "@/context/AuthContext";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { AddModal } from "../modals/AddModal";
+import { Navbar } from "../NavBar";
 import { Button } from "../ui/buttons/button";
-import { Nav } from "../ui/nav";
 
 type Props = {};
 
@@ -36,7 +36,7 @@ export default function SideNavbar({}: Props) {
 
   return (
     <>
-      <div className="relative min-w-[80px] border-r px-3  pb-10 pt-24 hidden sm:flex">
+      <div className="relative h-screen border-r border-b px-8 py-16 hidden sm:flex rounded-b-3xl">
         {!mobileWidth && (
           <div className="absolute right-[-20px] top-7">
             <Button
@@ -50,7 +50,7 @@ export default function SideNavbar({}: Props) {
           </div>
         )}
         <AddModal show={showAddModal} setShow={setShowAddModal} />
-        <Nav
+        {/* <Nav
           isCollapsed={mobileWidth ? true : isCollapsed}
           links={[
             {
@@ -79,7 +79,9 @@ export default function SideNavbar({}: Props) {
               onClick: () => setShowAddModal(true),
             },
           ]}
-        />
+        /> */}
+
+        <Navbar />
       </div>
     </>
   );

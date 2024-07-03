@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 
 import "./globals.css";
 import { Loading } from "@/components/modals/components/Loading";
-import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
-import { SettingsNav } from "@/components/SideNav/SettingsNav";
-import SideNavbar from "@/components/SideNav/SideNavbar";
+import { MobileNavbar } from "@/components/SideNavLegacy/MobileNavbar";
+import { SettingsNav } from "@/components/SideNavLegacy/SettingsNav";
+import SideNavbar from "@/components/SideNavLegacy/SideNavbar";
 import AuthContext, { AuthContextProvider } from "@/context/AuthContext";
 
 import { cn } from "../lib/utils";
