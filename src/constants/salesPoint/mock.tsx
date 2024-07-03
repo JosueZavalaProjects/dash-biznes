@@ -1,4 +1,4 @@
-import { Product, ProductsMock } from "@/types/salesPoint";
+import { Product, ProductCheckout } from "@/types/salesPoint";
 
 export const CATEGORIES_MOCK = [
   "Ropa",
@@ -23,3 +23,13 @@ export const PRODUCTS_MOCK: Product[] = [
 ];
 
 export const TOTAL_MOCK = [{}];
+
+export const MOCK_INITIAL_PRODUCTS: ProductCheckout = {
+  id: "",
+  name: "",
+  price: 0,
+  category: "",
+  subcategory: "",
+  inventory: 0,
+  amount: 0,
+};

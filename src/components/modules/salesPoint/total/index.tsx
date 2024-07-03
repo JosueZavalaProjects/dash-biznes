@@ -1,9 +1,17 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
+import { MOCK_INITIAL_PRODUCTS } from "@/constants/salesPoint/mock";
+import { useSalesPoint } from "@/hooks/useSalesPoint";
+import { ProductCheckout } from "@/types/salesPoint";
 
+import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
 import useSalesPointState from "../states/sales-point-state";
 import { Modals } from "../total-legacy/components/modals";
 import { TotalTable } from "../total-legacy/components/table";
@@ -14,11 +22,66 @@ type TotalProps = {
 export const Total = ({ handleClearOrder }: TotalProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [show, setShow] = useState<boolean>(false);
+  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [initialEditProducts, setInitialEditProducts] = useState<
+    ProductCheckout[]
+  >([MOCK_INITIAL_PRODUCTS]);
 
-  const { products, total, clearSale } = useSalesPointState();
+  const { products, total, clearSale, updateProduct } = useSalesPointState();
+  const { UpdateSale } = useSalesPoint();
+  const router = useRouter();
+
+  const handleCancelEdit = () => {
+    clearSale();
+    router.push("activities");
+  };
+
+  const handleUpdateProducts = (products: ProductCheckout[]) => {
+    products.map((product) => {
+      updateProduct(product);
+    });
+  };
+
+  const handleUpdateSale = async () => {
+    const saleId = getCookie("saleID");
+    setShowUpdateModal(true);
+
+    if (!saleId) {
+      console.log("No hay id de la venta para actualizar");
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const response = await UpdateSale(saleId, initialEditProducts);
+    } catch (e) {
+      throw new Error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // En caso de existir la cookie se esta editando la venta
+    const products = getCookie("products");
+    if (products) {
+      clearSale();
+      const cookiesProducts = JSON.parse(products);
+      setInitialEditProducts(cookiesProducts);
+      handleUpdateProducts(cookiesProducts);
+      setIsEdit(true);
+      return;
+    }
+    clearSale();
+  }, []);
 
   return (
     <section className="w-2/5 rounded-lg p-4 border-2 overflow-y-scroll">
+      <UpdateSaleModal
+        showModal={showUpdateModal}
+        setShowModal={setShowUpdateModal}
+        isLoading={isLoading}
+      />
       <Modals
         show={show}
         setShow={setShow}
@@ -45,10 +108,12 @@ export const Total = ({ handleClearOrder }: TotalProps) => {
           <div className="grid gap-4 justify-items-center items-center pb-4">
             {isEdit && (
               <div className="flex gap-4">
-                <SimpleButton bgColor="gray" onClick={() => {}}>
+                <SimpleButton bgColor="gray" onClick={() => handleCancelEdit()}>
                   Cancelar
                 </SimpleButton>
-                <SimpleButton onClick={() => {}}>Guardar</SimpleButton>
+                <SimpleButton onClick={() => handleUpdateSale()}>
+                  Guardar
+                </SimpleButton>
               </div>
             )}
             {!isEdit && (

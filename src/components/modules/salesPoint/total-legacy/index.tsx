@@ -10,6 +10,7 @@ import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { ContainerCard } from "@/components/ui/containerCard";
 import Text from "@/components/ui/text";
 import { TAB_KEYS } from "@/constants/salesPoint";
+import { MOCK_INITIAL_PRODUCTS } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
@@ -17,16 +18,6 @@ import { UpdateSaleModal } from "../../activites/sales/modals/updateModal";
 import useSalesPointState from "../states/sales-point-state";
 import { Modals } from "./components/modals";
 import { TotalTable } from "./components/table";
-
-const MOCK_INITIAL_PRODUCTS: ProductCheckout = {
-  id: "",
-  name: "",
-  price: 0,
-  category: "",
-  subcategory: "",
-  inventory: 0,
-  amount: 0,
-};
 
 export const Total = () => {
   const [show, setShow] = useState<boolean>(false);

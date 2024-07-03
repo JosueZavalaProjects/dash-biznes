@@ -16,11 +16,11 @@ require("dayjs/locale/es");
 
 export default function SalesPointPage() {
   const [products, setProducts] = useState<ProductType[]>(PRODUCTS_MOCK);
-  const { tabsContents, menuNav, tabName, setTabName, clearSale } =
-    useSalesPointState();
-  dayjs.locale("es");
 
+  const { clearSale } = useSalesPointState();
   const { GetDataProducts } = useSalesPoint();
+
+  dayjs.locale("es");
 
   const handleClearOrder = () => {
     clearSale();
