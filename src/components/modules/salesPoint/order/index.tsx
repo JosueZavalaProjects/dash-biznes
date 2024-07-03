@@ -46,9 +46,13 @@ export const Order = ({ products }: OrderProps) => {
   }, [categorySelectedIndex]);
 
   return (
-    <section className="grid grid-cols-2 w-3/5 max-h-[34rem] gap-y-8 gap-x-2 p-4 overflow-scroll lg:grid-cols-3">
-      {filteredProducts.map((product) => (
-        <ProductCard key={`product_card_${product.id}`} product={product} />
+    <section className="grid grid-cols-2 w-3/5 max-h-[44rem] gap-y-8 gap-x-2 p-4 overflow-scroll lg:grid-cols-3">
+      {filteredProducts.map((product, index) => (
+        <ProductCard
+          key={`product_card_${product.id}`}
+          product={product}
+          index={index}
+        />
       ))}
     </section>
   );
