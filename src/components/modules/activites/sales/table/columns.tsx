@@ -4,6 +4,7 @@ import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { Sale } from "@/types/sales";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
+import { EditOptions } from "@/components/modules/inventory/table/editOptions";
 
 type SalesColumnsProps = {
   handleEditSale: (id: string) => void;
@@ -36,18 +37,15 @@ export const SalesColumns = ({
     },
     {
       accessorKey: "id",
-      header: "Editar / Eliminar",
+      header: "...",
       cell: ({ row }) => {
         const id: string = row.getValue("id");
         return (
-          <p>
-            <SimpleButton onClick={() => handleEditSale(id)}>
-              <FaEdit />
-            </SimpleButton>
-            <SimpleButton onClick={() => handleDeleteSale(id)}>
-              <FaRegTrashAlt />
-            </SimpleButton>
-          </p>
+          <EditOptions
+            handleDelete={handleDeleteSale}
+            handleEdit={handleEditSale}
+            id={id}
+          />
         );
       },
     },

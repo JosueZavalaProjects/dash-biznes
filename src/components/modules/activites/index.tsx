@@ -50,14 +50,14 @@ export default function Activities() {
           <div className="flex items-center text-center p-2 rounded-lg bg-primary-green text-white">
             Ventas del dia <span className="pl-2 font-bold"> Total: $8000</span>
           </div>
-          <div>
+          <div className="flex gap-2">
             <BlueAddButton
               link={tabName === TAB_KEYS.SALES ? "/salesPoint" : "/addExpense"}
             />
+            <SelectMonths handleChange={handleChange} />
           </div>
         </div>
       </section>
-      <SelectMonths handleChange={handleChange} />
 
       <SimpleTabs tabsContents={tabsContents} tabNameSelected={tabName} />
     </div>

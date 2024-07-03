@@ -60,7 +60,7 @@ export const SelectMonths = ({ handleChange }: SelectMonthsProps) => {
   };
 
   return (
-    <div className="flex pt-4 w-full justify-end">
+    <div className="flex w-full justify-end">
       <label
         htmlFor="selectedMonth"
         className="cursor-pointer pr-3 bg-gray-100 rounded-3xl"

@@ -7,14 +7,14 @@ import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 
 type EditOptionsProps = {
-  handleDeleteProduct: (id: string) => void;
-  handleEditProduct: (id: string) => void;
+  handleDelete: (id: string) => void;
+  handleEdit: (id: string) => void;
   id: string;
 };
 
 export const EditOptions = ({
-  handleDeleteProduct,
-  handleEditProduct,
+  handleDelete,
+  handleEdit,
   id,
 }: EditOptionsProps) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -47,7 +47,7 @@ export const EditOptions = ({
       >
         <SimpleButton
           bgColor="gradient-blue"
-          onClick={() => handleEditProduct(id)}
+          onClick={() => handleEdit(id)}
           className="!p-3"
         >
           <div className="flex gap-2 items-center">
@@ -56,7 +56,7 @@ export const EditOptions = ({
         </SimpleButton>
         <SimpleButton
           bgColor="gradient-red"
-          onClick={() => handleDeleteProduct(id)}
+          onClick={() => handleDelete(id)}
           className="!p-3"
         >
           <div className="flex gap-2 items-center">

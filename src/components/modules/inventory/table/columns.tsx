@@ -82,8 +82,8 @@ export const InventoryColumns = ({
         const id: string = row.getValue("id");
         return (
           <EditOptions
-            handleDeleteProduct={handleDeleteProduct}
-            handleEditProduct={handleEditProduct}
+            handleDelete={handleDeleteProduct}
+            handleEdit={handleEditProduct}
             id={id}
           />
         );
@@ -91,7 +91,3 @@ export const InventoryColumns = ({
     },
   ];
 };
-
-{
-  /*  */
-}
