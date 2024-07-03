@@ -30,23 +30,27 @@ export const Navbar = () => {
           <div className="pl-4">
             <NavOption
               text="Dashboard"
-              icon={DashboardIcon}
-              selectedIcon={DashboardWhiteIcon}
+              icon={{ image: DashboardIcon }}
+              selectedIcon={{ image: DashboardWhiteIcon }}
               isSelected
             />
             <NavOption
-              icon={ActivitiesIcon}
-              selectedIcon={ActivitiesWhiteIcon}
+              icon={{ image: ActivitiesIcon }}
+              selectedIcon={{ image: ActivitiesWhiteIcon }}
               text="Actividades"
             />
             <NavOption
-              icon={InventoryIcon}
-              selectedIcon={InventoryWhiteIcon}
+              icon={{ image: InventoryIcon }}
+              selectedIcon={{ image: InventoryWhiteIcon }}
               text="Inventario"
             />
             <NavOption
-              icon={SalesPointIcon}
-              selectedIcon={SalesPointWhiteIcon}
+              icon={{ image: SalesPointIcon, width: 30, height: 30 }}
+              selectedIcon={{
+                image: SalesPointWhiteIcon,
+                width: 30,
+                height: 30,
+              }}
               text="Punto de venta"
             />
           </div>
@@ -56,8 +60,8 @@ export const Navbar = () => {
         <div className="flex flex-col gap-4">
           <div className="">Otros</div>
           <div className="pl-4">
-            <NavOption icon={SettingsIcon} text="Ajustes" />
-            <NavOption icon={LogoutIcon} text="Cerrar Sesión" />
+            <NavOption icon={{ image: SettingsIcon }} text="Ajustes" />
+            <NavOption icon={{ image: LogoutIcon }} text="Cerrar Sesión" />
           </div>
         </div>
         <div>
@@ -78,10 +82,16 @@ export const Navbar = () => {
   );
 };
 
+type IconType = {
+  image: StaticImport;
+  width?: number | `${number}`;
+  height?: number | `${number}`;
+};
+
 type NavOptionProps = {
   text: string;
-  icon: StaticImport;
-  selectedIcon?: StaticImport;
+  icon: IconType;
+  selectedIcon?: IconType;
   isSelected?: boolean;
 };
 
@@ -100,9 +110,9 @@ const NavOption = ({
       <Link href={"/"}>
         <span>
           <Image
-            src={isSelected ? selectedIcon : icon}
-            width={21}
-            height={21}
+            src={isSelected ? selectedIcon.image : icon.image}
+            width={selectedIcon.width || 21}
+            height={selectedIcon.width || 21}
             alt={`${text} icon`}
           />
         </span>
