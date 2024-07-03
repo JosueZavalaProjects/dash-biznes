@@ -1,15 +1,8 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { MdOutlineInventory } from "react-icons/md";
 
-import {
-  LayoutDashboard,
-  ChevronRight,
-  ChevronLeft,
-  PlusCircle,
-  GanttChartSquare,
-} from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import AuthContext from "@/context/AuthContext";
@@ -58,36 +51,6 @@ export default function SideNavbar({}: Props) {
           </div>
         )}
         <AddModal show={showAddModal} setShow={setShowAddModal} />
-        {/* <Nav
-          isCollapsed={mobileWidth ? true : isCollapsed}
-          links={[
-            {
-              title: "Dashboard",
-              href: "/",
-              icon: LayoutDashboard,
-              variant: "default",
-            },
-            {
-              title: "Invetario",
-              href: "/inventory",
-              icon: MdOutlineInventory,
-              variant: "ghost",
-            },
-            {
-              title: "Actividades",
-              href: "/activities",
-              icon: GanttChartSquare,
-              variant: "ghost",
-            },
-            {
-              title: "Agregar",
-              href: "#",
-              icon: PlusCircle,
-              variant: "ghost",
-              onClick: () => setShowAddModal(true),
-            },
-          ]}
-        /> */}
 
         <Navbar isCollapsed={isCollapsed} />
       </div>

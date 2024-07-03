@@ -14,32 +14,42 @@ type NavOptionProps = {
   link?: string;
   selectedIcon?: IconType;
   isSelected?: boolean;
+  handleOnClick?: () => void;
 };
 
 export const NavOption = ({
   isSelected,
   text,
   icon,
-  link = "/",
+  link,
   selectedIcon = icon,
+  handleOnClick,
 }: NavOptionProps) => {
+  const content = (
+    <div
+      className={`flex items-center w-56 gap-2 p-4 rounded-3xl font-semibold cursor-pointer ${
+        isSelected ? "bg-main-blue text-white" : ""
+      }`}
+    >
+      <span>
+        <Image
+          src={isSelected ? selectedIcon.image : icon.image}
+          width={selectedIcon.width || 21}
+          height={selectedIcon.width || 21}
+          alt={`${text} icon`}
+        />
+      </span>
+      {text}
+    </div>
+  );
   return (
-    <Link href={link}>
-      <div
-        className={`flex items-center w-56 gap-2 p-4 rounded-3xl font-semibold cursor-pointer ${
-          isSelected ? "bg-main-blue text-white" : ""
-        }`}
-      >
-        <span>
-          <Image
-            src={isSelected ? selectedIcon.image : icon.image}
-            width={selectedIcon.width || 21}
-            height={selectedIcon.width || 21}
-            alt={`${text} icon`}
-          />
-        </span>
-        {text}
-      </div>
-    </Link>
+    <>
+      {link && <Link href={link}>{content}</Link>}
+      {!link && (
+        <div onClick={handleOnClick ? () => handleOnClick() : () => {}}>
+          {content}
+        </div>
+      )}
+    </>
   );
 };

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const BusinessCard = () => {
   return (
     <div className="flex w-full h-22 bg-gradient-to-r from-secondary-light-blue to-main-blue/70 rounded-lg">
@@ -8,7 +10,9 @@ export const BusinessCard = () => {
       </div>
       <div className="flex flex-col justify-center">
         <div className="text-third-blue font-light">Negocio</div>
-        <div className="text-cadet-grey">Ver el perfil &gt; </div>
+        <Link href={"/profile"}>
+          <div className="text-cadet-grey">Ver el perfil &gt; </div>
+        </Link>
       </div>
     </div>
   );
