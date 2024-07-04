@@ -10,11 +10,16 @@ import { BusinessCard } from "../BusinessCard";
 import { NavBarOptions } from "./NavBarOptions";
 import { NavOption } from "./NavOption";
 
-type DesktopNavBarProps = { pathname: string; handleLogout: () => void };
+type DesktopNavBarProps = {
+  pathname: string;
+  handleLogout: () => void;
+  handleShowSettings: () => void;
+};
 
 export const DesktopNavBar = ({
   pathname,
   handleLogout,
+  handleShowSettings,
 }: DesktopNavBarProps) => {
   return (
     <>
@@ -35,7 +40,11 @@ export const DesktopNavBar = ({
         <div className="flex flex-col gap-4">
           <div className="">Otros</div>
           <div className="pl-4">
-            <NavOption icon={{ image: SettingsIcon }} text="Ajustes" />
+            <NavOption
+              icon={{ image: SettingsIcon }}
+              text="Ajustes"
+              handleOnClick={handleShowSettings}
+            />
             <NavOption
               icon={{ image: LogoutIcon }}
               text="Cerrar Sesión"
