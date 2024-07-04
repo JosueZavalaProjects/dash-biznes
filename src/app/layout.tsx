@@ -55,7 +55,6 @@ export default function RootLayout({
           {!isLoading && getCookie("token") && (
             <>
               <div id="portal" />
-              <SettingsNav />
               <SideNavbar />
               <MobileNavbar />
               <div className="p-8 w-full mb-[5rem] sm:mb-0">{children}</div>
