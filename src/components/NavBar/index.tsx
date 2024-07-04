@@ -27,7 +27,13 @@ export const Navbar = ({ isCollapsed }: { isCollapsed: boolean }) => {
           handleShowSettings={() => setShowSettingsModal(true)}
         />
       )}
-      {isCollapsed && <CollapsedNavBar pathname={pathname} />}
+      {isCollapsed && (
+        <CollapsedNavBar
+          pathname={pathname}
+          handleLogout={() => setShowLogoutModal(true)}
+          handleShowSettings={() => setShowSettingsModal(true)}
+        />
+      )}
     </nav>
   );
 };

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { NavBarProps } from "@/types/UI/NavBar";
+
 import {
   BiznesSmallLogo,
   LogoutIcon,
@@ -9,7 +11,11 @@ import {
 import { NavOption } from "./CollapsedNavOption";
 import { NavBarOptions } from "./CollapsedNavOptions";
 
-export const CollapsedNavBar = ({ pathname }: { pathname: string }) => {
+export const CollapsedNavBar = ({
+  pathname,
+  handleLogout,
+  handleShowSettings,
+}: NavBarProps) => {
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -29,8 +35,14 @@ export const CollapsedNavBar = ({ pathname }: { pathname: string }) => {
       </div>
       <div className="flex flex-col justify-between h-[19rem]">
         <div className="flex flex-col gap-4">
-          <NavOption icon={{ image: SettingsIcon }} />
-          <NavOption icon={{ image: LogoutIcon }} />
+          <NavOption
+            icon={{ image: SettingsIcon }}
+            handleOnClick={handleShowSettings}
+          />
+          <NavOption
+            icon={{ image: LogoutIcon }}
+            handleOnClick={handleLogout}
+          />
         </div>
       </div>
     </>

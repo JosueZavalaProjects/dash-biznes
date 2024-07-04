@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { NavBarProps } from "@/types/UI/NavBar";
+
 import {
   BiznesLogo,
   LogoutIcon,
@@ -10,17 +12,11 @@ import { BusinessCard } from "../BusinessCard";
 import { NavBarOptions } from "./NavBarOptions";
 import { NavOption } from "./NavOption";
 
-type DesktopNavBarProps = {
-  pathname: string;
-  handleLogout: () => void;
-  handleShowSettings: () => void;
-};
-
 export const DesktopNavBar = ({
   pathname,
   handleLogout,
   handleShowSettings,
-}: DesktopNavBarProps) => {
+}: NavBarProps) => {
   return (
     <>
       <div className="flex flex-col gap-4">
