@@ -13,6 +13,7 @@ import { generateGraphData, groupByMoth } from "@/utils/dashboard";
 import { Cards } from "./Cards";
 import { BestSales } from "./Tables/BestSales";
 import { ProductAlert } from "./Tables/ProductAlert";
+import { RecentSales } from "./Tables/RecentSales";
 
 export const Dashboard = () => {
   const [utilitiesData, setUtilitiesData] = useState<GraphData[]>([]);
@@ -126,20 +127,22 @@ export const Dashboard = () => {
         </CardContent>
 
         <CardContent className="lg:w-1/3">
-          <TitleBlue>Alertas de Existencia</TitleBlue>
-          <ProductAlert />
+          <TitleBlue>Ventas Recientes</TitleBlue>
+          <RecentSales />
         </CardContent>
       </section>
       <section className="grid w-full gap-4 transition-all lg:flex">
-        <div className="lg:w-2/3"></div>
-
-        <CardContent className="lg:w-1/3">
+        <CardContent className="lg:w-2/3">
           <TitleBlue>Resumen de Gastos</TitleBlue>
           <BarChart
             data={expensesData}
             isLoading={isLoading}
             fillColor={graphColor.red}
           />
+        </CardContent>
+        <CardContent className="lg:w-1/3">
+          <TitleBlue>Alertas de Existencia</TitleBlue>
+          <ProductAlert />
         </CardContent>
       </section>
     </div>

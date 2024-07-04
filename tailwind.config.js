@@ -66,6 +66,7 @@ module.exports = {
         "primary-green": "#51C15C",
         "secondary-green": "#92FE9D",
         "malachite-green": "#1CCC43",
+        "third-green": "#4F970F",
         "light-blue": "#8EC2F2",
         "secondary-light-blue": "#E9F7FB",
         "old-silver": "#858585",
