@@ -50,7 +50,6 @@ export default function SideNavbar({}: Props) {
             </Button>
           </div>
         )}
-        <AddModal show={showAddModal} setShow={setShowAddModal} />
 
         <Navbar isCollapsed={isCollapsed} />
       </div>
