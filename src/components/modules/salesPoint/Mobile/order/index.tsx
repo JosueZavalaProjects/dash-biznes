@@ -7,6 +7,7 @@ import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { Product as ProductType } from "@/types/salesPoint";
 
 import useSalesPointState from "../../states/sales-point-state";
+import { CartResume } from "./components/cartResume";
 import { CategoryCard } from "./components/categories/categoryCard";
 import { AddItems } from "./components/items/addItems";
 import { Product } from "./components/products";
@@ -110,7 +111,7 @@ export const Order = () => {
           ))}
         </div>
       </ContainerCard>
-
+      <CartResume />
       {/* Productos */}
       <ContainerCard>
         <div className="flex flex-col gap-2 text-black p-2">

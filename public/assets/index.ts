@@ -31,6 +31,7 @@ export const TermsIcon = require("./icons/terms-icon.svg");
 export const FlagIcon = require("./icons/flag-icon.svg");
 export const AccountsIcon = require("./icons/accounts-icon.svg");
 export const LogoutGrayIcon = require("./icons/logout-gray-icon.svg");
+export const CartIcon = require("./icons/cart-icon.svg");
 //webp
 export const ErrorIcon = require("./icons/error.webp");
 // PNG
