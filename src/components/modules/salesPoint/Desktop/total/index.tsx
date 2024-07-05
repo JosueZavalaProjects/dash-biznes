@@ -61,17 +61,26 @@ export const Total = ({ handleClearOrder }: TotalProps) => {
     }
   };
 
+  const SetEditSale = (cookieProducts: any) => {
+    clearSale();
+    const cookiesProducts = JSON.parse(cookieProducts);
+    setInitialEditProducts(cookiesProducts);
+    handleUpdateProducts(cookiesProducts);
+    setIsEdit(true);
+  };
+
   useEffect(() => {
     // En caso de existir la cookie se esta editando la venta
-    const products = getCookie("products");
-    if (products) {
-      clearSale();
-      const cookiesProducts = JSON.parse(products);
-      setInitialEditProducts(cookiesProducts);
-      handleUpdateProducts(cookiesProducts);
-      setIsEdit(true);
+    const cookieProducts = getCookie("products");
+
+    if (cookieProducts) {
+      SetEditSale(cookieProducts);
       return;
     }
+
+    // Verificar si hay productos en el state
+    if (products) return;
+
     clearSale();
   }, []);
 

@@ -46,7 +46,9 @@ export const RecentSales = () => {
   };
 
   const sumSales = (salesArray: SalesObject[]) =>
-    salesArray.map((sale) => sale.total).reduce((a, b) => a + b);
+    salesArray.length
+      ? salesArray.map((sale) => sale.total).reduce((a, b) => a + b)
+      : 0;
 
   useEffect(() => {
     getCurrentDaySales();
