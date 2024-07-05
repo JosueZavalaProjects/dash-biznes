@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { BG_COLORS } from "@/constants/salesPoint";
 import { Product as ProductType } from "@/types/salesPoint";
 
-import { MinusIcon, PlusIcon } from "../../../../../../public/assets";
-import { BlackButton } from "../../Mobile/order/components/items/blackButton";
-import useSalesPointState from "../../states/sales-point-state";
+import { MinusIcon, PlusIcon } from "../../../../../../../public/assets";
+import { BlackButton } from "../../../Mobile/order/components/items/blackButton";
+import useSalesPointState from "../../../states/sales-point-state";
 
 type ProductCardProps = { product: ProductType; index?: number };
 

@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 import Text from "@/components/ui/text";
 import { Product as ProductType } from "@/types/salesPoint";
 
-import { Order } from "../order";
+import { Order } from "./order";
 import { TabCategories } from "../tabCategories";
-import { Total } from "../total";
+import { Total } from "./total";
 
 require("dayjs/locale/es");
 

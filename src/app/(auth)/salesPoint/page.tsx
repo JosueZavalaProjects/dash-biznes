@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { SalesPointDesktop } from "@/components/modules/salesPoint/Desktop";
+import { SalesPointMobile } from "@/components/modules/salesPoint/Mobile";
 import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
@@ -42,7 +43,7 @@ export default function SalesPointPage() {
           handleClearOrder={handleClearOrder}
         />
       )}
-      {onlyWidth <= MOBILE_WIDTH && <div>Mobile Sales Point</div>}
+      {onlyWidth <= MOBILE_WIDTH && <SalesPointMobile />}
     </>
   );
 }

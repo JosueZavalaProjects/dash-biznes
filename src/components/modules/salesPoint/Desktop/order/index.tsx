@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { Product as ProductType } from "@/types/salesPoint";
 
-import useSalesPointState from "../states/sales-point-state";
+import useSalesPointState from "../../states/sales-point-state";
 import { ProductCard } from "./components/ProductCard";
 
 type OrderProps = {
