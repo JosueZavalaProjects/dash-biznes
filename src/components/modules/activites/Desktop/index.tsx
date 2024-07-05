@@ -37,9 +37,9 @@ export default function ActivitiesDesktop() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-5 w-full xl:max-w-[100rem] xl:mx-auto">
       <div className="grid w-full pt-4">
-        <section className="flex">
+        <section className="flex flex-col gap-4 lg:flex-row">
           <div className="w-1/4">
             <TabSelection
               navItems={menuNav}
@@ -47,7 +47,7 @@ export default function ActivitiesDesktop() {
               setTabName={setTabName}
             />
           </div>
-          <div className="flex justify-between w-3/4">
+          <div className="flex justify-between lg:w-3/4">
             <div className="flex items-center text-center p-2 rounded-lg bg-primary-green text-white">
               Ventas del dia{" "}
               <span className="pl-2 font-bold"> Total: $8000</span>
