@@ -11,7 +11,7 @@ import { MOCK_INITIAL_PRODUCTS } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { ProductCheckout } from "@/types/salesPoint";
 
-import { UpdateSaleModal } from "../../../activites/sales/modals/updateModal";
+import { UpdateSaleModal } from "../../../activites/Desktop/sales/modals/updateModal";
 import { Modals } from "../../Mobile/total/components/modals";
 import { TotalTable } from "../../Mobile/total/components/table";
 import useSalesPointState from "../../states/sales-point-state";

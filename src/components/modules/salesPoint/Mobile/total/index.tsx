@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 require("dayjs/locale/es");
 import { useRouter } from "next/navigation";
 
-import { UpdateSaleModal } from "@/components/modules/activites/sales/modals/updateModal";
+import { UpdateSaleModal } from "@/components/modules/activites/Desktop/sales/modals/updateModal";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { ContainerCard } from "@/components/ui/containerCard";
 import Text from "@/components/ui/text";

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/common";
 
-import useActivitiesState from "./modules/activites/states/activities-state";
+import useActivitiesState from "./modules/activites/Desktop/states/activities-state";
 
 export type CardProps = {
   label: string;

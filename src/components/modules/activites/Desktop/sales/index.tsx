@@ -10,7 +10,7 @@ import { data as SalesData } from "@/constants/activities/sales";
 import { useSales } from "@/hooks/useSales";
 import { Sale, SalesModalStep } from "@/types/sales";
 
-import { DataTable } from "../../../DataTable";
+import { DataTable } from "../../../../DataTable";
 import useActivitiesDateState from "../states/activities-dates-state";
 import { SalesModal } from "./modals/deleteModal";
 import { SalesColumns } from "./table/columns";

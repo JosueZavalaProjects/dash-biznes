@@ -6,7 +6,7 @@ import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import { SalesModalStep } from "@/types/sales";
 
-import { SuccessIcon } from "../../../../../../public/assets";
+import { SuccessIcon } from "../../../../../../../public/assets";
 
 type SalesModalProps = {
   showModal: boolean;

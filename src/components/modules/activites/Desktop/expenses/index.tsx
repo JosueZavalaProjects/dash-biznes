@@ -4,7 +4,7 @@ import { data as PurchaseData } from "@/constants/activities/purchases";
 import { useExpenses } from "@/hooks/useExpenses";
 import { Purchase } from "@/types/purchases";
 
-import { DataTable } from "../../../DataTable";
+import { DataTable } from "../../../../DataTable";
 import useActivitiesDateState from "../states/activities-dates-state";
 import { columns } from "./table/columns";
 

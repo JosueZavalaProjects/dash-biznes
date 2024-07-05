@@ -11,7 +11,7 @@ import { SelectMonths } from "./components/selectMonths";
 import useActivitiesDateState from "./states/activities-dates-state";
 import useActivitiesState from "./states/activities-state";
 
-export default function Activities() {
+export default function ActivitiesDesktop() {
   const { GetLastDate, GetCurrentDate } = useDates();
   const { tabsContents, menuNav, tabName, setTabName } = useActivitiesState();
 
@@ -37,29 +37,34 @@ export default function Activities() {
   }, []);
 
   return (
-    <div className="grid w-full pt-4">
-      <section className="flex">
-        <div className="w-1/4">
-          <TabSelection
-            navItems={menuNav}
-            tabName={tabName}
-            setTabName={setTabName}
-          />
-        </div>
-        <div className="flex justify-between w-3/4">
-          <div className="flex items-center text-center p-2 rounded-lg bg-primary-green text-white">
-            Ventas del dia <span className="pl-2 font-bold"> Total: $8000</span>
-          </div>
-          <div className="flex gap-2">
-            <BlueAddButton
-              link={tabName === TAB_KEYS.SALES ? "/salesPoint" : "/addExpense"}
+    <div className="flex flex-col gap-5 w-full">
+      <div className="grid w-full pt-4">
+        <section className="flex">
+          <div className="w-1/4">
+            <TabSelection
+              navItems={menuNav}
+              tabName={tabName}
+              setTabName={setTabName}
             />
-            <SelectMonths handleChange={handleChange} />
           </div>
-        </div>
-      </section>
+          <div className="flex justify-between w-3/4">
+            <div className="flex items-center text-center p-2 rounded-lg bg-primary-green text-white">
+              Ventas del dia{" "}
+              <span className="pl-2 font-bold"> Total: $8000</span>
+            </div>
+            <div className="flex gap-2">
+              <BlueAddButton
+                link={
+                  tabName === TAB_KEYS.SALES ? "/salesPoint" : "/addExpense"
+                }
+              />
+              <SelectMonths handleChange={handleChange} />
+            </div>
+          </div>
+        </section>
 
-      <SimpleTabs tabsContents={tabsContents} tabNameSelected={tabName} />
+        <SimpleTabs tabsContents={tabsContents} tabNameSelected={tabName} />
+      </div>
     </div>
   );
 }
