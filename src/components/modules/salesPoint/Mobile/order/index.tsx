@@ -60,7 +60,7 @@ export const Order = () => {
   }, [paymentStep]);
 
   useEffect(() => {
-    if (indexCategorySelected < 0 || !categories) return;
+    if (!categories) return;
 
     setCategorySelected(categories[indexCategorySelected]);
     setSearchValue("");
@@ -68,6 +68,11 @@ export const Order = () => {
   }, [indexCategorySelected]);
 
   useEffect(() => {
+    if (indexCategorySelected === -1) {
+      setFilteredProducts(products);
+      return;
+    }
+
     const newProducts = [...products].filter(
       (product) => product.category === categorySelected
     );
@@ -100,6 +105,13 @@ export const Order = () => {
       {/* Categorias */}
       <ContainerCard>
         <div className="flex gap-4 p-6">
+          <CategoryCard
+            name="Todo"
+            index={-1}
+            setCategorySelected={setIndexCategorySelected}
+            isSelected={indexCategorySelected === -1}
+            key={`CategoryCard_all`}
+          />
           {categories.map((category, index) => (
             <CategoryCard
               name={category}
