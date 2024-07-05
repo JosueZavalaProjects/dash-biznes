@@ -1,14 +1,11 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 
-import AuthContext from "@/context/AuthContext";
 import { useWindowWidth } from "@react-hook/window-size";
 
-import { AddModal } from "../modals/AddModal";
 import { Navbar } from "../NavBar";
 import { Button } from "../ui/buttons/button";
 
@@ -16,12 +13,10 @@ type Props = {};
 
 export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [showAddModal, setShowAddModal] = useState<boolean>(false);
-  const authCtx = useContext(AuthContext);
-  const router = useRouter();
 
+  const MEDIUM_SCREEN = 1345;
   const onlyWidth = useWindowWidth();
-  const mobileWidth = onlyWidth < 1345;
+  const mobileWidth = onlyWidth < MEDIUM_SCREEN;
 
   function toggleSidebar() {
     setIsCollapsed(!isCollapsed);

@@ -76,7 +76,7 @@ export const Total = ({ handleClearOrder }: TotalProps) => {
   }, []);
 
   return (
-    <section className="w-2/5 rounded-lg p-4 border-2 overflow-y-scroll">
+    <section className="w-1/2 rounded-lg p-4 border-2 overflow-y-scroll lg:w-2/5">
       <UpdateSaleModal
         showModal={showUpdateModal}
         setShowModal={setShowUpdateModal}
@@ -97,12 +97,12 @@ export const Total = ({ handleClearOrder }: TotalProps) => {
 
         <div className="items-end">
           <div className="flex justify-between items-center p-4 text-gray-800">
-            <Text size="4xl" weight="semibold">
+            <Text size="2xl" weight="semibold">
               Total
             </Text>
             <div className="flex gap-1 items-center">
-              <Text size="2xl">$ {total}</Text>
-              <Text size="lg">MXN</Text>
+              <Text size="xl">$ {total}</Text>
+              <Text size="sm">MXN</Text>
             </div>
           </div>
           <div className="grid gap-4 justify-items-center items-center pb-4">
