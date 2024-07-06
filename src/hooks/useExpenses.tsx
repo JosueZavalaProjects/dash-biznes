@@ -61,8 +61,8 @@ export const useExpenses = () => {
   };
 
   const getExpensesByDate = async (startDate: string, endDate: string) => {
-    const startOfDay = new Date(startDate);
-    const endOfDay = new Date(endDate);
+    const startOfDay = new Date(startDate + " 00:00:00");
+    const endOfDay = new Date(endDate + " 23:59:59");
 
     const q = query(
       expensesRef,

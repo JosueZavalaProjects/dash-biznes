@@ -29,3 +29,5 @@ export type SalesColumnsProps = {
   handleEditSale: (id: string) => void;
   handleDeleteSale: (id: string) => void;
 };
+
+export type datesType = { startDate?: string; endDate?: string };

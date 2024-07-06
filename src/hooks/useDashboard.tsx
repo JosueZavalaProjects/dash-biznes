@@ -58,8 +58,6 @@ export const useDashboard = () => {
     const startOfDay = new Date(startDate + " 00:00:00");
     const endOfDay = new Date(endDate + " 23:59:59");
 
-    /* console.log({ startOfDay });
-    console.log({ endOfDay }); */
     const q = query(
       salesRef,
       where("adminEmail", "==", authCtx.email),

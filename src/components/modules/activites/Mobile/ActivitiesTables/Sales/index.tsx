@@ -4,14 +4,17 @@ import { useEffect, useState } from "react";
 import { ContainerCard } from "@/components/ui/containerCard";
 import { useDates } from "@/hooks/useDates";
 import { useSalesTables } from "@/hooks/useSalesTables";
-import { LabelText, TimeOption, colorLabel } from "@/types/activities";
+import {
+  LabelText,
+  TimeOption,
+  colorLabel,
+  datesType,
+} from "@/types/activities";
 
 import { SalesModal } from "../../../Desktop/sales/modals/deleteModal";
 import { SummaryLabel } from "../../components/SummaryLabel";
 import { TimeOptions } from "../../components/TimeOptions";
 import { SalesActivityTable } from "./Table";
-
-type datesType = { startDate?: string; endDate?: string };
 
 export const SalesActivity = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
