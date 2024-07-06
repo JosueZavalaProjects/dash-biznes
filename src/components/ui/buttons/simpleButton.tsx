@@ -49,7 +49,7 @@ export const SimpleButton = ({
       onClick={() => onClick()}
       className={`border rounded-xl py-2 px-6 cursor-pointer ${
         disabled
-          ? "bg-gray-200 border-gray-200 text-gray-400"
+          ? "bg-gray-200 border-gray-200 text-gray-400 w-full"
           : `${classes} text-white`
       }`}
       disabled={disabled}

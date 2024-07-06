@@ -15,6 +15,7 @@ import {
 import { CancelPeriod } from "@/types/stripePayments";
 
 import classes from "./AuthForm.module.css";
+import { LoginForm } from "./LoginForm";
 
 const AuthForm = () => {
   const router = useRouter();
@@ -111,7 +112,17 @@ const AuthForm = () => {
   };
 
   return (
-    <section className={classes.auth}>
+    <LoginForm
+      isLogin={isLogin}
+      isLoading={isLoading}
+      enteredEmail={enteredEmail}
+      enteredPassword={enteredPassword}
+      setEnteredEmail={setEnteredEmail}
+      setEnteredPassword={setEnteredPassword}
+      switchAuthModeHandler={switchAuthModeHandler}
+      submitHandler={submitHandler}
+    />
+    /*  <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
@@ -152,7 +163,7 @@ const AuthForm = () => {
           </button>
         </div>
       </form>
-    </section>
+    </section> */
   );
 };
 
