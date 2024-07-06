@@ -20,4 +20,9 @@ export const ACTIVITIES_NAV: NavOptions[] = [
   { label: "Gastos", name: TAB_KEYS.EXPENSES },
 ];
 
+export const TABS_LABELS = {
+  [TAB_KEYS.SALES]: "Ventas",
+  [TAB_KEYS.EXPENSES]: "Gastos",
+};
+
 export const data: Purchase[] = [];
