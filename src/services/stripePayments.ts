@@ -1,5 +1,6 @@
 "use client";
 
+import { getCookie } from "cookies-next";
 import { FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
@@ -14,7 +15,6 @@ import {
   where,
 } from "firebase/firestore";
 import { getFunctions, httpsCallable } from "firebase/functions";
-import { getCookie } from "cookies-next";
 
 import { CancelPeriod } from "@/types/stripePayments";
 

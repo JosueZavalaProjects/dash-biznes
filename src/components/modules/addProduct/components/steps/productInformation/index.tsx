@@ -63,7 +63,7 @@ export const ProductInformation = ({
         </div>
       </div>
 
-      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
+      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 sm:-right-[10px] mx-auto">
         <ProductForm
           product={product}
           handleSetValueProduct={handleSetValueProduct}
