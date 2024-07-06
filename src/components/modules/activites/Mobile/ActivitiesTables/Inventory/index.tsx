@@ -6,54 +6,6 @@ import { useInventoryTables } from "@/hooks/useInventoryTables";
 
 import { InventoryMobileTable } from "./Table";
 
-const MOCK_INVENTORY = [
-  {
-    id: "1234",
-    name: "Test product",
-    category: "test",
-    subcategory: "test",
-    price: 8,
-    inventory: 50,
-    dateAdded: "31/12/2023",
-  },
-  {
-    id: "1234",
-    name: "Test product",
-    category: "test",
-    subcategory: "test",
-    price: 8,
-    inventory: 50,
-    dateAdded: "31/12/2023",
-  },
-  {
-    id: "1234",
-    name: "Test product",
-    category: "test",
-    subcategory: "test",
-    price: 8,
-    inventory: 50,
-    dateAdded: "31/12/2023",
-  },
-  {
-    id: "1234",
-    name: "Test product",
-    category: "test",
-    subcategory: "test",
-    price: 8,
-    inventory: 50,
-    dateAdded: "31/12/2023",
-  },
-  {
-    id: "1234",
-    name: "Test product",
-    category: "test",
-    subcategory: "test",
-    price: 8,
-    inventory: 50,
-    dateAdded: "31/12/2023",
-  },
-];
-
 export const InventoryActivity = () => {
   const {
     inventoryData,

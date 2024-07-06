@@ -15,7 +15,7 @@ export const SalesMobileColumns = ({
       header: "",
       cell: ({ row }) => {
         return (
-          <div className="flex w-full justify-between text-xl px-4 text-gray-600">
+          <div className="flex w-full justify-between text-xl px-2 text-gray-600">
             <div className="flex flex-col text-left">
               <span>Recibo {row.original.ticketNumber}</span>
               <span className="">{row.original.date.toString()}</span>

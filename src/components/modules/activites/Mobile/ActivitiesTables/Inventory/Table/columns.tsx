@@ -12,18 +12,25 @@ export const InventoryMobileColumns = ({
       header: "",
       cell: ({ row }) => {
         return (
-          <div className="flex w-full justify-between text-xl px-4 text-gray-600">
-            <div className="flex flex-col text-left">
-              <span>{row.original.name}</span>
-              <span className="">{row.original.dateAdded.toString()}</span>
+          <div className="flex w-full justify-between text-xl px-2 text-gray-600">
+            <div className="flex gap-2 items-center">
+              <div className="flex items-center">
+                <span className="p-6 bg-slate-400"></span>
+              </div>
+              <div className="flex flex-col text-left">
+                <span>{row.original.name}</span>
+                <span className="">{row.original.dateAdded.toString()}</span>
+              </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <div className="flex flex-col text-right">
-                {/* <GreenLabel text={formatCurrency(row.original.total)} /> */}
-
-                <span className="text-secondary-gray">
-                  {/* {row.original.method} */}
-                </span>
+                {row.original.inventory} pzs
+                {Boolean(row.original.inventory) && (
+                  <span className="text-primary-green">En existencia</span>
+                )}
+                {!Boolean(row.original.inventory) && (
+                  <span className="text-pastel-light-red">Sin existencia</span>
+                )}
               </div>
               <div className="flex items-center">
                 <EditOptions

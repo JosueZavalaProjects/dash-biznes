@@ -12,7 +12,7 @@ export const UtilitiesMobileColumns: ColumnDef<ActivityType>[] = [
     header: "",
     cell: ({ row }) => {
       return (
-        <div className="flex w-full justify-between text-xl px-4 text-gray-600">
+        <div className="flex w-full justify-between text-xl px-2 text-gray-600">
           <div className="flex flex-col text-left">
             <span className="capitalize">
               {ACTIVITIES_LABEL[row.original.type]}
