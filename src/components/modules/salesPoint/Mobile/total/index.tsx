@@ -66,6 +66,7 @@ export const Total = () => {
 
   const SetEditSale = (cookieProducts: any) => {
     clearSale();
+    setTabName(TAB_KEYS.TOTAL);
     const cookiesProducts = JSON.parse(cookieProducts);
     setInitialEditProducts(cookiesProducts);
     handleUpdateProducts(cookiesProducts);

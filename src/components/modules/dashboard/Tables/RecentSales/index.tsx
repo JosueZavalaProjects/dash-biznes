@@ -12,28 +12,21 @@ export const RecentSales = () => {
   const [monthSales, setMonthSales] = useState<number>(0);
   const [yearSales, setYearSales] = useState<number>(0);
   const { GetSalesByDate } = useDashboard();
-  const { GetCurrentDate, GetLastDate, GetCurrentYearDates } = useDates();
+  const { GetCurrentYearDates, GetCurrentDayDates, GetCurrentMonthDates } =
+    useDates();
 
   const getCurrentDaySales = async () => {
-    const currentDate = new Date();
+    const { startDate, endDate } = GetCurrentDayDates();
 
-    const sales = await GetSalesByDate(
-      currentDate.toDateString(),
-      currentDate.toDateString()
-    );
-
+    const sales = await GetSalesByDate(startDate, endDate);
     const newSales = sumSales(sales);
     setDaySales(newSales);
   };
 
   const getCurrentMonthSales = async () => {
-    const initialDayCurrentMonth = GetCurrentDate();
-    const lastDayCurrentMonth = GetLastDate(initialDayCurrentMonth);
+    const { startDate, endDate } = GetCurrentMonthDates();
 
-    const sales = await GetSalesByDate(
-      initialDayCurrentMonth,
-      lastDayCurrentMonth
-    );
+    const sales = await GetSalesByDate(startDate, endDate);
     const newSales = sumSales(sales);
     setMonthSales(newSales);
   };

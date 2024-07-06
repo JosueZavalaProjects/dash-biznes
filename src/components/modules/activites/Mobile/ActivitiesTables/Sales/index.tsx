@@ -27,7 +27,7 @@ export const SalesActivity = () => {
           amount={800}
         />
 
-        <SalesActivityTable />
+        <SalesActivityTable timeOptionSelected={timeOptionSelected} />
       </div>
     </ContainerCard>
   );

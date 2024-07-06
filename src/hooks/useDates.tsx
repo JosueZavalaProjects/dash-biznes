@@ -26,8 +26,29 @@ export const useDates = () => {
     return { startDate, endDate };
   };
 
+  const GetCurrentDayDates = () => {
+    const currentDate = new Date();
+
+    return {
+      startDate: currentDate.toDateString(),
+      endDate: currentDate.toDateString(),
+    };
+  };
+
+  const GetCurrentMonthDates = () => {
+    const startDate = GetCurrentDate();
+    const endDate = GetLastDate(startDate);
+    return { startDate, endDate };
+  };
+
   const _daysInMonth = (year: number, month: number) =>
     new Date(year, month, 0).getDate();
 
-  return { GetLastDate, GetCurrentDate, GetCurrentYearDates };
+  return {
+    GetLastDate,
+    GetCurrentDate,
+    GetCurrentDayDates,
+    GetCurrentMonthDates,
+    GetCurrentYearDates,
+  };
 };
