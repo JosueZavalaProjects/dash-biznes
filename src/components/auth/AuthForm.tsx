@@ -15,6 +15,7 @@ import {
 import { CancelPeriod } from "@/types/stripePayments";
 
 import { LoginForm } from "./LoginForm";
+import { setCookie } from "cookies-next";
 
 const AuthForm = () => {
   const router = useRouter();
@@ -37,8 +38,8 @@ const AuthForm = () => {
     const expires = +data.expiresIn * 1000 * HOURS;
     const expirationTime = new Date(new Date().getTime() + expires);
 
-    const { localId, email } = data;
-    authCtx.login(email, localId, expirationTime.toISOString());
+    const { localId, email, idToken } = data;
+    authCtx.login(idToken, email, localId, expirationTime.toISOString());
   };
 
   const handleGoPortal = async () => {
@@ -66,6 +67,7 @@ const AuthForm = () => {
 
       response
         .then((res: any) => {
+          console.log({ res });
           return res._tokenResponse;
         })
         .then((data: any) => CreateExpirationTime(data))

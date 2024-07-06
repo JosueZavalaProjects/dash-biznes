@@ -16,6 +16,7 @@ import {
 import { getFunctions, httpsCallable } from "firebase/functions";
 
 import { CancelPeriod } from "@/types/stripePayments";
+import { getCookie } from "cookies-next";
 
 import { auth } from "./firebase";
 
@@ -139,10 +140,9 @@ export const getCancelPeriodEnd = async (
     cancelAtPeriodEnd: true,
     status: "noActive",
   };
-  const auth = getAuth(app);
 
-  const userId = auth.currentUser?.uid;
-  console.log(auth);
+  const userId = auth.currentUser?.uid || getCookie("uid");
+
   if (!userId) throw new Error("User not logged in");
 
   const db = getFirestore(app);

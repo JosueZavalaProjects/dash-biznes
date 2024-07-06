@@ -9,7 +9,7 @@ const AuthContext = React.createContext({
   token: "",
   email: "",
   isLoggedIn: false,
-  login: (token, email, expirationTime) => {},
+  login: (token, email, uid, expirationTime) => {},
   logout: () => {},
 });
 
@@ -47,6 +47,7 @@ export const AuthContextProvider = (props) => {
   let initialToken;
   const [token, setToken] = useState(initialToken);
   const [email, setEmail] = useState("");
+  const [uid, setUid] = useState("");
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(!token);
 
   const tokenData = retrieveStoredToken();
@@ -61,20 +62,23 @@ export const AuthContextProvider = (props) => {
     deleteCookie("email");
     deleteCookie("products");
     deleteCookie("saleID");
+    deleteCookie("isPremium");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
   }, []);
 
-  const loginHandler = (userEmail, token, expirationTime) => {
+  const loginHandler = (token, userEmail, uid, expirationTime) => {
     setToken(token);
     setUserIsLoggedIn(true);
     setEmail(userEmail);
+    setUid(uid);
 
     setCookie("token", token);
     setCookie("expirationTime", expirationTime);
     setCookie("email", userEmail);
+    setCookie("uid", uid);
 
     const remainingTime = calculationRemainingTime(expirationTime);
     logoutTimer = setTimeout(logoutHandler, remainingTime);
