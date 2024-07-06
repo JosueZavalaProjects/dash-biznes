@@ -122,7 +122,11 @@ export const useSales = () => {
     return response;
   };
 
-  const GetSalesByDate = async (startDate: string, endDate: string) => {
+  const GetSalesByDate = async (
+    startDate: string,
+    endDate: string,
+    formatDate: boolean = true
+  ) => {
     const startOfDay = new Date(startDate + " 00:00:00");
     const endOfDay = new Date(endDate + " 23:59:59");
 
@@ -145,7 +149,7 @@ export const useSales = () => {
       response.push({
         id: doc.id,
         ticketNumber: ticket || "N/A",
-        date: dayjs(newDate).format("DD/MM/YY HH:mm") || "No Date",
+        date: formatDate ? dayjs(newDate).format("DD/MM/YY HH:mm") : newDate,
         total,
         method: paymentMethod || "cash",
       });

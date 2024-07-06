@@ -20,11 +20,4 @@ export const ACTIVITIES_NAV: NavOptions[] = [
   { label: "Gastos", name: TAB_KEYS.EXPENSES },
 ];
 
-export const data: Purchase[] = [
-  {
-    name: "Gasto",
-    type: "financial",
-    date: "2023-01-15",
-    amount: 500,
-  },
-];
+export const data: Purchase[] = [];

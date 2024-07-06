@@ -31,3 +31,21 @@ export type SalesColumnsProps = {
 };
 
 export type datesType = { startDate?: string; endDate?: string };
+
+export enum Activity {
+  sale,
+  expense,
+  utility,
+}
+
+export type ActivityType = {
+  type: Activity;
+  date: string | Date;
+  amount: number;
+};
+
+export const ACTIVITIES_LABEL = {
+  [Activity.sale]: "Ventas",
+  [Activity.expense]: "Gastos",
+  [Activity.utility]: "Ganancias",
+};
