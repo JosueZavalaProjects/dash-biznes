@@ -13,7 +13,7 @@ export const ActivitiesMobile = () => {
   return (
     <div className="flex flex-col gap-4">
       <ContainerCard>
-        <div className="grid grid-cols-4 justify-items-center p-2 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-4 justify-items-center p-2 w-full">
           <ActivityOption
             text="Ventas"
             activity={Activites.sales}
