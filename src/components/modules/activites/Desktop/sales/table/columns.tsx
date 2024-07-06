@@ -1,15 +1,8 @@
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
-
-import { SimpleButton } from "@/components/ui/buttons/simpleButton";
+import { EditOptions } from "@/components/modules/inventory/table/editOptions";
+import { SalesColumnsProps } from "@/types/activities";
 import { Sale } from "@/types/sales";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
-import { EditOptions } from "@/components/modules/inventory/table/editOptions";
-
-type SalesColumnsProps = {
-  handleEditSale: (id: string) => void;
-  handleDeleteSale: (id: string) => void;
-};
 
 export const SalesColumns = ({
   handleDeleteSale,

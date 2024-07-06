@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDates } from "@/hooks/useDates";
 import { formatCurrency } from "@/utils/common";
+import { GreenLabel } from "@/components/ui/Labels";
 
 type SalesObject = { date: string; total: number };
 
@@ -79,13 +80,5 @@ export const RecentSales = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-const GreenLabel = ({ text }: { text: string | number }) => {
-  return (
-    <span className="text-center px-2 py-1.5 rounded-2xl text-green-primary bg-[#92FE9D]/[0.20]">
-      {text}
-    </span>
   );
 };

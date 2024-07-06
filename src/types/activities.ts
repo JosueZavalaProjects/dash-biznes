@@ -24,3 +24,8 @@ export const LabelText = {
   [TimeOption.month]: "del mes",
   [TimeOption.year]: "del año",
 };
+
+export type SalesColumnsProps = {
+  handleEditSale: (id: string) => void;
+  handleDeleteSale: (id: string) => void;
+};

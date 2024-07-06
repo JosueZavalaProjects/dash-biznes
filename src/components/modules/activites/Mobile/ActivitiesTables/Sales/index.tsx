@@ -6,6 +6,7 @@ import { LabelText, TimeOption, colorLabel } from "@/types/activities";
 
 import { SummaryLabel } from "../../components/SummaryLabel";
 import { TimeOptions } from "../../components/TimeOptions";
+import { SalesActivityTable } from "./Table";
 
 export const SalesActivity = () => {
   const [timeOptionSelected, setTimeOptionSelected] = useState<TimeOption>(
@@ -26,7 +27,7 @@ export const SalesActivity = () => {
           amount={800}
         />
 
-        <div>Tabla</div>
+        <SalesActivityTable />
       </div>
     </ContainerCard>
   );
