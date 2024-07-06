@@ -19,7 +19,7 @@ export const TimeOptions = ({
   ];
 
   return (
-    <div className="grid grid-cols-4 justify-items-center gap-4">
+    <div className="grid grid-cols-2 justify-items-center gap-4 sm:grid-cols-4">
       {timeOptions.map((option) => {
         return (
           <TimeOptionButton
