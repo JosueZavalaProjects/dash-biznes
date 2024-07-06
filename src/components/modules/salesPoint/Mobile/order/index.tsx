@@ -11,6 +11,7 @@ import { CartResume } from "./components/cartResume";
 import { CategoryCard } from "./components/categories/categoryCard";
 import { AddItems } from "./components/items/addItems";
 import { Product } from "./components/products";
+import { ProductCard } from "../../Desktop/order/components/ProductCard";
 
 export const Order = () => {
   const [items, setItems] = useState<number>(1);
@@ -127,26 +128,23 @@ export const Order = () => {
       {/* Productos */}
       <ContainerCard>
         <div className="flex flex-col gap-2 text-black p-2">
-          <AddItems
+          {/* <AddItems
             items={items}
             setItems={setItems}
             disabled={productSelected < 0 || items <= 0}
             addProduct={handleAddProduct}
             inventory={[...filteredProducts][productSelected]?.inventory || 0}
-          />
+          /> */}
           <div className="w-full">
             <SearchInput value={searchValue} setValue={setSearchValue} />
           </div>
-          <div className="flex flex-col gap-1 py-2 max-h-96 overflow-y-scroll">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-4 py-2 max-h-[44rem] overflow-y-scroll">
             {filteredProducts.length > 0 &&
               filteredProducts.map((product, index) => (
-                <Product
-                  key={`${categorySelected}_product_${index}`}
-                  name={product.name}
-                  inventory={product.inventory || 0}
+                <ProductCard
+                  key={`product_card_${product.id}`}
+                  product={product}
                   index={index}
-                  isSelected={index === productSelected}
-                  setProductSelected={setProductSelected}
                 />
               ))}
           </div>
@@ -155,3 +153,14 @@ export const Order = () => {
     </div>
   );
 };
+
+/**
+ * <Product
+                  key={`${categorySelected}_product_${index}`}
+                  name={product.name}
+                  inventory={product.inventory || 0}
+                  index={index}
+                  isSelected={index === productSelected}
+                  setProductSelected={setProductSelected}
+                />
+ */
