@@ -6,12 +6,10 @@ import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
 import { Product as ProductType } from "@/types/salesPoint";
 
+import { ProductCard } from "../../Desktop/order/components/ProductCard";
 import useSalesPointState from "../../states/sales-point-state";
 import { CartResume } from "./components/cartResume";
 import { CategoryCard } from "./components/categories/categoryCard";
-import { AddItems } from "./components/items/addItems";
-import { Product } from "./components/products";
-import { ProductCard } from "../../Desktop/order/components/ProductCard";
 
 export const Order = () => {
   const [items, setItems] = useState<number>(1);
@@ -128,13 +126,6 @@ export const Order = () => {
       {/* Productos */}
       <ContainerCard>
         <div className="flex flex-col gap-2 text-black p-2">
-          {/* <AddItems
-            items={items}
-            setItems={setItems}
-            disabled={productSelected < 0 || items <= 0}
-            addProduct={handleAddProduct}
-            inventory={[...filteredProducts][productSelected]?.inventory || 0}
-          /> */}
           <div className="w-full">
             <SearchInput value={searchValue} setValue={setSearchValue} />
           </div>
@@ -153,14 +144,3 @@ export const Order = () => {
     </div>
   );
 };
-
-/**
- * <Product
-                  key={`${categorySelected}_product_${index}`}
-                  name={product.name}
-                  inventory={product.inventory || 0}
-                  index={index}
-                  isSelected={index === productSelected}
-                  setProductSelected={setProductSelected}
-                />
- */
