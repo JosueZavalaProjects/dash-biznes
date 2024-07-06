@@ -30,8 +30,6 @@ const MOCK_ACTIVITIES: ActivityType[] = [
 ];
 export const UtilitiesActivity = () => {
   const [activities, setActivities] = useState<ActivityType[]>(MOCK_ACTIVITIES);
-  const [sales, setSales] = useState<Sale[]>(SalesData);
-  const [expenses, setExpenses] = useState<Purchase[]>(PurchaseData);
   const [utility, setUtility] = useState<number>(0);
   const [timeOptionSelected, setTimeOptionSelected] = useState<TimeOption>(
     TimeOption.day
@@ -62,14 +60,12 @@ export const UtilitiesActivity = () => {
     const newExpenses = await getExpensesByDate(startDate, endDate, false);
 
     return newExpenses;
-    /* setExpenses(newExpenses); */
   };
 
   const handleGetSalesByDate = async (startDate: string, endDate: string) => {
     const newSales = await GetSalesByDate(startDate, endDate, false);
 
     return newSales;
-    /* setSales(newSales); */
   };
 
   const handleGetUtility = async (dates: datesType) => {
@@ -86,38 +82,10 @@ export const UtilitiesActivity = () => {
       a.date < b.date ? 1 : -1
     );
 
-    /* console.log({ newActivities });
-    console.log({ sortActivities }); */
     const utilityActivity = getUtilityActivity(sortActivities);
     sortActivities.unshift(utilityActivity);
 
     setActivities(sortActivities);
-  };
-
-  /*   const handleCreateActivites = (activityArray: Purchase[] | Sale[]) => {
-    const salesActivites = createActivitesArray(sales);
-    const expensesActivities = createActivitesArray(expenses);
-
-    const concatActivities = salesActivites.concat(expensesActivities);
-
-    const sortActivities = concatActivities.sort(
-      (a, b) => Date.parse(b.date.toString()) - Date.parse(a.date.toString())
-    );
-
-    setActivities(sortActivities);
-  }; */
-
-  /*   const handleCreateSales = () => {
-    const salesActivities = createActivitesArray(sales);
-    console.log({ salesActivities });
-  }; */
-
-  const handleAddUtility = () => {
-    const _currentActivites = [...activities];
-    const newActivities = _currentActivites.concat(
-      getUtilityActivity(_currentActivites)
-    );
-    setActivities(newActivities);
   };
 
   const createActivitesArray = (activityArray: Purchase[] | Sale[]) => {
@@ -148,18 +116,6 @@ export const UtilitiesActivity = () => {
       amount: newUtility,
     };
   };
-  /* 
-  useEffect(() => {
-    handleCreateActivites(sales);
-  }, [expenses]);
-
-  useEffect(() => {
-    handleCreateActivites(expenses);
-  }, [sales]); */
-
-  useEffect(() => {
-    // handleAddUtility();
-  }, [activities]);
 
   useEffect(() => {
     const { startDate, endDate }: datesType = handleSetDates();
