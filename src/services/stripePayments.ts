@@ -14,9 +14,9 @@ import {
   where,
 } from "firebase/firestore";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { getCookie } from "cookies-next";
 
 import { CancelPeriod } from "@/types/stripePayments";
-import { getCookie } from "cookies-next";
 
 import { auth } from "./firebase";
 

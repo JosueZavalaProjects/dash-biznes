@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-
-import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
-import { useSubscription } from "@/hooks/useSubscription";
+import { useRouter } from "next/navigation";
+
 import { MobileNavbar } from "@/components/SideNavLegacy/MobileNavbar";
 import SideNavbar from "@/components/SideNavLegacy/SideNavbar";
 import AuthContext from "@/context/AuthContext";
-
+import { useSubscription } from "@/hooks/useSubscription";
 import { initFirebase } from "@/services/firebase";
 import { getCancelPeriodEnd } from "@/services/stripePayments";
 

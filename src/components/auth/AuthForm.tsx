@@ -15,7 +15,6 @@ import {
 import { CancelPeriod } from "@/types/stripePayments";
 
 import { LoginForm } from "./LoginForm";
-import { setCookie } from "cookies-next";
 
 const AuthForm = () => {
   const router = useRouter();
