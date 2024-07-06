@@ -1,8 +1,8 @@
 import Image from "next/image";
 
+import { SimpleButton } from "../ui/buttons/simpleButton";
 import { BiznesLogo } from "../../../public/assets";
 import { ContainerCard } from "../ui/containerCard";
-import { SimpleButton } from "../ui/buttons/simpleButton";
 
 type LoginFormProps = {
   isLogin: boolean;
@@ -69,9 +69,9 @@ export const LoginForm = ({
                   </SimpleButton>
                 )}
               </div>
-              <span className="pt-4 text-gray-500 cursor-pointer">
+              {/* <span className="pt-4 text-gray-500 cursor-pointer">
                 ¿Olvidaste tu contraseña?
-              </span>
+              </span> */}
             </div>
           </form>
         </div>
