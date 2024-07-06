@@ -30,8 +30,12 @@ export const SalesActivity = () => {
     HandleDeleteSale,
     HandleGetSalesByDate,
   } = useSalesTables();
-  const { GetCurrentDayDates, GetCurrentMonthDates, GetCurrentYearDates } =
-    useDates();
+  const {
+    GetCurrentDayDates,
+    GetCurrentWeekDates,
+    GetCurrentMonthDates,
+    GetCurrentYearDates,
+  } = useDates();
 
   const handleShowModal = (id: string) => {
     setSaleId(id);
@@ -40,6 +44,7 @@ export const SalesActivity = () => {
 
   const handleSetDates = () => {
     if (timeOptionSelected === TimeOption.day) return GetCurrentDayDates();
+    if (timeOptionSelected === TimeOption.week) return GetCurrentWeekDates();
     if (timeOptionSelected === TimeOption.month) return GetCurrentMonthDates();
     if (timeOptionSelected === TimeOption.year) return GetCurrentYearDates();
 
@@ -55,6 +60,7 @@ export const SalesActivity = () => {
 
   useEffect(() => {
     const { startDate, endDate }: datesType = handleSetDates();
+
     if (!startDate && !endDate) return;
 
     HandleGetSalesByDate(startDate, endDate);
