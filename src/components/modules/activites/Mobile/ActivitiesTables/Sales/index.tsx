@@ -77,7 +77,7 @@ export const SalesActivity = () => {
         setModalStep={setModalStep}
       />
       <div className="flex flex-col text-center text-2xl gap-6">
-        <div className="text-main-blue font-bold">Ventas del día</div>
+        <div className="text-main-blue font-bold">{`Ventas ${LabelText[timeOptionSelected]}`}</div>
         <TimeOptions
           timeOptionSelected={timeOptionSelected}
           setTimeOptionSelected={setTimeOptionSelected}

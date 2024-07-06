@@ -5,6 +5,7 @@ import { LabelText, TimeOption, colorLabel } from "@/types/activities";
 
 import { SummaryLabel } from "../../components/SummaryLabel";
 import { TimeOptions } from "../../components/TimeOptions";
+import { ExpensesMobileTable } from "./Table";
 
 export const ExpensesActivity = () => {
   const [timeOptionSelected, setTimeOptionSelected] = useState<TimeOption>(
@@ -13,7 +14,7 @@ export const ExpensesActivity = () => {
   return (
     <ContainerCard>
       <div className="flex flex-col text-center text-2xl gap-6">
-        <div className="text-main-blue font-bold">Gastos del día</div>
+        <div className="text-main-blue font-bold">{`Gastos ${LabelText[timeOptionSelected]}`}</div>
         <TimeOptions
           timeOptionSelected={timeOptionSelected}
           setTimeOptionSelected={setTimeOptionSelected}
@@ -23,7 +24,7 @@ export const ExpensesActivity = () => {
           color={colorLabel.red}
           amount={3000}
         />
-        <div>Tabla</div>
+        <ExpensesMobileTable />
       </div>
     </ContainerCard>
   );

@@ -73,6 +73,7 @@ module.exports = {
         "green-primary": "#10A760",
         "red-primary": "#DA3E33",
         "red-secondary": "#D92D20",
+        "red-third": "#AA3028",
         "orange-primary": "#F5462C",
         pastel: {
           brown: "#D9B8A6",
