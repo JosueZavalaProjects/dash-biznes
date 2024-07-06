@@ -1,16 +1,13 @@
 import cn from "classnames";
 import Link from "next/link";
 
-import { Product } from "@/types/inventory";
+import { InventoryColumnsProps, Product } from "@/types/inventory";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { EditOptions } from "./editOptions";
 
-type InventoryColumnsProps = {
-  handleDeleteProduct: (id: string) => void;
-  handleEditProduct: (id: string) => void;
-};
+
 
 export const InventoryColumns = ({
   handleDeleteProduct,

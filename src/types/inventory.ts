@@ -15,3 +15,8 @@ export enum InventoryModalStep {
   deleteConfirm,
   editConfirm,
 }
+
+export type InventoryColumnsProps = {
+  handleDeleteProduct: (id: string) => void;
+  handleEditProduct: (id: string) => void;
+};
