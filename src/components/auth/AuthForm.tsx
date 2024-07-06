@@ -14,7 +14,6 @@ import {
 } from "@/services/stripePayments";
 import { CancelPeriod } from "@/types/stripePayments";
 
-import classes from "./AuthForm.module.css";
 import { LoginForm } from "./LoginForm";
 
 const AuthForm = () => {
@@ -50,7 +49,7 @@ const AuthForm = () => {
 
   const upgradeToPremium = async () => {
     const checkoutUrl = await getCheckoutUrl(app);
-    authCtx.logout();
+    /* authCtx.logout(); */
     router.push(checkoutUrl);
     console.log("Upgrade to Premium");
   };

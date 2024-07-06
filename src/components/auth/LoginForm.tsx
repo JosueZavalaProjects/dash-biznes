@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import { SimpleButton } from "../ui/buttons/simpleButton";
 import { BiznesLogo } from "../../../public/assets";
+import { SimpleButton } from "../ui/buttons/simpleButton";
 import { ContainerCard } from "../ui/containerCard";
 
 type LoginFormProps = {

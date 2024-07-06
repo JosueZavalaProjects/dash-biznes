@@ -136,9 +136,13 @@ export const getCancelPeriodEnd = async (
   app: FirebaseApp
 ): Promise<CancelPeriod> => {
   const cancelPeriod: CancelPeriod = {
-    cancelAtPeriodEnd: false,
+    cancelAtPeriodEnd: true,
+    status: "noActive",
   };
+  const auth = getAuth(app);
+
   const userId = auth.currentUser?.uid;
+  console.log(auth);
   if (!userId) throw new Error("User not logged in");
 
   const db = getFirestore(app);
