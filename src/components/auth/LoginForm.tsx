@@ -26,10 +26,10 @@ export const LoginForm = ({
   submitHandler,
 }: LoginFormProps) => {
   return (
-    <section className="flex flex-col mx-auto mt-20 w-[30rem] gap-4">
+    <section className="flex flex-col mx-auto mt-20 sm:w-[30rem] gap-4">
       <ContainerCard>
         <div className="flex flex-col items-center gap-12 p-8">
-          <Image alt="logo" src={BiznesLogo} width={350} />
+          <Image alt="logo" src={BiznesLogo} width={280} />
 
           <form onSubmit={submitHandler}>
             <div className="flex flex-col items-center w-[18rem] gap-2">
