@@ -7,6 +7,6 @@ export const INVENTORY_MODAL_SIZE: { [key in InventoryModalStep]: ModalSize } =
   {
     [InventoryModalStep.delete]: "md",
     [InventoryModalStep.deleteConfirm]: "md",
-    [InventoryModalStep.edit]: "lg",
-    [InventoryModalStep.editConfirm]: "lg",
+    [InventoryModalStep.edit]: "none",
+    [InventoryModalStep.editConfirm]: "none",
   };
