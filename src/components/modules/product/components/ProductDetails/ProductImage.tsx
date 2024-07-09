@@ -13,12 +13,14 @@ export const ProductImage = ({ handleShowDeleteModal }: ProductImageProps) => {
     <section className="flex flex-col gap-16 items-end w-1/2 pr-8">
       <section className="grid justify-items-center items-center w-1/2">
         <span className="grid justify-items-center items-center p-4 border-dashed border-2 border-secondary-gray">
-          <Image
+          <span className="w-[150px] h-[150px]"></span>
+          {/* TODO: Add Imagen */}
+          {/* <Image
             src={MaggiImage}
             alt="product image"
             width={150}
             height={150}
-          />
+          /> */}
         </span>
       </section>
       <section className="flex flex-col gap-4 w-1/2">

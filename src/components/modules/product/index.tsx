@@ -100,7 +100,7 @@ export const Product = ({
             icon={{ alt: "edit", icon: FaPen }}
             handleClick={() => setShowModal(true)}
           />
-          <SquareButton text="Descargar" handleClick={() => {}} />
+          {/* <SquareButton text="Descargar" handleClick={() => {}} /> */}
         </div>
       </section>
       <div className="flex w-full border-b my-6 text-2xl">
