@@ -17,10 +17,11 @@ export const PRODUCTS_MOCK: ProductCardsProps[] = [
     name: "",
     price: 0,
     category: "",
+    amount: 0,
     inventory: 0,
     subcategory: "",
     showAmount: false,
-    items: 0,
+    /* items: 0, */
   },
 ];
 

@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 
 import Text from "@/components/ui/text";
-import { Product as ProductType } from "@/types/salesPoint";
+import {
+  ProductCheckout /* Product as ProductType */,
+} from "@/types/salesPoint";
 
 import { TabCategories } from "../tabCategories";
 import { Order } from "./order";
@@ -10,12 +12,14 @@ import { Total } from "./total";
 require("dayjs/locale/es");
 
 type SalesPointProps = {
-  products: ProductType[];
+  products: ProductCheckout[];
+  cartProducts: ProductCheckout[];
   handleClearOrder: () => void;
 };
 
 export const SalesPointDesktop = ({
   products,
+  cartProducts,
   handleClearOrder,
 }: SalesPointProps) => {
   dayjs.locale("es");
@@ -35,7 +39,7 @@ export const SalesPointDesktop = ({
         </Text>
 
         <section className="flex w-full gap-4">
-          <Order products={products} />
+          <Order products={products} cartProducts={cartProducts} />
           <Total handleClearOrder={handleClearOrder} />
         </section>
       </section>

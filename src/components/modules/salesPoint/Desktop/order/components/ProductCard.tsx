@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { BG_COLORS } from "@/constants/salesPoint";
-import { ProductCardsProps, Product as ProductType } from "@/types/salesPoint";
+import {
+  ProductCardsProps,
+  ProductCheckout,
+  Product as ProductType,
+} from "@/types/salesPoint";
 
 import { MinusIcon, PlusIcon } from "../../../../../../../public/assets";
 import { BlackButton } from "../../../Mobile/order/components/items/blackButton";
@@ -9,6 +13,7 @@ import useSalesPointState from "../../../states/sales-point-state";
 
 type ProductCardProps = {
   product: ProductCardsProps;
+  /* cartProduct: ProductCheckout; */
   index?: number;
   /* productCardsProps: ProductCardsProps; */
   handleSetShowAmount: (id: string, value: boolean) => void;
@@ -18,6 +23,7 @@ type ProductCardProps = {
 export const ProductCard = ({
   product,
   index = 0,
+  /* cartProduct, */
   /* productCardsProps, */
   handleSetShowAmount,
   handleSetItems,
@@ -27,16 +33,26 @@ export const ProductCard = ({
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [inventory, setInventory] = useState(product?.inventory);
 
-  const { updateProduct, removeProduct } = useSalesPointState();
+  const {
+    updateProduct,
+    removeProduct,
+    products: cartProducts,
+  } = useSalesPointState();
 
   const toggleShowAmount = () =>
     handleSetShowAmount(product.id, !product.showAmount);
 
   const handleAddProduct = () =>
-    updateProduct({ ...product, amount: product.items });
+    updateProduct({ ...product, amount: product.amount });
 
   const handleRemoveProduct = () =>
-    removeProduct({ ...product, amount: product.items });
+    removeProduct({ ...product, amount: product.amount });
+
+  const handleSetInitialCard = () => {
+    setInventory(product.inventory);
+    handleSetShowAmount(product.id, false);
+    handleSetItems(product.id, 0);
+  };
 
   useEffect(() => {
     if (isInitialLoad) {
@@ -44,19 +60,28 @@ export const ProductCard = ({
       return;
     }
 
-    if (product.items === 0) {
+    if (product.amount === 0) {
       handleRemoveProduct();
       return;
     }
 
     handleAddProduct();
-  }, [product.items]);
+  }, [product.amount]);
 
   useEffect(() => {
-    setInventory(product.inventory);
-    handleSetShowAmount(product.id, false);
-    handleSetItems(product.id, 0);
+    handleSetInitialCard();
   }, [product.inventory]);
+
+  useEffect(() => {
+    if (!cartProducts) return;
+
+    const productInCart = cartProducts.find(
+      (productCart) => productCart.id === product.id
+    );
+    if (!productInCart) {
+      handleSetInitialCard();
+    }
+  }, [cartProducts]);
 
   return (
     <div className="flex flex-col max-w-52 h-52 rounded-22xl">
@@ -85,16 +110,16 @@ export const ProductCard = ({
           <div className="flex items-center gap-3">
             <BlackButton
               icon={{ src: MinusIcon, alt: "minus icon" }}
-              setItems={() => handleSetItems(product.id, product.items - 1)}
-              disabled={product.items <= 0}
+              setItems={() => handleSetItems(product.id, product.amount - 1)}
+              disabled={product.amount <= 0}
             />
             <div className="grid justify-items-center items-center min-w-16 text-3xl text-white">
-              {product.items}
+              {product.amount}
             </div>
             <BlackButton
               icon={{ src: PlusIcon, alt: "plus icon" }}
-              setItems={() => handleSetItems(product.id, product.items + 1)}
-              disabled={inventory <= product.items}
+              setItems={() => handleSetItems(product.id, product.amount + 1)}
+              disabled={inventory <= product.amount}
             />
           </div>
         </span>

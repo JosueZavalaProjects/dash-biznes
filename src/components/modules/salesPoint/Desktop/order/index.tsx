@@ -2,16 +2,17 @@
 import { useEffect, useState } from "react";
 
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
-import { ProductCardsProps, Product as ProductType } from "@/types/salesPoint";
+import { ProductCardsProps, ProductCheckout } from "@/types/salesPoint";
 
 import useSalesPointState from "../../states/sales-point-state";
 import { ProductCard } from "./components/ProductCard";
 
 type OrderProps = {
-  products: ProductType[];
+  products: ProductCheckout[];
+  cartProducts: ProductCheckout[];
 };
 
-export const Order = ({ products }: OrderProps) => {
+export const Order = ({ products, cartProducts }: OrderProps) => {
   const [filteredProducts, setFilteredProducts] =
     useState<ProductCardsProps[]>(PRODUCTS_MOCK);
   /* const [productCardsProps, setProductCardsProps] = useState<
@@ -36,7 +37,7 @@ export const Order = ({ products }: OrderProps) => {
     const newProducts = [...filteredProducts];
 
     const newProductProps = newProducts.map((product) => {
-      if (product.id === id) product.items = newValue;
+      if (product.id === id) product.amount = newValue;
       return product;
     });
     /* newProductProps!.items = newValue; */
@@ -61,7 +62,6 @@ export const Order = ({ products }: OrderProps) => {
       return {
         ...product,
         showAmount: false,
-        items: 0,
       };
     });
   };
@@ -108,6 +108,7 @@ export const Order = ({ products }: OrderProps) => {
             <ProductCard
               key={`product_card_${product.id}`}
               product={product}
+              /* cartProduct={cartProducts[index]} */
               index={index}
               /*      productCardsProps={
               productCardsProps.find(
