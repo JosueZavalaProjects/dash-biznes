@@ -6,7 +6,7 @@ import { ProductCheckout } from "@/types/salesPoint";
 
 export const TotalTable = ({ products }: { products: ProductCheckout[] }) => {
   return (
-    <div className="max-h-96 overflow-y-scroll">
+    <div className="max-h-[40rem] overflow-y-scroll">
       <table className="w-full text-gray-700">
         <thead>
           <tr className="text-cadet-grey">
