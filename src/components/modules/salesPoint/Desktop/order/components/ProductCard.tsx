@@ -67,7 +67,7 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   }, [cartProducts]);
 
   return (
-    <div className="flex flex-col max-w-52 h-52 rounded-22xl">
+    <div className="flex flex-col w-52 h-52 rounded-22xl">
       <div
         className={`bg-cover bg-center w-full h-36 rounded-t-2xl cursor-pointer ${
           BG_COLORS[index % BG_COLORS.length]
@@ -90,7 +90,7 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
       )}
       {showAmount && (
         <span className="grid justify-items-center items-center w-full h-28 bg-gradient-to-b from-seconday-blue to-main-blue rounded-b-2xl">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <BlackButton
               icon={{ src: MinusIcon, alt: "minus icon" }}
               setItems={() => setAmount(amount - 1)}
