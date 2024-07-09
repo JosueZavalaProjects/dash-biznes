@@ -39,7 +39,7 @@ export const MobileNavbar = () => {
     <>
       <AddModal show={showModal} setShow={setShowModal} />
 
-      <div className="flex fixed bottom-[1px] bg-white mx-auto p-4 rounded-lg z-10 w-full sm:hidden">
+      <div className="flex fixed bottom-[0px] bg-white mx-auto p-4 rounded-lg z-10 w-full sm:hidden">
         <div className="grid grid-cols-4 gap-4 justify-items-center p-1 w-full">
           {FOOTER_ICONS.map((element, index) => {
             if (element.modal) {
