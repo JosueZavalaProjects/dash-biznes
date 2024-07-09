@@ -18,7 +18,7 @@ export const InventoryMobileColumns = ({
       },
       cell: ({ row }) => {
         return (
-          <div className="flex w-full justify-between text-xl px-2 text-gray-600">
+          <div className="flex w-full justify-between text-xl text-gray-600 gap-2">
             <div className="flex gap-2 items-center">
               <div className="flex items-center">
                 <span className="p-6 bg-slate-400"></span>
@@ -28,7 +28,7 @@ export const InventoryMobileColumns = ({
                 <span className="">{row.original.dateAdded.toString()}</span>
               </div>
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-2 items-center">
               <div className="flex flex-col text-right">
                 {row.original.inventory} pzs
                 {Boolean(row.original.inventory) && (
@@ -38,7 +38,7 @@ export const InventoryMobileColumns = ({
                   <span className="text-pastel-light-red">Sin existencia</span>
                 )}
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center text-center">
                 <EditOptions
                   handleDelete={handleDeleteProduct}
                   handleEdit={handleEditProduct}

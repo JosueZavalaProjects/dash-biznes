@@ -19,9 +19,9 @@ export const EditOptions = ({
 }: EditOptionsProps) => {
   const [showOptions, setShowOptions] = useState(false);
   return (
-    <div className="flex items-start flex-col w-8 h-12 relative">
+    <div className="flex items-center flex-col pl-4 relative">
       <div
-        className="flex items-start cursor-pointer text-gray-400 text-2xl font-normal"
+        className="flex justify-center cursor-pointer text-gray-400 text-2xl font-normal rotate-90 text-center"
         onClick={() => setShowOptions(!showOptions)}
       >
         ...
