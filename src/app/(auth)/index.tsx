@@ -56,7 +56,7 @@ export const LogguedPortal = ({ children }: { children: React.ReactNode }) => {
     <>
       {isValid && (
         <>
-          <div id="portal" />
+          <div id="portal" className="absolute" />
           <SideNavbar />
           <MobileNavbar />
           <div className="p-8 w-full mb-[5rem] sm:mb-0">{children}</div>

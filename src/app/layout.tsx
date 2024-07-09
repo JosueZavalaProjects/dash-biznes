@@ -40,9 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn("min-h-screen w-full bg-white text-black flex ", {
-          "debug-screens": process.env.NODE_ENV === "development",
-        })}
+        className={cn(
+          "min-h-screen w-full bg-white text-black flex relative ",
+          {
+            "debug-screens": process.env.NODE_ENV === "development",
+          }
+        )}
       >
         <AuthContextProvider>
           {isLoading && (
