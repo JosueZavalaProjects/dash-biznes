@@ -129,7 +129,7 @@ export const Order = () => {
           <div className="w-full">
             <SearchInput value={searchValue} setValue={setSearchValue} />
           </div>
-          <div className="flex flex-col items-center sm:grid-cols-2 gap-x-2 gap-y-4 py-2 max-h-[44rem] overflow-y-scroll">
+          <div className="flex flex-col items-center sm:grid sm:grid-cols-2 gap-x-2 gap-y-4 py-2 max-h-[44rem] overflow-y-scroll">
             {filteredProducts.length > 0 &&
               filteredProducts.map((product, index) => (
                 <ProductCard

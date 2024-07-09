@@ -10,7 +10,7 @@ export const CartResume = () => {
   return (
     <>
       {Boolean(products.length) && (
-        <div className="flex justify-between w-full bg-gradient-to-r from-main-blue to-light-blue text-white py-4 px-8 rounded-2xl">
+        <div className="flex flex-col sm:flex-row justify-between w-full bg-gradient-to-r from-main-blue to-light-blue text-white py-4 px-8 rounded-2xl">
           <div className="flex justify-center gap-4">
             <span className="flex justify-center">
               <Image src={CartIcon} alt="icon" />
