@@ -14,7 +14,7 @@ type OrderProps = {
 
 export const Order = ({ products, cartProducts }: OrderProps) => {
   const [filteredProducts, setFilteredProducts] =
-    useState<ProductCardsProps[]>(PRODUCTS_MOCK);
+    useState<ProductCheckout[]>(PRODUCTS_MOCK);
   /* const [productCardsProps, setProductCardsProps] = useState<
     ProductCardsProps[]
   >([]); */
@@ -22,7 +22,7 @@ export const Order = ({ products, cartProducts }: OrderProps) => {
   const { setCategories, categories, categorySelectedIndex } =
     useSalesPointState();
 
-  const handleUpdateShowAmount = (id: string, newValue: boolean) => {
+  /*  const handleUpdateShowAmount = (id: string, newValue: boolean) => {
     const newProducts = [...filteredProducts];
 
     const newProductProps = newProducts.map((product) => {
@@ -31,19 +31,19 @@ export const Order = ({ products, cartProducts }: OrderProps) => {
     });
 
     setFilteredProducts(newProductProps);
-  };
+  }; */
 
-  const handleUpdateItems = (id: string, newValue: number) => {
+  /* const handleUpdateItems = (id: string, newValue: number) => {
     const newProducts = [...filteredProducts];
 
     const newProductProps = newProducts.map((product) => {
       if (product.id === id) product.amount = newValue;
       return product;
     });
-    /* newProductProps!.items = newValue; */
+    // newProductProps!.items = newValue;
 
     setFilteredProducts(newProductProps);
-  };
+  }; */
 
   const hanldeUpdateProducts = () => {
     const uniqueCategories = products
@@ -52,19 +52,19 @@ export const Order = ({ products, cartProducts }: OrderProps) => {
         return array.indexOf(value) === index;
       });
 
-    setFilteredProducts(handleSetInitialProducts());
+    setFilteredProducts(products);
     /* setProductCardsProps([]); */
     setCategories(uniqueCategories);
   };
 
-  const handleSetInitialProducts = (): ProductCardsProps[] => {
+  /*   const handleSetInitialProducts = (): ProductCardsProps[] => {
     return products.map((product) => {
       return {
         ...product,
         showAmount: false,
       };
     });
-  };
+  }; */
 
   /* useEffect(() => {
     if (!filteredProducts) return;
@@ -89,7 +89,7 @@ export const Order = ({ products, cartProducts }: OrderProps) => {
 
   useEffect(() => {
     if (categorySelectedIndex === -1) {
-      setFilteredProducts(handleSetInitialProducts());
+      setFilteredProducts(products);
       return;
     }
 
@@ -115,8 +115,8 @@ export const Order = ({ products, cartProducts }: OrderProps) => {
                 (productProp) => productProp.id === product.id
               ) || { id: product.id, showAmount: false, items: 0 }
             } */
-              handleSetShowAmount={handleUpdateShowAmount}
-              handleSetItems={handleUpdateItems}
+              /* handleSetShowAmount={handleUpdateShowAmount}
+              handleSetItems={handleUpdateItems} */
             />
           ))
       }
