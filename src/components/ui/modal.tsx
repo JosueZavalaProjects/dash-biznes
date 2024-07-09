@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 
 import cn from "classnames";
@@ -41,9 +41,18 @@ const Modal: FC<ModalProps> = ({
   };
 
   useEffect(() => {
+    const element = document.getElementById("portal");
     document.addEventListener("keydown", handleClickEsc);
+    document.addEventListener("scroll", () => {
+      const newTopWindow = window.document.documentElement.scrollTop;
+      element!.style!.top = `${newTopWindow}px`;
+    });
     return () => {
       document.removeEventListener("keydown", handleClickEsc);
+      document.addEventListener("scroll", () => {
+        const newTopWindow = window.document.documentElement.scrollTop;
+        element!.style!.top = `${newTopWindow}px`;
+      });
     };
   }, []);
 
@@ -67,14 +76,15 @@ const Modal: FC<ModalProps> = ({
   return (
     <Portal>
       <div
-        className={`absolute items-center justify-center w-screen h-full bg-opacity-50 bg-eerie-black -backdrop-filter-blur z-20 ${
+        id="modal-content"
+        className={`absolute items-center justify-center w-screen h-screen bg-opacity-50 bg-eerie-black -backdrop-filter-blur z-20 overflow-y-auto ${
           !show ? "hidden" : "flex"
         }`}
       >
         <div
-          className={`fixed top-0 left-0 z-40 items-center justify-center w-screen h-full ${
+          className={`fixed top-[10px] left-0 z-40 items-center justify-center w-screen h-screen m-auto ${
             !show ? "hidden" : "flex"
-          }`} //bg-opacity-50 bg-eerie-black -backdrop-filter-blur
+          }`}
           onClick={onClose}
         ></div>
         <div className={`absolute z-50 ${contentStyles}`}>
@@ -89,11 +99,6 @@ const Modal: FC<ModalProps> = ({
           {children}
         </div>
       </div>
-      {/* <div
-        className="flex items-center justify-center absolute top-0 left-0 w-screen h-screen z-30 bg-opacity-50 bg-eerie-black -backdrop-filter-blur"
-        onClick={() => alert("Hello")}
-      >
-      </div> */}
     </Portal>
   );
 };

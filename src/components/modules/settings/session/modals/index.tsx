@@ -3,15 +3,11 @@ import { useContext } from "react";
 
 import { useRouter } from "next/navigation";
 
-import Modal from "@/components/ui/modal";
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
+import Modal from "@/components/ui/modal";
 import Text from "@/components/ui/text";
 import AuthContext from "@/context/AuthContext";
-
-type ModalProps = {
-  show: boolean;
-  setShow: (show: boolean) => void;
-};
+import { ModalProps } from "@/types/UI/modals";
 
 export const LogoutModal = ({ show, setShow }: ModalProps) => {
   const authCtx = useContext(AuthContext);

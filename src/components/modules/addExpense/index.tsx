@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 
 import { RequestModal } from "@/components/modals/RequestModal";
+import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import { ContainerCard } from "@/components/ui/containerCard";
 import { Input, KeyValueTypes } from "@/components/ui/input";
-import { SimpleButton } from "@/components/ui/buttons/simpleButton";
 import Text from "@/components/ui/text";
 import {
   EXPENSES_KEYS,
@@ -15,6 +15,8 @@ import {
 import { useExpenses } from "@/hooks/useExpenses";
 import { Expense } from "@/types/addExpense";
 import { ModalType } from "@/types/UI/common";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AddExpense = () => {
   const [expense, setExpense] = useState<Expense>(MOCK_EXPENSE);
@@ -87,7 +89,7 @@ export const AddExpense = () => {
         <div className="flex gap-4 pb-28 static"></div>
       </div>
 
-      <div className="flex bg-white justify-center rounded-lg relative -top-24 right-0 mx-2 sm:mx-auto sm:w-[440px] sm:-right-[10px]">
+      <div className="flex bg-white justify-center rounded-lg relative -top-24 right-0 sm:mx-auto sm:w-[440px] sm:-right-[10px]">
         <ContainerCard>
           <div className="flex flex-col gap-2 p-4">
             <Input
@@ -101,21 +103,29 @@ export const AddExpense = () => {
               <Text color="gray" className="capitalize">
                 Tipo de Gasto
               </Text>
-              <select
-                name="selectedFruit"
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                className="text-gray-800 p-4 rounded-xl w-full border border-light-gray focus:outline-none"
-              >
-                {Object.values(EXPENSES_TYPES_KEYS).map((element, key) => {
-                  return (
-                    <option key={`option_expense_${key}`} value={element}>
-                      {EXPENSES_TYPES_LABELS[element]}
-                    </option>
-                  );
-                })}
-              </select>
+              <div className="select-container w-full">
+                <select
+                  name="selectedFruit"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  className="select-box text-gray-800 p-4 rounded-xl w-full border border-light-gray focus:outline-none"
+                >
+                  {Object.values(EXPENSES_TYPES_KEYS).map((element, key) => {
+                    return (
+                      <option key={`option_expense_${key}`} value={element}>
+                        {EXPENSES_TYPES_LABELS[element]}
+                      </option>
+                    );
+                  })}
+                </select>
+                <div className="icon-container">
+                  <FontAwesomeIcon
+                    icon={faCaretDown}
+                    className="fas fa-caret-down text-gray-400"
+                  />
+                </div>
+              </div>
             </div>
             <Input
               label="Monto de Gasto"

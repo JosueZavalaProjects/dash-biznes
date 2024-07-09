@@ -71,7 +71,7 @@ const NavLink = ({ link, index }: NavLinkProps) => {
         className={cn(
           buttonVariants({
             variant: link.href === pathName ? "default" : "ghost",
-            size: "sm",
+            size: "lg",
           }),
           "cursor-pointer",
           link.variant === "default" &&

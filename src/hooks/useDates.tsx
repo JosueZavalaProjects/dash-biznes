@@ -26,8 +26,41 @@ export const useDates = () => {
     return { startDate, endDate };
   };
 
+  const GetCurrentMonthDates = () => {
+    const startDate = GetCurrentDate();
+    const endDate = GetLastDate(startDate);
+    return { startDate, endDate };
+  };
+
+  const GetCurrentWeekDates = () => {
+    const currentDate = new Date();
+    const pastWeekDate = new Date();
+    pastWeekDate.setDate(currentDate.getDate() - 7);
+
+    return {
+      startDate: pastWeekDate.toDateString(),
+      endDate: currentDate.toDateString(),
+    };
+  };
+
+  const GetCurrentDayDates = () => {
+    const currentDate = new Date();
+
+    return {
+      startDate: currentDate.toDateString(),
+      endDate: currentDate.toDateString(),
+    };
+  };
+
   const _daysInMonth = (year: number, month: number) =>
     new Date(year, month, 0).getDate();
 
-  return { GetLastDate, GetCurrentDate, GetCurrentYearDates };
+  return {
+    GetLastDate,
+    GetCurrentDate,
+    GetCurrentDayDates,
+    GetCurrentWeekDates,
+    GetCurrentMonthDates,
+    GetCurrentYearDates,
+  };
 };

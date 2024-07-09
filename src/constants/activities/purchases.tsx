@@ -1,7 +1,7 @@
 "use client";
 
-import { PurchasesTable } from "@/components/modules/activites/expenses";
-import { SalesTable } from "@/components/modules/activites/sales";
+import { PurchasesTable } from "@/components/modules/activites/Desktop/expenses";
+import { SalesTable } from "@/components/modules/activites/Desktop/sales";
 import { Purchase } from "@/types/purchases";
 import { NavOptions, TabContent } from "@/types/UI/common";
 
@@ -20,11 +20,9 @@ export const ACTIVITIES_NAV: NavOptions[] = [
   { label: "Gastos", name: TAB_KEYS.EXPENSES },
 ];
 
-export const data: Purchase[] = [
-  {
-    name: "Gasto",
-    type: "financial",
-    date: "2023-01-15",
-    amount: 500,
-  },
-];
+export const TABS_LABELS = {
+  [TAB_KEYS.SALES]: "Ventas",
+  [TAB_KEYS.EXPENSES]: "Gastos",
+};
+
+export const data: Purchase[] = [];

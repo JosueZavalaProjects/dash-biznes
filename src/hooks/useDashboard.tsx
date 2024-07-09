@@ -55,8 +55,8 @@ export const useDashboard = () => {
   };
 
   const GetSalesByDate = async (startDate: string, endDate: string) => {
-    const startOfDay = new Date(startDate);
-    const endOfDay = new Date(endDate);
+    const startOfDay = new Date(startDate + " 00:00:00");
+    const endOfDay = new Date(endDate + " 23:59:59");
 
     const q = query(
       salesRef,
@@ -83,8 +83,8 @@ export const useDashboard = () => {
   };
 
   const GetExpensesByDate = async (startDate: string, endDate: string) => {
-    const startOfDay = new Date(startDate);
-    const endOfDay = new Date(endDate);
+    const startOfDay = new Date(startDate + " 00:00:00");
+    const endOfDay = new Date(endDate + " 23:59:59");
 
     const q = query(
       expensesRef,
@@ -113,8 +113,8 @@ export const useDashboard = () => {
   };
 
   const GetProductsByDate = async (startDate: string, endDate: string) => {
-    const startOfDay = new Date(startDate);
-    const endOfDay = new Date(endDate);
+    const startOfDay = new Date(startDate + " 00:00:00");
+    const endOfDay = new Date(endDate + " 23:59:59");
 
     const q = query(
       productsRef,

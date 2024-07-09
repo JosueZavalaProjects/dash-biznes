@@ -1,16 +1,13 @@
 import cn from "classnames";
 import Link from "next/link";
 
-import { Product } from "@/types/inventory";
+import { InventoryColumnsProps, Product } from "@/types/inventory";
 import { formatCurrency } from "@/utils/common";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { EditOptions } from "./editOptions";
 
-type InventoryColumnsProps = {
-  handleDeleteProduct: (id: string) => void;
-  handleEditProduct: (id: string) => void;
-};
+
 
 export const InventoryColumns = ({
   handleDeleteProduct,
@@ -82,8 +79,8 @@ export const InventoryColumns = ({
         const id: string = row.getValue("id");
         return (
           <EditOptions
-            handleDeleteProduct={handleDeleteProduct}
-            handleEditProduct={handleEditProduct}
+            handleDelete={handleDeleteProduct}
+            handleEdit={handleEditProduct}
             id={id}
           />
         );
@@ -91,7 +88,3 @@ export const InventoryColumns = ({
     },
   ];
 };
-
-{
-  /*  */
-}

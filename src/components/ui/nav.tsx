@@ -1,4 +1,5 @@
 "use client";
+import { IconType } from "react-icons/lib";
 
 import { LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -11,7 +12,6 @@ import {
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 import { CollapseNavLink, NavLink } from "./navLink";
-import { IconType } from "react-icons/lib";
 
 interface NavProps {
   isCollapsed: boolean;

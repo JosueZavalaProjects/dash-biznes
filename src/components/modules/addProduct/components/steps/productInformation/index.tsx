@@ -39,7 +39,7 @@ export const ProductInformation = ({
   }, [product]);
 
   return (
-    <section className="h-[41rem]">
+    <section className="h-[60rem]">
       <div className="grid w-full gap-4 px-4 bg-main-blue rounded-lg">
         <div className="flex w-full justify-between bg-main-blue">
           <div className="flex text-center pt-4">
@@ -63,7 +63,7 @@ export const ProductInformation = ({
         </div>
       </div>
 
-      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 -right-[10px] mx-auto">
+      <div className="flex sm:w-[440px] justify-center bg-white rounded-lg relative -top-24 sm:-right-[10px] mx-auto">
         <ProductForm
           product={product}
           handleSetValueProduct={handleSetValueProduct}

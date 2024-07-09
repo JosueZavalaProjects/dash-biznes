@@ -13,7 +13,7 @@ export const ProductDetails = ({
   handleShowDeleteModal,
 }: ProductDetailsProps) => {
   return (
-    <section className="flex w-full pt-4">
+    <section className="flex flex-col-reverse gap-y-8 w-full pt-4 sm:flex-row">
       <ProductData product={product} />
       <ProductImage handleShowDeleteModal={handleShowDeleteModal} />
     </section>

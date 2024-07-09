@@ -9,7 +9,7 @@ import { TAB_KEYS } from "@/constants/activities/purchases";
 import { CARD_DATA_KEYS } from "@/constants/dashboard";
 import { cn } from "@/lib/utils";
 
-import useActivitiesState from "./modules/activites/states/activities-state";
+import useActivitiesState from "./modules/activites/Desktop/states/activities-state";
 
 export type CardProps = {
   label: string;

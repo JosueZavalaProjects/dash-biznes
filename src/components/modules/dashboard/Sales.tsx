@@ -10,7 +10,7 @@ import { useSales } from "@/hooks/useSales";
 
 import { CardContent } from "../../LegacyCard";
 import SalesCard, { SalesProps } from "../../SalesCard";
-import useActivitiesState from "../activites/states/activities-state";
+import useActivitiesState from "../activites/Desktop/states/activities-state";
 
 export const Sales = () => {
   const [userSales, setUserSales] = useState<SalesProps[]>(uesrSalesData);

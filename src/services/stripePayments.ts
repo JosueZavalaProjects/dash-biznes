@@ -1,5 +1,6 @@
 "use client";
 
+import { getCookie } from "cookies-next";
 import { FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
@@ -136,9 +137,12 @@ export const getCancelPeriodEnd = async (
   app: FirebaseApp
 ): Promise<CancelPeriod> => {
   const cancelPeriod: CancelPeriod = {
-    cancelAtPeriodEnd: false,
+    cancelAtPeriodEnd: true,
+    status: "noActive",
   };
-  const userId = auth.currentUser?.uid;
+
+  const userId = auth.currentUser?.uid || getCookie("uid");
+
   if (!userId) throw new Error("User not logged in");
 
   const db = getFirestore(app);
@@ -146,11 +150,14 @@ export const getCancelPeriodEnd = async (
   const q = query(subscriptionsRef);
 
   const querySnapshot = await getDocs(q);
+
   querySnapshot.forEach((doc) => {
-    const { cancel_at, cancel_at_period_end } = doc.data();
+    const { cancel_at, cancel_at_period_end, status } = doc.data();
     cancelPeriod.cancelAtPeriodEnd = cancel_at_period_end;
     cancelPeriod.cancelAt = cancel_at;
+    cancelPeriod.status = status;
   });
+
   return cancelPeriod;
 };
 

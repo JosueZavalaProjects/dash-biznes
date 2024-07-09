@@ -5,7 +5,7 @@ import { InformationCardProps } from "./ProductImage";
 export const ProductData = ({ product }: { product: InventoryProduct }) => {
   const { id, name, category, price } = product;
   return (
-    <section className="flex flex-col w-1/2 gap-12">
+    <section className="flex flex-col sm:sm:w-1/2 gap-12">
       <div className="flex flex-col gap-6">
         <div className="text-xl font-semibold">Detalles Primarios</div>
         <InformationCard title="Nombre del Producto" data={name} />
@@ -25,9 +25,9 @@ export const ProductData = ({ product }: { product: InventoryProduct }) => {
 
 const InformationCard = ({ title, data }: InformationCardProps) => {
   return (
-    <div className="flex w-full">
-      <div className="w-1/2 text-cadet-grey">{title}</div>
-      <div className="w-1/2">{data || "---"}</div>
+    <div className="flex w-full gap-4">
+      <div className="sm:w-1/2 text-cadet-grey">{title}</div>
+      <div className="sm:w-1/2">{data || "---"}</div>
     </div>
   );
 };

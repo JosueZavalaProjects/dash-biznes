@@ -20,16 +20,16 @@ export const EXPENSES_TYPES_KEYS: { [key: string]: ExpenseType } = {
   OTHERS: "others",
 };
 export const EXPENSES_TYPES_LABELS = {
-  [EXPENSES_TYPES_KEYS.PERSONAL]: "Gastos de personal",
-  [EXPENSES_TYPES_KEYS.RENT]: "Gastos de alquiler",
-  [EXPENSES_TYPES_KEYS.PUBLIC]: "Gastos públicos",
-  [EXPENSES_TYPES_KEYS.SUPPLIES]: "Gastos de suministros",
-  [EXPENSES_TYPES_KEYS.MARKETING]: "Gastos de marketing y publicidad",
-  [EXPENSES_TYPES_KEYS.SALES]: "Gastos de ventas",
-  [EXPENSES_TYPES_KEYS.FINANCIAL]: "Gastos financieros",
-  [EXPENSES_TYPES_KEYS.TECHNOLOGY]: "Gastos de tecnología",
-  [EXPENSES_TYPES_KEYS.INSURANCE]: "Gastos de seguros",
-  [EXPENSES_TYPES_KEYS.LEGAL]: "Gastos legales y consultoria",
+  [EXPENSES_TYPES_KEYS.PERSONAL]: "personal",
+  [EXPENSES_TYPES_KEYS.RENT]: "alquiler",
+  [EXPENSES_TYPES_KEYS.PUBLIC]: "públicos",
+  [EXPENSES_TYPES_KEYS.SUPPLIES]: "suministros",
+  [EXPENSES_TYPES_KEYS.MARKETING]: "marketing y publicidad",
+  [EXPENSES_TYPES_KEYS.SALES]: "ventas",
+  [EXPENSES_TYPES_KEYS.FINANCIAL]: "financieros",
+  [EXPENSES_TYPES_KEYS.TECHNOLOGY]: "tecnología",
+  [EXPENSES_TYPES_KEYS.INSURANCE]: "seguros",
+  [EXPENSES_TYPES_KEYS.LEGAL]: "legales y consultoria",
   [EXPENSES_TYPES_KEYS.OTHERS]: "Otros",
 };
 

@@ -6,12 +6,10 @@ import { usePathname } from "next/navigation";
 
 import "./globals.css";
 import { Loading } from "@/components/modals/components/Loading";
-import { MobileNavbar } from "@/components/SideNav/MobileNavbar";
-import { SettingsNav } from "@/components/SideNav/SettingsNav";
-import SideNavbar from "@/components/SideNav/SideNavbar";
 import AuthContext, { AuthContextProvider } from "@/context/AuthContext";
 
 import { cn } from "../lib/utils";
+import { LogguedPortal } from "./(auth)";
 import LoginPage from "./(non-auth)/login/page";
 
 export default function RootLayout({
@@ -42,9 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn("min-h-screen w-full bg-white text-black flex ", {
-          "debug-screens": process.env.NODE_ENV === "development",
-        })}
+        className={cn(
+          "min-h-screen w-full bg-white text-black flex relative ",
+          {
+            "debug-screens": process.env.NODE_ENV === "development",
+          }
+        )}
       >
         <AuthContextProvider>
           {isLoading && (
@@ -54,11 +55,7 @@ export default function RootLayout({
           )}
           {!isLoading && getCookie("token") && (
             <>
-              <div id="portal" />
-              <SettingsNav />
-              <SideNavbar />
-              <MobileNavbar />
-              <div className="p-8 w-full mb-[5rem] sm:mb-0">{children}</div>
+              <LogguedPortal>{children}</LogguedPortal>
             </>
           )}
           {!isLoading && !getCookie("token") && (

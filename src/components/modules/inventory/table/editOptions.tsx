@@ -4,24 +4,23 @@ import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import cn from "classnames";
 
 import { SimpleButton } from "@/components/ui/buttons/simpleButton";
-import Text from "@/components/ui/text";
 
 type EditOptionsProps = {
-  handleDeleteProduct: (id: string) => void;
-  handleEditProduct: (id: string) => void;
+  handleDelete: (id: string) => void;
+  handleEdit: (id: string) => void;
   id: string;
 };
 
 export const EditOptions = ({
-  handleDeleteProduct,
-  handleEditProduct,
+  handleDelete,
+  handleEdit,
   id,
 }: EditOptionsProps) => {
   const [showOptions, setShowOptions] = useState(false);
   return (
-    <div className="flex items-start flex-col w-8 h-12 relative">
+    <div className="flex items-center flex-col pl-4 relative">
       <div
-        className="flex items-start cursor-pointer text-gray-400 text-2xl font-normal"
+        className="flex justify-center cursor-pointer text-gray-400 text-2xl font-normal rotate-90 text-center"
         onClick={() => setShowOptions(!showOptions)}
       >
         ...
@@ -47,7 +46,7 @@ export const EditOptions = ({
       >
         <SimpleButton
           bgColor="gradient-blue"
-          onClick={() => handleEditProduct(id)}
+          onClick={() => handleEdit(id)}
           className="!p-3"
         >
           <div className="flex gap-2 items-center">
@@ -56,7 +55,7 @@ export const EditOptions = ({
         </SimpleButton>
         <SimpleButton
           bgColor="gradient-red"
-          onClick={() => handleDeleteProduct(id)}
+          onClick={() => handleDelete(id)}
           className="!p-3"
         >
           <div className="flex gap-2 items-center">
