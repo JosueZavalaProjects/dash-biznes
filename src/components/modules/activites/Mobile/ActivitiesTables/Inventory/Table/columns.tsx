@@ -9,7 +9,13 @@ export const InventoryMobileColumns = ({
   return [
     {
       accessorKey: "mobileInventory",
-      header: "",
+      header: () => {
+        return (
+          <div className="text-center text-main-blue font-bold text-2xl">
+            Inventario
+          </div>
+        );
+      },
       cell: ({ row }) => {
         return (
           <div className="flex w-full justify-between text-xl px-2 text-gray-600">

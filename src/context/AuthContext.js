@@ -62,7 +62,7 @@ export const AuthContextProvider = (props) => {
     deleteCookie("email");
     deleteCookie("products");
     deleteCookie("saleID");
-    deleteCookie("isPremium");
+    deleteCookie("uid");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
