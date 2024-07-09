@@ -1,33 +1,18 @@
 import { useEffect, useState } from "react";
 
 import { BG_COLORS } from "@/constants/salesPoint";
-import {
-  ProductCardsProps,
-  ProductCheckout,
-  Product as ProductType,
-} from "@/types/salesPoint";
+import { Product as ProductType } from "@/types/salesPoint";
 
 import { MinusIcon, PlusIcon } from "../../../../../../../public/assets";
 import { BlackButton } from "../../../Mobile/order/components/items/blackButton";
 import useSalesPointState from "../../../states/sales-point-state";
 
 type ProductCardProps = {
-  product: ProductCheckout;
-  /* cartProduct: ProductCheckout; */
+  product: ProductType;
   index?: number;
-  /* productCardsProps: ProductCardsProps; */
-  /* setShowAmount: (id: string, value: boolean) => void;
-  handleSetItems: (id: string, value: number) => void; */
 };
 
-export const ProductCard = ({
-  product,
-  index = 0,
-}: /* cartProduct, */
-/* productCardsProps, */
-/* handleSetShowAmount,
-  handleSetItems, */
-ProductCardProps) => {
+export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const [showAmount, setShowAmount] = useState(false);
   const [amount, setAmount] = useState(0);
   const [isInitialLoad, setIsInitialLoad] = useState(true);

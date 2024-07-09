@@ -6,13 +6,13 @@ import { SalesPointMobile } from "@/components/modules/salesPoint/Mobile";
 import useSalesPointState from "@/components/modules/salesPoint/states/sales-point-state";
 import { PRODUCTS_MOCK } from "@/constants/salesPoint/mock";
 import { useSalesPoint } from "@/hooks/useSalesPoint";
-import { ProductCheckout } from "@/types/salesPoint";
+import { Product as ProductType } from "@/types/salesPoint";
 import { useWindowWidth } from "@react-hook/window-size";
 
 export default function SalesPointPage() {
-  const [products, setProducts] = useState<ProductCheckout[]>(PRODUCTS_MOCK);
+  const [products, setProducts] = useState<ProductType[]>(PRODUCTS_MOCK);
 
-  const { clearSale, products: cartProducts } = useSalesPointState();
+  const { clearSale } = useSalesPointState();
   const { GetDataProducts } = useSalesPoint();
 
   const handleClearOrder = () => {
@@ -25,14 +25,7 @@ export default function SalesPointPage() {
     const productsReponse = await GetDataProducts();
     if (!productsReponse) return;
 
-    const newProducts = productsReponse.map((product) => {
-      return {
-        ...product,
-        amount: 0,
-      };
-    });
-
-    setProducts(newProducts);
+    setProducts(productsReponse);
   };
 
   useEffect(() => {
@@ -46,7 +39,6 @@ export default function SalesPointPage() {
     <>
       {onlyWidth > MOBILE_WIDTH && (
         <SalesPointDesktop
-          cartProducts={cartProducts}
           products={products}
           handleClearOrder={handleClearOrder}
         />

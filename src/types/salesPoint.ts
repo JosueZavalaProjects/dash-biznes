@@ -33,8 +33,3 @@ export type ProductProps = {
   inventory: number;
   image?: string;
 };
-
-export type ProductCardsProps = ProductCheckout & {
-  showAmount: boolean;
-  /* items: number; */
-};
