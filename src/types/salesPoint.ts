@@ -33,3 +33,8 @@ export type ProductProps = {
   inventory: number;
   image?: string;
 };
+
+export type ProductCardsProps = Product & {
+  showAmount: boolean;
+  items: number;
+};

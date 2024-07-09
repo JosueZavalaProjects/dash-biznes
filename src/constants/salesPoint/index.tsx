@@ -4,7 +4,7 @@ import { Order } from "@/components/modules/salesPoint/Mobile/order";
 import { Total } from "@/components/modules/salesPoint/Mobile/total";
 import { NavOptions, TabContent } from "@/types/UI/common";
 export const TAB_KEYS = {
-  ORDER: "order",
+  ORDER: "orden",
   TOTAL: "total",
 };
 
@@ -14,7 +14,7 @@ export const CONTENTS: TabContent = {
 };
 
 export const SALES_POINT_NAV: NavOptions[] = [
-  { label: "Order", name: TAB_KEYS.ORDER },
+  { label: "Orden", name: TAB_KEYS.ORDER },
   { label: "Total", name: TAB_KEYS.TOTAL },
 ];
 export const BG_COLORS = [
