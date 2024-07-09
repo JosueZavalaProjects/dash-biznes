@@ -121,7 +121,7 @@ export const Dashboard = () => {
         </CardContent>
       </section>
       <section className="grid w-full gap-4 transition-all lg:flex">
-        <CardContent className="lg:w-2/3">
+        <CardContent className="overflow-x-scroll lg:w-2/3">
           <TitleBlue>Productos más vendidos</TitleBlue>
           <BestSales />
         </CardContent>
