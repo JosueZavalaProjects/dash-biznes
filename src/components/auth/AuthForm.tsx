@@ -102,12 +102,14 @@ const AuthForm = () => {
           };
           await sendEmail(testBody);
         })
-        .then(() => router.refresh())
         .catch((err: any) => {
           console.log(err);
           alert(err.message);
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => {
+          router.refresh();
+          setIsLoading(false);
+        });
     }
   };
 
