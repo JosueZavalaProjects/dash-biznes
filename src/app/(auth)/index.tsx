@@ -38,7 +38,7 @@ export const LogguedPortal = ({ children }: { children: React.ReactNode }) => {
   const isPremiumUser = async () => {
     const { email, sentToStripe } = getCookiesLogin();
 
-    if (sentToStripe) {
+    if (sentToStripe === "true") {
       authCtx.logout();
       router.refresh();
       return;
